@@ -1,0 +1,17 @@
+#
+# ~/.bashrc_local to be included in .bashrc
+#
+
+if [ -e $HOME/.bash_aliases ] ; then
+	source $HOME/.bash_aliases
+fi
+
+
+if [ -e $HOME/.local/bin ] ; then
+	PATH=$PATH:$HOME/.local/bin
+fi
+
+if [ -e $HOME/gocode ] ; then
+	export GOPATH=$HOME/gocode
+fi
+
