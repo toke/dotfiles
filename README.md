@@ -6,3 +6,4 @@ when ths checkout lives in $HOME/.dotfiles and you are in it and run
 `stow` there the symlinks are created within $HOME
 
 * [GNU Stow](https://www.gnu.org/software/stow/)
+
