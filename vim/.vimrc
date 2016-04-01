@@ -62,6 +62,7 @@ call vundle#begin()
     Plugin 'mcandre/Conque-Shell'
     Plugin 'mattn/emmet-vim'
     Plugin 'christoomey/vim-tmux-navigator'
+    Plugin 'scrooloose/syntastic'
 
 
 " All of your Plugins must be added before the following line
@@ -109,3 +110,14 @@ set background=dark
 "set t_Co=256
 let g:solarized_termcolors=256
 colorscheme solarized
+
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
