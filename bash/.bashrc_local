@@ -8,6 +8,10 @@
 [ -e $HOME/bin ] && PATH=$PATH:$HOME/bin
 [ -e $HOME/.local/bin ] && PATH=$PATH:$HOME/.local/bin
 
-# Setup GO
+## Setup GO
 [ -e $HOME/gocode ] && export GOPATH=$HOME/gocode
 [ -e $HOME/gocode/bin ] && PATH=$HOME/gocode/bin:$PATH
+
+## Setup Python stuff
+command -v virtualenvwrapper.sh > /dev/null && \
+	source $(command -v virtualenvwrapper.sh)
