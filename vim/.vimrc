@@ -50,6 +50,7 @@ call vundle#begin()
 
     Plugin 'bling/vim-airline'
     Plugin 'vim-airline/vim-airline-themes'
+    Plugin 'altercation/vim-colors-solarized'
     Plugin 'elzr/vim-json'
     Plugin 'godlygeek/tabular'
     Plugin 'plasticboy/vim-markdown'
@@ -98,3 +99,13 @@ let g:scratch_filetype = 'markdown'
 " Default: Then type <c-y>, (Ctrly,) after typing zen stuff
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
+
+
+"======Solarized theme============
+syntax on
+syntax enable
+let g:solarized_termtrans = 1
+set background=dark
+"set t_Co=256
+let g:solarized_termcolors=256
+colorscheme solarized
