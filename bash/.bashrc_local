@@ -2,6 +2,8 @@
 # ~/.bashrc_local to be included in .bashrc
 #
 
+source "$HOME/.bash/helper.bash"
+
 [ -e $HOME/.bash_aliases ] && source $HOME/.bash_aliases
 
 ## Local bin folders
