@@ -2,9 +2,17 @@
 # ~/.bashrc_local to be included in .bashrc
 #
 
-source "$HOME/.bash/helper.bash"
+## Files to be included
+HELPER_INC="$HOME/.bash/helper.bash $HOME/.bash_aliases"
 
-[ -e $HOME/.bash_aliases ] && source $HOME/.bash_aliases
+for inc in $HELPER_INC ; do
+	if [ -e "$inc" ] ; then
+		source "$inc"
+	else
+		echo "Something is wrong, I need includes and \`$inc\` is missing."
+		echo "Errors may follow."
+	fi
+done
 
 ## Local bin folders
 [ -e $HOME/bin ] && PATH=$PATH:$HOME/bin
