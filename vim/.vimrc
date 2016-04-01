@@ -59,6 +59,8 @@ call vundle#begin()
     Plugin 'tpope/vim-fugitive'
     Plugin 'editorconfig/editorconfig-vim'
     Plugin 'mcandre/Conque-Shell'
+    Plugin 'mattn/emmet-vim'
+    Plugin 'christoomey/vim-tmux-navigator'
 
 
 " All of your Plugins must be added before the following line
@@ -91,3 +93,8 @@ let g:scratch_height = 0.50
 " Scratch opens in Markdown format
 let g:scratch_filetype = 'markdown'
 "let g:scratch_persistence_file = '.vim_scratch'
+
+" Emnet
+" Default: Then type <c-y>, (Ctrly,) after typing zen stuff
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
