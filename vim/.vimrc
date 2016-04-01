@@ -1,0 +1,3 @@
+" Basic Vimrc
+
+syn on
