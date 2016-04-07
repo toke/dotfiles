@@ -16,13 +16,31 @@ for inc in $HELPER_INC ; do
 done
 
 ## Local bin folders
-[ -e $HOME/bin ] && PATH=$PATH:$HOME/bin
-[ -e $HOME/.local/bin ] && PATH=$PATH:$HOME/.local/bin
+[[ -e $HOME/bin ]] && PATH=$PATH:$HOME/bin
+[[ -e $HOME/.local/bin ]] && PATH=$PATH:$HOME/.local/bin
+
+## Setup Java
+[[ -e /opt/jdk/bin/ ]] && export PATH="$PATH:/opt/jdk/bin/"
 
 ## Setup GO
-[ -e $HOME/gocode ] && export GOPATH=$HOME/gocode
-[ -e $HOME/gocode/bin ] && PATH=$HOME/gocode/bin:$PATH
+[[ -e $HOME/gocode ]] && export GOPATH=$HOME/gocode
+[[ -e $HOME/gocode/bin ]] && PATH=$HOME/gocode/bin:$PATH
 
 ## Setup Python stuff
 command -v virtualenvwrapper.sh > /dev/null && \
 	source $(command -v virtualenvwrapper.sh)
+
+## Setup Shell Prompt
+
+if [ -f /usr/lib/bash-git-prompt/gitprompt.sh ]; then
+   # To only show the git prompt in or under a repository directory
+   GIT_PROMPT_ONLY_IN_REPO=1
+   # To use upstream's default theme
+   #GIT_PROMPT_THEME=Default
+   # To use upstream's default theme, modified by arch maintainer
+   GIT_PROMPT_THEME=Default_Arch
+   source /usr/lib/bash-git-prompt/gitprompt.sh
+fi
+
+
+EDITOR=/usr/bin/vim
