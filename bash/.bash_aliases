@@ -8,6 +8,8 @@ bin_alias translate "/usr/bin/translate-shell"
 
 bin_alias nessie "${HOME}/git/puppet-dev-env/bin/nessie"
 
+alias ll="ls -lsa"
+
 alias gcav="git commit -av"
 alias gl="git log"
 
