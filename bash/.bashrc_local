@@ -27,6 +27,9 @@ done
 [[ -e $HOME/gocode/bin ]] && PATH=$HOME/gocode/bin:$PATH
 
 ## Setup Python stuff
+# I used to create a virtualenv default-py2 and a default-py3
+# to manage my local default environments for python2 and python3
+# to create one I do `mkvirtualenv -p /usr/bin/python2 default-py2`
 command -v virtualenvwrapper.sh > /dev/null && \
 	source $(command -v virtualenvwrapper.sh)
 
