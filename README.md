@@ -2,7 +2,9 @@
 
 These are (part of) my dotfiles. I'm migrating to the new repository as I touch
 them. I currently use [GNU Stow][stow] to manage
-my symlinks, but this is optional.
+my symlinks, but this is optional. Sometimes you may choose to symlink some files
+manually order to keep local modifications i.E. if you just want to add
+`.gnupg/gpg.conf`.
 
 ## Structure
 
