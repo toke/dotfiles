@@ -9,11 +9,13 @@ set number
 " Show statusline
 set laststatus=2
 
-" Case-insensitive search
-set ignorecase
+" search
+" set ignorecase " Case-insensitive search
+set smartcase " uppercase matches uppercase, lowercase matches any case
+set incsearch " search while typing
+set hlsearch " Highlight search results
+set showmatch " briefly jump to matching bracket pairs, if they are visible.
 
-" Highlight search results
-set hlsearch
 
 " Default to soft tabs, 4 spaces
 set expandtab
@@ -25,9 +27,9 @@ autocmd FileType make set ts=2
 autocmd FileType python set breakindentopt=shift:4
 
 
-" Do not attempt to fix style on paste
-" Normally we would just `set paste`, but this interferes with other aliases.
-nnoremap <silent> p "+p
+" system wide copy-paste with ctrl-c ctrl-v
+vmap <c-c> "+y
+nmap <c-v> "+p
 
 " Disable comment continuation on paste
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -36,6 +38,15 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Default to Unix LF line endings
 set ffs=unix
 
+" remap jj to escape in insert mode.  You'll never type jj anyway
+inoremap jj <esc>
+
+" I always accidently hit :W instread of :w, so make both work
+command! W write
+
+" Show trailing whitepace and spaces before a tab:
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/ containedin=ALL
 
 " Folding
 set foldmethod=syntax
