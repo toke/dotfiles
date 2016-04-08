@@ -29,6 +29,10 @@ set sts=4
 autocmd FileType make set ts=2
 autocmd FileType python set breakindentopt=shift:4
 
+au BufRead,BufNewFile tmpmsg.* set filetype=mail
+au BufRead,BufNewFile *.pde set filetype=arduino
+au BufRead,BufNewFile *.ino set filetype=arduino
+
 " system wide copy-paste with ctrl-c ctrl-v
 vmap <c-c> "+y
 nmap <c-v> "+p
