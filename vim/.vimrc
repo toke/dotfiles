@@ -1,9 +1,12 @@
 " Basic Vimrc
 
 
-set nocompatible
+set nocompatible   " Don't behave like vi
 
+filetype off " when file types are on before plugins are loaded stuff happens
 
+set encoding=utf-8 " UTF-8 is my default text encoding.
+set scrolloff=5    " scroll within n lines ow window edge
 " Show line numbers
 set number
 " Show statusline
@@ -26,7 +29,6 @@ set sts=4
 autocmd FileType make set ts=2
 autocmd FileType python set breakindentopt=shift:4
 
-
 " system wide copy-paste with ctrl-c ctrl-v
 vmap <c-c> "+y
 nmap <c-v> "+p
@@ -38,8 +40,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Default to Unix LF line endings
 set ffs=unix
 
-" remap jj to escape in insert mode.  You'll never type jj anyway
-inoremap jj <esc>
+imap <C-d> <Esc> " leave insert mode with ctrl-d
 
 " I always accidently hit :W instread of :w, so make both work
 command! W write
