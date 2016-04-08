@@ -2,9 +2,7 @@
 
 These are (part of) my dotfiles. I'm migrating to the new repository as I touch
 them. I currently use [GNU Stow][stow] to manage
-my symlinks, but this is optional. Sometimes you may choose to symlink some files
-manually order to keep local modifications i.E. if you just want to add
-`.gnupg/gpg.conf`.
+my symlinks, but this is optional..
 
 ## Structure
 
@@ -16,8 +14,8 @@ You can See an example in the [Vim Config](#vim-config).
 
 To "install" bash dotfiles just run `stow bash` in this directory.
 Be aware that stow by default symlinks to the parent directory so
-when ths checkout lives in $HOME/.dotfiles and you are in it and run
-[stow][stow] there the symlinks are created within $HOME
+when ths checkout lives in `$HOME/.dotfiles` and you are in it and run
+[stow][stow] there the symlinks are created within `$HOME`.
 
 ## Configurations
 

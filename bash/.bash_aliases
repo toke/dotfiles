@@ -12,6 +12,7 @@ alias ll="ls -lsa"
 
 alias gcav="git commit -av"
 alias gl="git log"
+alias ggrep="git grep"
 
 ## Docker specific aliases
 if [[ $(command -v "docker") ]] ; then
