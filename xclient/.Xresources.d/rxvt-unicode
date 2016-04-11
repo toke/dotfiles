@@ -33,10 +33,16 @@ URxvt.matcher.button: 1
 *color7:  #cccccc
 *color15: #ffffff
 
-Xft.antialias:  true
-Xft.rgba:       rgb
-Xft.hinting:    true
-Xft.hintstyle:  hintfull
+
+! Xft ----------------
+Xft.autohint:  0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting:   1
+Xft.antialias: 1
+Xft.dpi:       96
+Xft.rgba:      rgb
+
 
 URxvt*.transparent: true
 URxvt*.shading: 20
