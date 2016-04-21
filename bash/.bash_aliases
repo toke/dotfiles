@@ -5,6 +5,7 @@
 bin_alias vi "/usr/bin/vim"
 bin_alias pw "/usr/bin/gpwsafe"
 bin_alias translate "/usr/bin/translate-shell"
+bin_alias http_serv "/usr/bin/python3 -m http.server 8082"
 
 bin_alias nessie "${HOME}/git/puppet-dev-env/bin/nessie"
 
