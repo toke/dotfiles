@@ -45,6 +45,7 @@ if [ -f /usr/lib/bash-git-prompt/gitprompt.sh ]; then
    source /usr/lib/bash-git-prompt/gitprompt.sh
 fi
 
+export HISTSIZE=10000
 export HISTTIMEFORMAT="%F %T "
 export HISTCONTROL=ignoreboth:erasedups
 
