@@ -45,6 +45,7 @@ if [ -f /usr/lib/bash-git-prompt/gitprompt.sh ]; then
    source /usr/lib/bash-git-prompt/gitprompt.sh
 fi
 
+export HISTTIMEFORMAT="%F %T "
 export HISTCONTROL=ignoreboth:erasedups
 
 EDITOR=/usr/bin/vim
