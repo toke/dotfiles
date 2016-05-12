@@ -1,2 +1,20 @@
+# Use Vi, not Emacs, style editing
 set editing-mode vi
 
+# Ignore case
+set completion-ignore-case on
+
+###########################################################
+# Keymaps for when we're in command mode (e.g., after hitting ESC)
+set keymap vi-command
+
+# Insert the arguments from the last command
+"p": "i !!*\r"
+
+###########################################################
+# Keymaps for when we're in insert (i.e., typing stuff in) mode
+set keymap vi-insert
+
+# Needed because binding 'p' in command mode above wipes its insert mode
+# # function, too. This fixes that, and will insert 'p' when you type 'p'.
+"p": self-insert
