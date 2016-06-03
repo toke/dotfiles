@@ -45,9 +45,15 @@ if [ -f /usr/lib/bash-git-prompt/gitprompt.sh ]; then
    source /usr/lib/bash-git-prompt/gitprompt.sh
 fi
 
+export HISTSIZE=10000
+export HISTTIMEFORMAT="%F %T "
 export HISTCONTROL=ignoreboth:erasedups
 
 EDITOR=/usr/bin/vim
+
+# Set environment for pip + requests to find combined root CA certs
+export PIP_CERT="/etc/ssl/certs/ca-certificates.crt"
+export REQUESTS_CA_BUNDLE="$PIP_CERT"
 
 [[ -e "$HOME/.bashrc_$(hostname -s)" ]] && source "$HOME/.bashrc_$(hostname -s)"
 
