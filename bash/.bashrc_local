@@ -50,3 +50,9 @@ export HISTCONTROL=ignoreboth:erasedups
 EDITOR=/usr/bin/vim
 
 [[ -e "$HOME/.bashrc_$(hostname -s)" ]] && source "$HOME/.bashrc_$(hostname -s)"
+
+if [[ -e /usr/bin/envoy ]] ; then
+    envoy -t ssh-agent
+    eval "$(envoy -p)"
+fi
+
