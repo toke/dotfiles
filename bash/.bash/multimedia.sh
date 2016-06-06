@@ -4,6 +4,7 @@
 
 
 readonly MIXER_BIN="/usr/bin/pamixer"
+readonly MM_BIN="/usr/bin/xdotool"
 
 
 # Increase Volume
@@ -21,10 +22,10 @@ function mixer-mute {
     "${MIXER_BIN}" -t
 }
 
-alias mm_pause="xdotool key XF86AudioPlay"
-alias mm_prev="xdotool key XF86AudioPrev"
-alias mm_next="xdotool key XF86AudioNext"
-alias mm_up="xdotool key XF86AudioLowerVolume"
-alias mm_down="xdotool key XF86AudioRaiseVolume"
-alias mm_mute="xdotool key XF86AudioMute"
+alias mm_pause="${MM_BIN} key XF86AudioPlay"
+alias mm_prev="${MM_BIN} key XF86AudioPrev"
+alias mm_next="${MM_BIN} key XF86AudioNext"
+alias mm_down="${MM_BIN} key XF86AudioLowerVolume"
+alias mm_up="${MM_BIN} key XF86AudioRaiseVolume"
+alias mm_mute="${MM_BIN} key XF86AudioMute"
 
