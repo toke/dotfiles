@@ -57,3 +57,8 @@ export REQUESTS_CA_BUNDLE="$PIP_CERT"
 
 [[ -e "$HOME/.bashrc_$(hostname -s)" ]] && source "$HOME/.bashrc_$(hostname -s)"
 
+if [[ -e /usr/bin/envoy ]] ; then
+    envoy -t ssh-agent
+    eval "$(envoy -p)"
+fi
+
