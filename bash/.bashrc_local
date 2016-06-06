@@ -3,7 +3,7 @@
 #
 
 ## Files to be included
-HELPER_INC="$HOME/.bash/helper.bash $HOME/.bash_aliases"
+HELPER_INC="$HOME/.bash/helper.bash $HOME/.bash/multimedia.sh $HOME/.bash_aliases"
 
 ## Include helper
 for inc in $HELPER_INC ; do
@@ -56,3 +56,4 @@ export PIP_CERT="/etc/ssl/certs/ca-certificates.crt"
 export REQUESTS_CA_BUNDLE="$PIP_CERT"
 
 [[ -e "$HOME/.bashrc_$(hostname -s)" ]] && source "$HOME/.bashrc_$(hostname -s)"
+
