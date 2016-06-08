@@ -17,6 +17,12 @@ function bin_alias {
   fi
 }
 
+#
+# Calls cssh with the result of the _ssh._tcp records for Host.
+# srv-cssh user@host # user@ is optional
+# host needs _ssh._tcp. SRV DNS RR
+# All listed hosts will be connected
+#
 function srv-cssh {
     array=(${1//@/ })
     if [[ -z ${array[0]} ]] ; then
@@ -30,6 +36,7 @@ function srv-cssh {
         user="-l ${array[0]}"
     fi
 
-    dns="" # dig syntax @ns
-    $(dig +short -t SRV _ssh._tcp.${host} ${dns} | awk -v USER="${user}" -e 'BEGIN{ printf "cssh " USER} { printf  " " $4;} END {print "";}')
+    dns="@a.ns.kerpe.net" # dig syntax @ns
+    $(dig +short -t SRV "_ssh._tcp.${host}" ${dns} \
+        | awk -v USER="${user}" -e 'BEGIN{ printf "cssh " USER} /^[a-zA-Z0-9\.\-_ ]+$/ { printf  " " $4;} END {print "";}')
 }
