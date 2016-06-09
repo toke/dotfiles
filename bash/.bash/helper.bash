@@ -1,5 +1,10 @@
 #!/bin/bash
 #
+# Bash helper functions
+#
+
+
+#
 # Helper for allowing only aliases to existing commands
 # Similar to [ -e /usr/bin/translate-shell ] && alias abc="/usr/bin/abc"
 #
