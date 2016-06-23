@@ -63,4 +63,6 @@ if [[ -e /usr/bin/envoy ]] ; then
     envoy -t ssh-agent
     eval "$(envoy -p)"
 fi
-
+if [[ -e /usr/share/fzf/key-bindings.bash ]] ; then
+   . /usr/share/fzf/key-bindings.bash
+fi
