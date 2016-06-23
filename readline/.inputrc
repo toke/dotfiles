@@ -4,6 +4,9 @@ set editing-mode vi
 # Ignore case
 set completion-ignore-case on
 
+# Show mode 
+set show-mode-in-prompt on
+
 ###########################################################
 # Keymaps for when we're in command mode (e.g., after hitting ESC)
 set keymap vi-command
@@ -33,3 +36,4 @@ set keymap vi-insert
 
 # Two escapes clear command line. (Use C-c or \eC\eC instead)
 "\e\e": "\e0\C-ki"
+

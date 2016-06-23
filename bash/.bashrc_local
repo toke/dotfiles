@@ -33,6 +33,8 @@ done
 command -v virtualenvwrapper.sh > /dev/null && \
 	source $(command -v virtualenvwrapper.sh)
 
+
+
 ## Setup Shell Prompt
 
 if [ -f /usr/lib/bash-git-prompt/gitprompt.sh ]; then
