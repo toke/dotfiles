@@ -17,6 +17,9 @@ alias gl="git log"
 alias ggrep="git grep"
 alias yaourt-upgrade="/usr/bin/yaourt -Syua"
 
+alias se="sudo -e"
+alias si="sudo -i"
+
 ## Docker specific aliases
 if [[ $(command -v "docker") ]] ; then
     # Kill all running containers.
