@@ -33,6 +33,7 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 #font pango:monospace 8
+#
 font pango:System San Francisco Display 10
 
 
@@ -168,6 +169,7 @@ assign [class="Thunderbird"] $workspace5
 for_window [class="Lxappearance"] floating enable
 for_window [class="Seahorse"] floating enable
 for_window [class="Pavucontrol"] floating enable
+for_window [class="Nautilus"] floating enable
 
 
 # reload the configuration file
