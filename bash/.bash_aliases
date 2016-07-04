@@ -10,6 +10,11 @@ bin_alias nessie "${HOME}/git/puppet-dev-env/bin/nessie"
 
 alias ll="ls -lsa"
 
+if [[ -e /usr/bin/fzf ]] ; then
+    alias vo='vim $(fzf-tmux)'
+    #alias vo='vim $(fzf-file-widget)'
+fi
+alias zeus='dig +noall +answer @zeusmw.tool.1and1.com'
 
 alias http_serv="/usr/bin/python3 -m http.server 8082"
 alias gcav="git commit -av"
