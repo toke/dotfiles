@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+echo "&#xf0f4; $(kraus -o simple)"

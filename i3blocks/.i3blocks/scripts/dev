@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+
+ROUTE=$(ip route get 8.8.8.8)
+
+if [[ $ROUTE == "RTNETLINK answers: Network is unreachable" ]] ; then
+    echo -e 'down\ndown\n\n'
+    exit
+else
+    echo "$(echo ${ROUTE} | awk '{ print $7 " via " $5 }')"
+    echo "$(echo ${ROUTE} | awk '{ print $7 }')"
+    echo ""
+fi
+
+
