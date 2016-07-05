@@ -9,7 +9,15 @@ case $BLOCK_BUTTON in
     1)
         play_state=$(mpc toggle | grep -P -o  '\[(playing|paused)\]') 
         ;;
-    [2-9])
+    [2-3])
+        if [[ $play_state == "[playing]" ]] ; then
+            cmd="stop"
+        else
+            cmd="play"
+        fi
+        play_state=$(mpc $cmd | grep -P -o  '\[(playing|paused)\]')
+        ;;
+    [4-9])
         echo $BLOCK_BUTTON
         ;;
     *)  
