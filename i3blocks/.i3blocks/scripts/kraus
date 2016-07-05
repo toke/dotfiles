@@ -1,3 +1,14 @@
 #!/usr/bin/bash
 
-echo "&#xf0f4; $(kraus -o simple)"
+
+if [[ $(date +%-H) -le 12 ]] ; then
+    echo " $(kraus -o simple)"
+    kraus -o simple
+
+    ## Highlight between 10:00 and 12:59
+    if [[ $(date +%-H) -ge 10 && $(date +%-H) -le 12 ]] ; then
+        echo "#C99CCDB"
+    fi
+else
+    echo -ne "\n\n#333333a\n"
+fi
