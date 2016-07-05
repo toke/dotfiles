@@ -1,0 +1,32 @@
+#!/bin/bash
+
+
+mpc_status=$(mpc status)
+play_state=$(echo ${mpc_status} | grep -P -o  '\[(playing|paused)\]')
+
+
+case $BLOCK_BUTTON in
+    1)
+        play_state=$(mpc toggle | grep -P -o  '\[(playing|paused)\]') 
+        ;;
+    [2-9])
+        echo $BLOCK_BUTTON
+        ;;
+    *)  
+        ;;
+esac
+
+case $play_state in
+    \[playing\])
+        echo ""
+        ;;
+    \[paused\])
+        echo ""
+        ;;
+    *)
+        echo ""
+        ;;
+esac
+
+
+
