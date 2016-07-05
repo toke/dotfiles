@@ -9,7 +9,10 @@ case $BLOCK_BUTTON in
     1)
         play_state=$(mpc toggle | grep -P -o  '\[(playing|paused)\]') 
         ;;
-    [2-3])
+    2)
+        i3-sensible-terminal -e ncmpc
+        ;;
+    3)
         if [[ $play_state == "[playing]" ]] ; then
             cmd="stop"
         else
