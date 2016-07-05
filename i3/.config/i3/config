@@ -230,6 +230,8 @@ bindsym $mod+Shift+Print mode "$mode_system"
 # Additionally Binding for lock
 bindsym $mod+shift+x exec $Locker
 
+# exec term in active directory
+bindsym $mod+b exec ~/bin/termdo
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
