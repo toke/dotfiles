@@ -10,11 +10,28 @@ fi
 
 PACKAGE_COUNT=$(echo -n "${PACKAGES}" | wc -l)
 
-if [[ "${PACKAGE_COUNT}" -gt 0 ]]; then
-  echo "${PACKAGE_COUNT}" # full-text
-  echo "${PACKAGE_COUNT}" # short-text
-  echo ""
-  if [[ "${PACKAGE_COUNT}" -gt "${URGENT_VALUE}" ]]; then
-    exit 33
-  fi
-fi
+case $BLOCK_BUTTON in
+    1)
+        pamac-updater
+        ;;
+    2)
+        echo "2"
+        ;;
+    3)
+        pamac-manager
+        ;;
+    [4-9])
+        echo $BLOCK_BUTTON
+        ;;
+    *)
+        if [[ "${PACKAGE_COUNT}" -gt 0 ]]; then
+          echo "${PACKAGE_COUNT}" # full-text
+          echo "${PACKAGE_COUNT}" # short-text
+          echo ""
+          if [[ "${PACKAGE_COUNT}" -gt "${URGENT_VALUE}" ]]; then
+            exit 33
+          fi
+        fi
+    ;;
+esac
+

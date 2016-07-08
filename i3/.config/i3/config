@@ -57,6 +57,7 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -88,6 +89,13 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
+## Move whole workspaces to other Display
+bindsym $mod+Ctrl+j move workspace to output left
+bindsym $mod+Ctrl+k move workspace to output right
+bindsym $mod+Ctrl+Left move workspace to output left
+bindsym $mod+Ctrl+Right move workspace to output right
+
 
 # split in horizontal orientation
 bindsym $mod+h split h
@@ -136,7 +144,7 @@ set $workspace10 "10: "
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
-bindsym $mod+2 workspace $workspace2
+bindsym $mod+2 workspace $workspace2; layout splith; exec [ $( ps -eo cmd | grep -c '[u]rxvt -title console' ) -eq 2 ] && urxvt -title console
 bindsym $mod+3 workspace $workspace3
 bindsym $mod+4 workspace $workspace4
 bindsym $mod+5 workspace $workspace5
@@ -160,18 +168,27 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 
 # Identify with xprop - the class name (second field)
 # Program Workspaces
-assign [class="Pidgin"] $workspace1
+
+assign [class="Corebird"] → $workspace1
 assign [class="google-chrome"] $workspace3
 assign [class="Firefox"] $workspace3
 assign [class="Atom"] $workspace4
 assign [class="Thunderbird"] $workspace5
+assign [class="Rhythmbox"] $workspace10
 
 # Floating
 for_window [class="Lxappearance"] floating enable
 for_window [class="Seahorse"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Nautilus"] floating enable
+for_window [class="Pamac"] floating enable
 
+
+# Pidgin stuff
+assign [class="^Pidgin$"] → $workspace1
+for_window [class="^Pidgin$" window_role="buddy_list"] layout splith, resize shrink width 0 px or 30 ppt, move right
+for_window [class="^Pidgin$" window_role="conversation"] resize grow width 0 px or 30 ppt, move left
+bindsym $mod+i [class="^Pidgin$" window_role="(?i)conversation"] focus; [class="^Pidgin$"] focus
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -244,13 +261,14 @@ bindsym $mod+minus scratchpad show
 
 # Press $mod+o followed by either f, t, Esc or Return to launch firefox,
 # thunderbird or return to the default mode, respectively.
-set $mode_launcher Launch: [c]hrome [f]irefox [t]hunderbird
+set $mode_launcher Launch: [c]hrome [f]irefox [t]hunderbird T[w]itter
 bindsym $mod+o mode "$mode_launcher"
 
 mode "$mode_launcher" {
     bindsym c exec google-chrome-stable
     bindsym f exec firefox
     bindsym t exec thunderbird
+    bindsym w exec corebird
 
     bindsym Esc mode "default"
     bindsym Return mode "default"
@@ -285,8 +303,9 @@ client.urgent           $base02 $base08    $base00 $base0F
 ##
 # Execs
 #  use exec and exec_always
-exec xrdb -load ~/.Xresources
-#exec pidgin
+exec /usr/bin/xrdb -load ~/.Xresources
+exec /usr/bin/urxvtd -q -f -o
+exec /usr/bin/pidgin
 exec /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpapers/default.jpg
 
 
@@ -316,3 +335,9 @@ bar {
 	  urgent_workspace   $base01 $base01    $base08
 	}
 }
+
+# Enable/disable logging - use i3-dump-log to view
+bindsym $mod+x shmlog toggle
+
+
+# vim: ft=i3 fdm=marker fmr=«,»
