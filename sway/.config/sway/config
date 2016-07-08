@@ -224,7 +224,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 ## Locking, sleeping, restart, hibernate...
-set $Locker i3lock --color "#1f222d" && sleep 1
+set $Locker swaylock --color "#1f222d" && sleep 1
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -306,8 +306,8 @@ client.urgent           $base02 $base08    $base00 $base0F
 #  use exec and exec_always
 exec /usr/bin/xrdb -load ~/.Xresources
 exec /usr/bin/urxvtd -q -f -o
-exec /usr/bin/pidgin
-exec /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpapers/default.jpg
+#exec /usr/bin/pidgin
+#exec /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpapers/default.jpg
 
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -340,5 +340,9 @@ bar {
 # Enable/disable logging - use i3-dump-log to view
 bindsym $mod+x shmlog toggle
 
+include ~/.config/sway/config.d/`hostname`/*
+include ~/.config/sway/config.d/*
+
+#exec startup sway
 
 # vim: ft=i3 fdm=marker fmr=«,»

@@ -1,0 +1,9 @@
+
+workspace 3 output DP4
+workspace 2 output DP3
+workspace 1 output eDP-1
+output DP4 resolution 1920x1200 position 3286x0 
+output DP3 resolution 1920x1200 position 1366x0
+output eDP-1 resolution 1366x768 position 0x0
+
+output * bg ~/Pictures/Wallpapers/default.jpg fill
