@@ -22,6 +22,8 @@ alias gl="git log"
 alias ggrep="git grep"
 alias yaourt-upgrade="/usr/bin/yaourt -Syua"
 
+alias pepe="perl -pe"
+
 alias se="sudo -e"
 alias si="sudo -i"
 
