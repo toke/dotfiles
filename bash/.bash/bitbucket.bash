@@ -9,16 +9,16 @@ function bitbucket () {
 
     case $1 in
         ls)
-            lsbitbucket $2 $3
+            _lsbitbucket $2 $3
             ;;
         mkrepo)
-            mkbitbucket $2 $3
+            _mkbitbucket $2 $3
             ;;
         clone)
-            clonebitbucket $2 $3
+            _clonebitbucket $2 $3
             ;;
         info)
-            infobitbucket $2 $3
+            _infobitbucket $2 $3
             ;;
         *)
             echo "bitbucket <clone> <ls> <mkrepo> <info>"
@@ -26,11 +26,11 @@ function bitbucket () {
     esac
 }
 
-function mkbitbucket () {
+function _mkbitbucket () {
     #
     # Creates a Bitbucket repository within a project
     #
-    : ${2?Usage: mkbitbucket <project> <repository>}
+    : ${2?Usage: <project> <repository>}
 
     local project_key="$1"
     local repo="$2"
@@ -39,7 +39,7 @@ function mkbitbucket () {
 }
 
 
-function lsbitbucket () {
+function _lsbitbucket () {
     #
     # List Bitbucket Server projects and repositories
     # When no parameter is given all visible project keys are shown
@@ -57,11 +57,11 @@ function lsbitbucket () {
 }
 
 
-function infobitbucket () {
+function _infobitbucket () {
     #
     # Creates a Bitbucket repository within a project
     #
-    : ${1?Usage: mkbitbucket <project> [repository]}
+    : ${1?Usage: <project> [repository]}
 
     local project_key="$1"
     local repo="$2"
@@ -73,9 +73,9 @@ function infobitbucket () {
     fi
 }
 
-function clonebitbucket () {
+function _clonebitbucket () {
 
-    : ${2?Usage: mkbitbucket <project> <repository>}
+    : ${2?Usage: <project> <repository>}
 
     local project_key="$1"
     local repo="$2"
