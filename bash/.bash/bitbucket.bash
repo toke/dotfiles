@@ -2,6 +2,7 @@
 
 apiurl="https://bitbucket.1and1.org/rest/api/latest"
 
+limit=200
 CURL=$'/usr/bin/curl -n -s -H "Content-Type: application/json"'
 
 
@@ -50,9 +51,9 @@ function _lsbitbucket () {
     local project_key="$1"
 
     if [[ $project_key == "" ]] ; then
-        $CURL "${apiurl}/projects/" | /usr/bin/jq -r .values[].key
+        $CURL "${apiurl}/projects/?limit=${limit}" | /usr/bin/jq -r .values[].key
     else
-        $CURL "${apiurl}/projects/${project_key}/repos/" | /usr/bin/jq -r .values[].slug
+        $CURL "${apiurl}/projects/${project_key}/repos/?limit=${limit}" | /usr/bin/jq -r .values[].slug
     fi
 }
 
