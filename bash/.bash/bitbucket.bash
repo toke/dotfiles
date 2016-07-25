@@ -21,7 +21,7 @@ function bitbucket () {
             infobitbucket $2 $3
             ;;
         *)
-            echo "bitbucket <ls> <mkrepo> <info>"
+            echo "bitbucket <clone> <ls> <mkrepo> <info>"
             ;;
     esac
 }
