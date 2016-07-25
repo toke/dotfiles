@@ -2,7 +2,26 @@
 
 apiurl="https://bitbucket.1and1.org/rest/api/latest"
 
-CURL='/usr/bin/curl -n -s -H "Content-Type: application/json"'
+CURL=$'/usr/bin/curl -n -s -H "Content-Type: application/json"'
+
+
+function bitbucket () {
+
+    case $1 in
+        ls)
+            lsbitbucket $2 $3
+            ;;
+        mkrepo)
+            mkbitbucket $2 $3
+            ;;
+        info)
+            infobitbucket $2 $3
+            ;;
+        *)
+            echo "bitbucket <ls> <mkrepo> <info>"
+            ;;
+    esac
+}
 
 function mkbitbucket () {
     #
@@ -33,4 +52,18 @@ function lsbitbucket () {
         $CURL "${apiurl}/projects/${project_key}/repos/" | /usr/bin/jq -r .values[].slug
     fi
 }
+
+
+function infobitbucket () {
+    #
+    # Creates a Bitbucket repository within a project
+    #
+    : ${2?Usage: mkbitbucket <project> <repository>}
+
+    local project_key="$1"
+    local repo="$2"
+
+    $CURL "${apiurl}/projects/${project_key}/repos/${repo}/" | jq .
+}
+
 
