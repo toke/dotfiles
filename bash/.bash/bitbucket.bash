@@ -61,12 +61,16 @@ function infobitbucket () {
     #
     # Creates a Bitbucket repository within a project
     #
-    : ${2?Usage: mkbitbucket <project> <repository>}
+    : ${1?Usage: mkbitbucket <project> [repository]}
 
     local project_key="$1"
     local repo="$2"
 
-    $CURL "${apiurl}/projects/${project_key}/repos/${repo}/" | jq .
+    if [[ $repo == "" ]] ; then
+        $CURL "${apiurl}/projects/${project_key}/" | jq .
+    else
+        $CURL "${apiurl}/projects/${project_key}/repos/${repo}/" | jq .
+    fi
 }
 
 function clonebitbucket () {

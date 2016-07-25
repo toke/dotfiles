@@ -31,11 +31,11 @@ _projects() {
     
     case "$pprev" in
         clone)
-             COMPREPLY=( $( compgen -W "$(bitbucket ls $prev)" -- $cur))
+            COMPREPLY=( $( compgen -W "$(bitbucket ls $prev)" -- $cur))
             return 0
             ;;
         info)
-             COMPREPLY=( $( compgen -W "$(bitbucket ls $prev)" -- $cur))
+            COMPREPLY=( $( compgen -W "$(bitbucket ls $prev)" -- $cur))
             return 0
             ;;
     esac
