@@ -80,6 +80,6 @@ function _clonebitbucket () {
     local project_key="$1"
     local repo="$2"
 
-    git clone $(infobitbucket $1 $2| jq -r '.links.clone[] | select(.name=="ssh").href')
+    git clone "$(_infobitbucket $1 $2 | jq -r '.links.clone[] | select(.name=="ssh").href')"
 
 }
