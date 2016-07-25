@@ -14,6 +14,9 @@ function bitbucket () {
         mkrepo)
             mkbitbucket $2 $3
             ;;
+        clone)
+            clonebitbucket $2 $3
+            ;;
         info)
             infobitbucket $2 $3
             ;;
@@ -66,4 +69,13 @@ function infobitbucket () {
     $CURL "${apiurl}/projects/${project_key}/repos/${repo}/" | jq .
 }
 
+function clonebitbucket () {
 
+    : ${2?Usage: mkbitbucket <project> <repository>}
+
+    local project_key="$1"
+    local repo="$2"
+
+    git clone $(infobitbucket $1 $2| jq -r '.links.clone[] | select(.name=="ssh").href')
+
+}

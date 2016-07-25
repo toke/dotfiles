@@ -1,0 +1,45 @@
+#!/bin/bash
+
+
+_projects() {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local prev=${COMP_WORDS[COMP_CWORD-1]}
+    local pprev=${COMP_WORDS[COMP_CWORD-2]}
+    case "$prev" in
+        ls)
+            COMPREPLY=( $( compgen -W "$(bitbucket ls)" -- $cur))
+            return 0
+            ;;
+        mkrepo)
+            COMPREPLY=( $( compgen -W "$(bitbucket ls)" -- $cur))
+            return 0
+            ;;
+        info)
+            COMPREPLY=( $( compgen -W "$(bitbucket ls)" -- $cur))
+            return 0
+            ;;
+        clone)
+            COMPREPLY=( $( compgen -W "$(bitbucket ls)" -- $cur))
+            return 0
+            ;;
+
+        bitbucket)
+            COMPREPLY=( $(compgen -W "clone ls info mkrepoi" -- $cur) )
+            return 0
+            ;;
+    esac
+    
+    case "$pprev" in
+        clone)
+             COMPREPLY=( $( compgen -W "$(bitbucket ls $prev)" -- $cur))
+            return 0
+            ;;
+        info)
+             COMPREPLY=( $( compgen -W "$(bitbucket ls $prev)" -- $cur))
+            return 0
+            ;;
+    esac
+}
+
+complete -F _projects bitbucket
+
