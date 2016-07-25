@@ -10,6 +10,10 @@ _projects() {
             COMPREPLY=( $( compgen -W "$(bitbucket ls)" -- $cur))
             return 0
             ;;
+        list)
+            COMPREPLY=( $( compgen -W "$(bitbucket ls)" -- $cur))
+            return 0
+            ;;
         mkrepo)
             COMPREPLY=( $( compgen -W "$(bitbucket ls)" -- $cur))
             return 0

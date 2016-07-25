@@ -12,6 +12,10 @@ function bitbucket () {
         ls)
             _lsbitbucket $2 $3
             ;;
+        list)
+            _listbitbucket $2 $3
+            ;;
+
         mkrepo)
             _mkbitbucket $2 $3
             ;;
@@ -51,11 +55,31 @@ function _lsbitbucket () {
     local project_key="$1"
 
     if [[ $project_key == "" ]] ; then
-        $CURL "${apiurl}/projects/?limit=${limit}" | /usr/bin/jq -r .values[].key
+        $CURL "${apiurl}/projects/?limit=${limit}" | /usr/bin/jq -r '.values[].key'
     else
         $CURL "${apiurl}/projects/${project_key}/repos/?limit=${limit}" | /usr/bin/jq -r .values[].slug
     fi
 }
+
+
+function _listbitbucket () {
+    #
+    # List Bitbucket Server projects and repositories
+    # When no parameter is given all visible project keys are shown
+    # When a project-key is given all visible repository within the project is shown
+    #
+    # Usage: lsbitbucket [project-key]
+
+    local project_key="$1"
+
+    if [[ $project_key == "" ]] ; then
+        $CURL "${apiurl}/projects/?limit=${limit}" | jq -r '.values | map([.key, .name] | join("\t")) | join("\n")'
+    else
+        $CURL "${apiurl}/projects/${project_key}/repos/?limit=${limit}" | /usr/bin/jq -r '.values | map([.slug, .name] | join("\t")) | join("\n")'
+    fi
+}
+
+
 
 
 function _infobitbucket () {
