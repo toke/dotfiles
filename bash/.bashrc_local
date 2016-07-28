@@ -37,7 +37,7 @@ command -v virtualenvwrapper.sh > /dev/null && \
 
 ## Setup Shell Prompt
 
-source $HOME/.bash/liquidprompt/liquidprompt
+[[ $- = *i* ]] && source $HOME/.bash/liquidprompt/liquidprompt
 
 export HISTSIZE=10000
 export HISTTIMEFORMAT="%F %T "
