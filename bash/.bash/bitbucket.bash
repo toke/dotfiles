@@ -3,7 +3,7 @@
 apiurl="https://bitbucket.1and1.org/rest/api/latest"
 
 limit=200
-CURL=$'/usr/bin/curl -n -s -H "Content-Type: application/json"'
+CURL='/usr/bin/curl -n -s'
 
 
 function bitbucket () {
@@ -40,7 +40,7 @@ function _mkbitbucket () {
     local project_key="$1"
     local repo="$2"
 
-    $CURL -X POST -d "{\"name\": \"${repo}\", \"public\": true}" "${apiurl}/projects/${project_key}/repos/"
+    $CURL -X POST -H "Content-Type: application/json" -d "{\"name\": \"${repo}\", \"public\": true}" "${apiurl}/projects/${project_key}/repos/"
 }
 
 
