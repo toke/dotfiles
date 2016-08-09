@@ -2,7 +2,7 @@
 
 
 if [[ $(date +%-H) -le 12 ]] ; then
-    echo " $(kraus -o simple)"
+    echo "$(kraus -o neat)"
     kraus -o simple
 
     ## Highlight between 10:00 and 12:59
