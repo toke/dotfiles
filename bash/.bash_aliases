@@ -24,6 +24,8 @@ alias yaourt-upgrade="/usr/bin/yaourt -Syua"
 
 alias pepe="perl -pe"
 
+alias fixscreen="xset dpms force off"
+
 alias se="sudo -e"
 alias si="sudo -i"
 
