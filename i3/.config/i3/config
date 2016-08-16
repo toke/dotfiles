@@ -144,7 +144,8 @@ set $workspace10 "10: "
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
-bindsym $mod+2 workspace $workspace2; layout splith; exec [ $( ps -eo cmd | grep -c '[u]rxvt -title console' ) -eq 2 ] && urxvt -title console
+bindsym $mod+2 workspace $workspace2
+#; layout splith; exec [ $( ps -eo cmd | grep -c '[u]rxvt -title console' ) -eq 2 ] && urxvt -title console
 bindsym $mod+3 workspace $workspace3
 bindsym $mod+4 workspace $workspace4
 bindsym $mod+5 workspace $workspace5
@@ -305,8 +306,6 @@ client.urgent           $base02 $base08    $base00 $base0F
 # Execs
 #  use exec and exec_always
 exec /usr/bin/xrdb -load ~/.Xresources
-exec /usr/bin/urxvtd -q -f -o
-exec /usr/bin/pidgin
 exec_always /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpapers/default.jpg
 
 
