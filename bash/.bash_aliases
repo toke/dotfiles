@@ -29,6 +29,9 @@ alias fixscreen="xset dpms force off"
 alias se="sudo -e"
 alias si="sudo -i"
 
+alias xmutt="st -f \"Roboto Mono Light:size=12\" -e mutt"
+alias xst="st -f \"Roboto Mono Light:size=12\""
+
 ## Docker specific aliases
 if [[ $(command -v "docker") ]] ; then
     # Kill all running containers.
