@@ -1,0 +1,50 @@
+SyncState *
+Sync New ReNew Flags
+
+IMAPAccount tokemail
+Host mail.kerpe.net
+Port 143
+User tokemail
+PassCmd "pass show private/tokemail@mail.kerpe.net"
+SSLType STARTTLS
+AuthMechs Login
+
+IMAPStore tokemail-remote
+Account tokemail
+UseNamespace yes
+
+MaildirStore tokemail-local
+Path ~/Maildir-tokemail/
+Inbox ~/Maildir-tokemail/INBOX
+
+Channel tokemail
+Master :tokemail-remote:
+Slave :tokemail-local:
+Patterns * 
+Create Both
+
+
+
+IMAPAccount 1and1
+Host owa.extranet.1and1.org
+Port 143
+User tkerpe
+PassCmd "pass show 1u1/1u1sso"
+SSLType STARTTLS
+AuthMechs Login
+
+IMAPStore 1and1-remote
+Account 1and1
+UseNamespace yes
+
+MaildirStore 1and1-local
+Path ~/Maildir-1and1/
+Inbox ~/Maildir-1and1/INBOX
+
+Channel OWA
+Master :1and1-remote:
+Slave :1and1-local:
+Patterns * "!Calendar*" "!Archive" "!Archives*" "!DB" "!DB/*" "!Synchronisierungsprobleme*" "!Contacts" "!Deleted Items*" "!Queue" "RSS-Feeds" "Tasks" "Trash" "!Sent Items"
+Create Both
+
+
