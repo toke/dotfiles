@@ -2,8 +2,8 @@
 
 set mbox_type=Maildir
 
-set spoolfile="~/Maildir/"
-set folder="~/Maildir/"
+set spoolfile="~/Mail/1and1/INBOX"
+set folder="~/Mail/"
 set mask="!^\\.[^.]"
 #set record="+.Sent"
 #set postponed="+.Drafts"
@@ -19,3 +19,6 @@ set mask="!^\\.[^.]"
 
 #macro index c "<change-folder>?<toggle-mailboxes>" "open a different folder"
 #macro pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+#
+#
+source ~/.mutt/colors-solarized/mutt-colors-solarized-dark-256.muttrc

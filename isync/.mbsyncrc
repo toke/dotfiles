@@ -14,8 +14,8 @@ Account tokemail
 UseNamespace yes
 
 MaildirStore tokemail-local
-Path ~/Maildir-tokemail/
-Inbox ~/Maildir-tokemail/INBOX
+Path ~/Mail/tokemail/
+Inbox ~/Mail/tokemail/INBOX
 
 Channel tokemail
 Master :tokemail-remote:
@@ -38,8 +38,8 @@ Account 1and1
 UseNamespace yes
 
 MaildirStore 1and1-local
-Path ~/Maildir-1and1/
-Inbox ~/Maildir-1and1/INBOX
+Path ~/Mail/1and1/
+Inbox ~/Mail/1and1/INBOX
 
 Channel OWA
 Master :1and1-remote:
