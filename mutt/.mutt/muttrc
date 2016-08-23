@@ -1,24 +1,41 @@
+#
 
+set quit=ask-yes
+set charset=UTF8
+unset use_domain
 
+## General options
+set header_cache = "~/.cache/mutt"
+set imap_check_subscribed
+set imap_keepalive = 300
+unset imap_passive
+set mail_check = 60
 set mbox_type=Maildir
 
-set spoolfile="~/Mail/1and1/INBOX"
-set folder="~/Mail/"
+## ACCOUNT1
+source "~/.mutt/work"
+
+## ACCOUNT2
+source "~/.mutt/personal"
+
 set mask="!^\\.[^.]"
-#set record="+.Sent"
-#set postponed="+.Drafts"
+set record="+Sent"
+set postponed="+Drafts"
 
-#mailboxes ! + `\
-#for file in ~/Maildir/.*; do \
-#  box=$(basename "$file"); \
-#  if [ ! "$box" = '.' -a ! "$box" = '..' -a ! "$box" = '.customflags' \
-#      -a ! "$box" = '.subscriptions' ]; then \
-#    echo -n "\"+$box\" "; \
-#  fi; \
-#done`
+macro index c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+macro pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+#
 
-#macro index c "<change-folder>?<toggle-mailboxes>" "open a different folder"
-#macro pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
-#
-#
+set sidebar_visible = yes
+bind index,pager B sidebar-toggle-visible
+# Ctrl-n, Ctrl-p to select next, previous folder.
+# Ctrl-o to open selected folder.
+bind index,pager \CP sidebar-prev
+bind index,pager \CN sidebar-next
+bind index,pager \CO sidebar-open
+
+auto_view text/html                                      # view html automatically
+alternative_order text/plain text/enriched text/html     # save html for last
+
+
 source ~/.mutt/colors-solarized/mutt-colors-solarized-dark-256.muttrc

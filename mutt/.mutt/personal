@@ -1,0 +1,11 @@
+
+
+set folder="/home/toke/Mail/tokemail"
+set spoolfile=+INBOX
+unmailboxes *
+mailboxes `$HOME/.mutt/mailboxes "tokemail"`
+folder-hook $folder 'source ~/.mutt/personal'
+
+set realname="Thomas Kerpe"
+set from="thomas@kerpe.net"
+set hostname="kerpe.net"

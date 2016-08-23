@@ -1,0 +1,29 @@
+#!/bin/bash
+
+mb="${1}"
+
+BASE="${HOME}/Mail"
+
+mb_base="${BASE}/${mb}"
+
+mailboxes=$(find "${BASE}" -type d -name INBOX)
+mailboxes+=" "
+
+if [[ -d "${mb_base}" ]]
+then
+  mailboxes+=$(find "${mb_base}" -type d -name cur -printf '"%h"\n'| \
+    grep -v '.*/Spam$' | \
+    grep -v '.*/Deleted Items')
+else
+    echo "ARGH"
+fi
+
+re=$(echo "${mb_base}/" | perl -pe 's:/:\\/:g')
+
+echo $mailboxes | tr "\n" " " | perl -pe "s/$re/+/g"
+
+echo -e "\n\n" >> /tmp/mm
+echo $mb_base >> /tmp/mm
+echo $re >> /tmp/mm
+echo $@ >> /tmp/mm
+echo $mailboxes  >> /tmp/mm
