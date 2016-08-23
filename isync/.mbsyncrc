@@ -5,23 +5,65 @@ IMAPAccount tokemail
 Host mail.kerpe.net
 Port 143
 User tokemail
-PassCmd "pass show private/tokemail@mail.kerpe.net"
+PassCmd "pass show private/mail.kerpe.net/tokemail"
 SSLType STARTTLS
 AuthMechs Login
+PipelineDepth 5
 
 IMAPStore tokemail-remote
 Account tokemail
 UseNamespace yes
+#Flatten .
 
 MaildirStore tokemail-local
 Path ~/Mail/tokemail/
 Inbox ~/Mail/tokemail/INBOX
+Flatten .
 
-Channel tokemail
+
+Channel tokemail-inbox
 Master :tokemail-remote:
 Slave :tokemail-local:
-Patterns * 
+Patterns INBOX
+
+
+Channel tokemail-lists
+Master :tokemail-remote:
+Slave :tokemail-local:
+Patterns "Lists*" CCC Entropia
+ExpireUnread yes
+MaxMessages 1200
+Create Slave
+
+Channel tokemail-bulk
+Master :tokemail-remote:
+Slave :tokemail-local:
+Patterns Junk Trash Bulk*
+ExpireUnread yes
+MaxMessages 200
+Create Slave
+
+
+Channel tokemail-default
+Master :tokemail-remote:
+Slave :tokemail-local:
+Patterns * "!System/Cron" "!System/Logcheck" !Entw&APw-rfe "![Gmail]*" "!Archiv" "!Archive*" "!INBOX" "!Trash" "!Junk" "!CCC" "!Entropia" "!Lists*" "!Newsletter" "!Papierkorb" "!Bulk*" "!Virtual*"
+Create Slave
+
+Channel tokemail-archive
+Master :tokemail-remote:
+Slave :tokemail-local:
+Patterns Archive/2016
+MaxMessages 1000
 Create Both
+
+Group tokemail
+Channel tokemail-inbox
+Channel tokemail-default
+Channel tokemail-lists
+Channel tokemail-archive
+Channel tokemail-bulk
+
 
 
 
@@ -29,9 +71,10 @@ IMAPAccount 1and1
 Host owa.extranet.1and1.org
 Port 143
 User tkerpe
-PassCmd "pass show 1u1/1u1sso"
+PassCmd "pass show 1und1/login.1and1.org/tkerpe"
 SSLType STARTTLS
 AuthMechs Login
+PipelineDepth 1
 
 IMAPStore 1and1-remote
 Account 1and1
@@ -41,10 +84,23 @@ MaildirStore 1and1-local
 Path ~/Mail/1and1/
 Inbox ~/Mail/1and1/INBOX
 
-Channel OWA
+Channel 1u1-inbox
 Master :1and1-remote:
 Slave :1and1-local:
-Patterns * "!Calendar*" "!Archive" "!Archives*" "!DB" "!DB/*" "!Synchronisierungsprobleme*" "!Contacts" "!Deleted Items*" "!Queue" "RSS-Feeds" "Tasks" "Trash" "!Sent Items"
-Create Both
+Patterns INBOX
 
+Channel 1u1-default
+Master :1and1-remote:
+Slave :1and1-local:
+Patterns * "!Calendar*" "!Archive" "!Archives*" "!DB" "!DB/*" "!Synchronisierungsprobleme*" "!Contacts" "!Deleted Items*" "!Queue" "RSS-Feeds" "Tasks" "Trash" "!Sent Items" "!INBOX"
+Create Slave
 
+Channel 1u1-archive
+Master :1and1-remote:
+Slave :1and1-local:
+Patterns Archives/2016
+Create Slave
+
+Group 1u1
+Channel 1u1-inbox
+Channel 1u1-default
