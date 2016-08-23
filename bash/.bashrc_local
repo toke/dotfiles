@@ -43,7 +43,7 @@ export HISTSIZE=10000
 export HISTTIMEFORMAT="%F %T "
 export HISTCONTROL=ignoreboth:erasedups
 
-EDITOR=/usr/bin/vim
+EDITOR=/usr/bin/nvim
 
 # Set environment for pip + requests to find combined root CA certs
 export PIP_CERT="/etc/ssl/certs/ca-certificates.crt"
