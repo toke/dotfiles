@@ -47,7 +47,7 @@ Create Slave
 Channel tokemail-default
 Master :tokemail-remote:
 Slave :tokemail-local:
-Patterns * "!System/Cron" "!System/Logcheck" !Entw&APw-rfe "![Gmail]*" "!Archiv" "!Archive*" "!INBOX" "!Trash" "!Junk" "!CCC" "!Entropia" "!Lists*" "!Newsletter" "!Papierkorb" "!Bulk*" "!Virtual*"
+Patterns * "!System/Cron" "!System/Logcheck" !Entw&APw-rfe "![Gmail]*" "!Archiv" "!Archive*" "!INBOX" "!Trash" "!Deleted Messages" "!Junk" "!CCC" "!Entropia" "!Lists*" "!Newsletter" "!Papierkorb" "!Bulk*" "!Virtual*"
 Create Slave
 
 Channel tokemail-archive
@@ -104,3 +104,18 @@ Create Slave
 Group 1u1
 Channel 1u1-inbox
 Channel 1u1-default
+
+
+
+
+Group inbox
+Channel 1u1-inbox
+Channel tokemail-inbox
+
+Group default
+Channel 1u1-default
+Channel tokemail-default
+
+Group archive
+Channel 1u1-archive
+Channel tokemail-archive
