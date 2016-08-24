@@ -1,5 +1,5 @@
 SyncState *
-Sync New ReNew Flags
+Sync Pull New ReNew Flags Delete Push
 
 IMAPAccount tokemail
 Host mail.kerpe.net
@@ -13,7 +13,6 @@ PipelineDepth 5
 IMAPStore tokemail-remote
 Account tokemail
 UseNamespace yes
-#Flatten .
 
 MaildirStore tokemail-local
 Path ~/Mail/tokemail/
@@ -71,7 +70,7 @@ IMAPAccount 1and1
 Host owa.extranet.1and1.org
 Port 143
 User tkerpe
-PassCmd "pass show 1und1/login.1and1.org/tkerpe"
+PassCmd "pass show 1und1/owa.extranet.1and1.org/tkerpe"
 SSLType STARTTLS
 AuthMechs Login
 PipelineDepth 1
