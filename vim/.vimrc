@@ -79,6 +79,7 @@ call vundle#begin()
     Plugin 'mattn/emmet-vim'
     Plugin 'christoomey/vim-tmux-navigator'
     Plugin 'scrooloose/syntastic'
+    Plugin 'vimwiki'
 
 
 " All of your Plugins must be added before the following line
