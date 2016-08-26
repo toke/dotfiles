@@ -11,7 +11,7 @@ mailboxes+=" "
 
 if [[ -d "${mb_base}" ]]
 then
-  mailboxes+=$(find "${mb_base}" -type d -name cur -printf '"%h"\n'| \
+  mailboxes+=$(find "${mb_base}" -type d -name cur -printf '"%h"\n'| sort | \
     grep -v '.*/Spam$' | \
     grep -v '.*/Deleted Items')
 else
