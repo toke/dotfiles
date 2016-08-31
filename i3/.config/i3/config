@@ -308,6 +308,7 @@ client.urgent           $base02 $base08    $base00 $base0F
 #  use exec and exec_always
 exec /usr/bin/xrdb -load ~/.Xresources
 exec /usr/bin/nm-applet
+exec /usr/bin/xcompmgr
 exec_always /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpapers/default.jpg
 
 exec /usr/bin/clipmenud
