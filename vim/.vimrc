@@ -80,6 +80,7 @@ call vundle#begin()
     Plugin 'christoomey/vim-tmux-navigator'
     Plugin 'scrooloose/syntastic'
     Plugin 'vimwiki'
+    Plugin 'PotatoesMaster/i3-vim-syntax'
 
 
 " All of your Plugins must be added before the following line
