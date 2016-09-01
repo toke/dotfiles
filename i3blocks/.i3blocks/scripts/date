@@ -1,0 +1,8 @@
+#!/bin/env bash
+
+
+case $BLOCK_BUTTON in
+    1) zenity --title "Calendar" --calendar;;
+esac
+
+date +'%d %b'
