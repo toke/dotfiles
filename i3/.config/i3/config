@@ -66,6 +66,8 @@ bindsym $mod+d exec dmenu_run
 # Alternative right now use rofi
 bindsym $mod+Shift+d exec rofi -show run
 
+# Browse pass entries
+bindsym $mod+p exec passmenu
 
 # change focus
 bindsym $mod+j focus left
@@ -307,12 +309,13 @@ client.urgent           $base02 $base08    $base00 $base0F
 ##
 # Execs
 #  use exec and exec_always
-exec /usr/bin/xrdb -load ~/.Xresources
-exec /usr/bin/nm-applet
-exec /usr/bin/compton
-exec_always /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpapers/default.jpg
+exec --no-startup-id compton --opacity-rule '100:window_type = "dock" && class_g = "i3bar"' --config ~/.config/compton.conf -b
+exec --no-startup-id /usr/bin/xrdb -load ~/.Xresources
+exec --no-startup-id /usr/bin/nm-applet
+exec --no-startup-id /usr/bin/clipmenud
+ 
+exec_always --no-startup-id /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpapers/default.jpg
 
-exec /usr/bin/clipmenud
 bindsym $mod+Insert exec clipmenu
 
 # Start i3bar to display a workspace bar (plus the system information i3status
