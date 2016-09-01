@@ -69,6 +69,9 @@ bindsym $mod+Shift+d exec rofi -show run
 # Browse pass entries
 bindsym $mod+p exec passmenu
 
+bindsym --release Print exec --no-startup-id scrot -e 'mv $f ~/Pictures/Screenshots/'
+bindsym --release Shift+Print exec --no-startup-id scrot -s -e 'mv $f ~/Pictures/Screenshots/'
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -187,6 +190,10 @@ for_window [class="Pavucontrol"] floating enable
 for_window [class="Nautilus"] floating enable
 for_window [class="Pamac"] floating enable
 for_window [class="Peek"] floating enable
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [title="Preferences$"] floating enable
 
 
 # Pidgin stuff
