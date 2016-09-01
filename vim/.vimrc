@@ -125,8 +125,8 @@ syntax on
 syntax enable
 let g:solarized_termtrans = 1
 set background=dark
-"set t_Co=256
-"let g:solarized_termcolors=256
+set t_Co=256
+let g:solarized_termcolors=256
 colorscheme solarized
 
 
@@ -139,3 +139,41 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+
+" Don't backup files in temp directories or shm
+if exists('&backupskip')
+    set backupskip+=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+endif
+
+" Don't keep swap files in temp directories or shm
+if has('autocmd')
+    augroup swapskip
+        autocmd!
+        silent! autocmd BufNewFile,BufReadPre
+            \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+            \ setlocal noswapfile
+    augroup END
+endif
+
+" Don't keep undo files in temp directories or shm
+if has('persistent_undo') && has('autocmd')
+    augroup undoskip
+        autocmd!
+        silent! autocmd BufWritePre
+            \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+            \ setlocal noundofile
+    augroup END
+endif
+
+" Don't keep viminfo for files in temp directories or shm
+if has('viminfo')
+    if has('autocmd')
+        augroup viminfoskip
+            autocmd!
+            silent! autocmd BufNewFile,BufReadPre
+                \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+                \ setlocal viminfo=
+        augroup END
+    endif
+endif
