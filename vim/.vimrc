@@ -19,6 +19,7 @@ set incsearch " search while typing
 set hlsearch " Highlight search results
 set showmatch " briefly jump to matching bracket pairs, if they are visible.
 
+set backspace=indent,eol,start
 
 " Default to soft tabs, 4 spaces
 set expandtab
