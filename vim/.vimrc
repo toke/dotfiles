@@ -76,10 +76,15 @@ call vundle#begin()
     Plugin 'plasticboy/vim-markdown'
     Plugin 'ap/vim-css-color'
     Plugin 'pearofducks/ansible-vim'
+    Plugin 'vim-scripts/vim-vagrant'
 
     Plugin 'neomake/neomake'
     Plugin 'godlygeek/tabular'
     Plugin 'mtth/scratch.vim'
+    Plugin 'xolox/vim-misc'
+    Plugin 'xolox/vim-easytags'
+    Plugin 'majutsushi/tagbar'
+    Plugin 'scrooloose/nerdtree'
 
     Plugin 'tpope/vim-fugitive'
     Plugin 'editorconfig/editorconfig-vim'
@@ -134,6 +139,12 @@ set background=dark
 set t_Co=256
 let g:solarized_termcolors=256
 colorscheme solarized
+
+
+" NERDTree
+nmap <F2> :NERDTree<CR>
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
 
 
 " Syntastic
