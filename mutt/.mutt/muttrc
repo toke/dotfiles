@@ -4,6 +4,8 @@ set quit=ask-yes
 set charset=UTF8
 unset use_domain
 
+set editor="nvim -c 'set spell spelllang=de,en'"
+
 ## General options
 set header_cache = "~/.cache/mutt"
 set imap_check_subscribed
