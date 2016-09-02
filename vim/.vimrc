@@ -69,6 +69,7 @@ call vundle#begin()
     Plugin 'vim-airline/vim-airline-themes'
     Plugin 'altercation/vim-colors-solarized'
     Plugin 'elzr/vim-json'
+    Plugin 'ap/vim-css-color'
     Plugin 'godlygeek/tabular'
     Plugin 'plasticboy/vim-markdown'
     Plugin 'mtth/scratch.vim'
