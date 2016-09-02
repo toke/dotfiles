@@ -68,21 +68,25 @@ call vundle#begin()
     Plugin 'bling/vim-airline'
     Plugin 'vim-airline/vim-airline-themes'
     Plugin 'altercation/vim-colors-solarized'
-    Plugin 'elzr/vim-json'
-    Plugin 'ap/vim-css-color'
-    Plugin 'godlygeek/tabular'
-    Plugin 'plasticboy/vim-markdown'
-    Plugin 'mtth/scratch.vim'
+
     Plugin 'fsouza/go.vim'
     Plugin 'wting/rust.vim'
+    Plugin 'elzr/vim-json'
+    Plugin 'PotatoesMaster/i3-vim-syntax'
+    Plugin 'plasticboy/vim-markdown'
+    Plugin 'ap/vim-css-color'
+    Plugin 'pearofducks/ansible-vim'
+
+    Plugin 'neomake/neomake'
+    Plugin 'godlygeek/tabular'
+    Plugin 'mtth/scratch.vim'
+
     Plugin 'tpope/vim-fugitive'
     Plugin 'editorconfig/editorconfig-vim'
-    Plugin 'mcandre/Conque-Shell'
     Plugin 'mattn/emmet-vim'
     Plugin 'christoomey/vim-tmux-navigator'
     Plugin 'scrooloose/syntastic'
     Plugin 'vimwiki'
-    Plugin 'PotatoesMaster/i3-vim-syntax'
 
 
 " All of your Plugins must be added before the following line
