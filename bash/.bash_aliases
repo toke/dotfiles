@@ -23,6 +23,7 @@ alias ggrep="git grep"
 alias yaourt-upgrade="/usr/bin/yaourt -Syua"
 
 alias pepe="perl -pe"
+alias vimwiki="nvim -c +VimwikiIndex"
 
 alias fixscreen="xset dpms force off"
 
