@@ -11,6 +11,8 @@ Each application has it's own directory. These containing all relevant files.
 If a application needs special handling I try to describe this in this README.md.
 You can See an example in the [Vim Config](#vim-config).
 
+This repository has some (`git submodule`s).
+
 ## Symlink
 
 To "install" bash dotfiles just run `stow bash` in this directory.
