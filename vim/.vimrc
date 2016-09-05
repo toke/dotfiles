@@ -142,7 +142,7 @@ colorscheme solarized
 
 
 " NERDTree
-nmap <F2> :NERDTree<CR>
+nmap <F2> :NERDTreeToggle<CR>
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
 
