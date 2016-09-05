@@ -1,8 +1,8 @@
 # My Setup regarding to this Dotfiles
 
-
+ *   OS: Arch Linux / Debian GNU Linux
  *   GUI
-  *   Windowmanager: i3
+  *   i3 (Windowmanager)
   *   i3blocks
   *   dunst
   *   compton
@@ -13,6 +13,7 @@
   *   NeoVim
   *   tmux
   *   git
+  *   mutt
   *   pass (Password Manager)
   *   clipmenu (clipboard "Manager")
   *   envoyd (ssh-agent)
