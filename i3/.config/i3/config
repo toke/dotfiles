@@ -317,6 +317,7 @@ client.urgent           $base02 $base08    $base00 $base0F
 # Execs
 #  use exec and exec_always
 exec --no-startup-id compton --opacity-rule '100:window_type = "dock" && class_g = "i3bar"' --config ~/.config/compton.conf -b
+exec --no-startup-id /usr/bin/syndaemon -i .3 -d -t -K
 exec --no-startup-id /usr/bin/xrdb -load ~/.Xresources
 exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/clipmenud
