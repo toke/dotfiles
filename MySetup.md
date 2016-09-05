@@ -1,6 +1,6 @@
 # My Setup regarding to this Dotfiles
 
- *   OS: Arch Linux / Debian GNU Linux
+ *   OS: [Arch Linux](https://www.archlinux.org) / [Debian GNU Linux](https://debian.org)
  *   GUI
   *   [i3](https://i3wm.org/ "i3 Windowmanager")
   *   [i3blocks](http://vivien.github.io/i3blocks/)
