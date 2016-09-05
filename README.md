@@ -1,8 +1,9 @@
 # My Dotfiles
 
 These are (part of) my dotfiles. I'm migrating to the new repository as I touch
-them. I currently use [GNU Stow][stow] to manage
-my symlinks, but this is optional..
+them. I currently use [GNU Stow][stow] to manage my symlinks, but this is optional.
+
+More used tools: [MySetup](MySetup.md)
 
 ## Structure
 
