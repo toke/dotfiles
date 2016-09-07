@@ -14,6 +14,9 @@ unset imap_passive
 set mail_check = 60
 set mbox_type=Maildir
 
+set sendmail="/usr/bin/msmtp"
+
+
 ## ACCOUNT1
 source "~/.mutt/work"
 
