@@ -16,3 +16,5 @@
   *   [pass](https://www.passwordstore.org/) (Password Manager)
   *   [clipmenu](https://github.com/cdown/clipmenu) (clipboard "Manager")
   *   [envoyd](https://github.com/vodik/envoy) (Still using as a ssh-agent replacement)
+  *   Timewarrior
+  *   Taskwarrior
