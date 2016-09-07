@@ -30,6 +30,8 @@ set postponed="+Drafts"
 macro index c "<change-folder>?<toggle-mailboxes>" "open a different folder"
 macro pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
 #
+macro index,pager A  "<save-message>=Archives.2016<enter>"  "mark message as Archived"
+
 
 set sidebar_visible = yes
 bind index,pager B sidebar-toggle-visible
