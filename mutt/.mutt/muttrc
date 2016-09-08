@@ -34,6 +34,7 @@ macro index,pager A  "<save-message>=Archives.2016<enter>"  "mark message as Arc
 
 
 set sidebar_visible = yes
+bind index,pager <F2> sidebar-toggle-visible
 bind index,pager B sidebar-toggle-visible
 # Ctrl-n, Ctrl-p to select next, previous folder.
 # Ctrl-o to open selected folder.
@@ -44,5 +45,7 @@ bind index,pager \CO sidebar-open
 auto_view text/html                                      # view html automatically
 alternative_order text/plain text/enriched text/html     # save html for last
 
-
+source ~/.mutt/mutt-notmuch
 source ~/.mutt/colors-solarized/mutt-colors-solarized-dark-256.muttrc
+
+# vi: set ft=muttrc

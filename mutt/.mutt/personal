@@ -9,3 +9,6 @@ folder-hook $folder 'source ~/.mutt/personal'
 set realname="Thomas Kerpe"
 set from="thomas@kerpe.net"
 set hostname="kerpe.net"
+
+
+# vim: ft=muttrc
