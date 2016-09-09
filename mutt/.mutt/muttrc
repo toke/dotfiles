@@ -42,6 +42,8 @@ bind index,pager \CP sidebar-prev
 bind index,pager \CN sidebar-next
 bind index,pager \CO sidebar-open
 
+bind attach <return> view-mailcap
+
 auto_view text/html                                      # view html automatically
 alternative_order text/plain text/enriched text/html     # save html for last
 
