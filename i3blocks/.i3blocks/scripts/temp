@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+
+case $BLOCK_INSTANCE in
+    "OUT")
+        TOPIC="sensors/hugin/2868111e500d5/temp"
+        ;;
+    "IN")
+        TOPIC="homie/devices/bb1/temperature/degrees"
+        ;;
+esac
+
+mosquitto_sub -h mqtt.toke.de -t "$TOPIC"

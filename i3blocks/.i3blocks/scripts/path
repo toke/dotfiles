@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source ~/.virtualenvs/default/bin/activate
+
+~/.i3blocks/scripts/path.py
