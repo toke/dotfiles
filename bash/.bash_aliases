@@ -23,6 +23,10 @@ alias gl="git log"
 alias ggrep="git grep"
 alias yaourt-upgrade="/usr/bin/yaourt -Syua"
 
+alias tw="/usr/bin/timew"
+alias tws="/usr/bin/timew summary"
+alias tls="/usr/bin/task ls"
+
 alias pepe="perl -pe"
 alias vimwiki="nvim -c +VimwikiIndex"
 

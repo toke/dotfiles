@@ -45,3 +45,51 @@ function srv-cssh {
     $(dig +short -t SRV "_ssh._tcp.${host}" ${dns} \
         | awk -v USER="${user}" -e 'BEGIN{ printf "cssh " USER} /^[a-zA-Z0-9\.\-_ ]+$/ { printf  " " $4;} END {print "";}')
 }
+
+
+function _color {
+    local c
+
+    case $1 in
+        "black")
+            c=30 ;;
+        "red")
+            c=31 ;;
+        "green")
+            c=32 ;;
+        "yellow")
+            c=33 ;;
+        *)
+            c=39 ;;
+    esac
+
+    echo -en "\e[${c}m"
+}
+
+function cecho {
+    local COLOR="$1"
+    local STRING="$2"
+    local esc=""
+    local reset="\e[0m"
+    
+    case $COLOR in
+
+        "bold")
+            esc="\e[1m" ;;
+        "dim")
+            esc="\e[2m" ;;
+        "reverse")
+            esc="\e[7m" ;;
+        "red")
+            esc="\e[31m" ;;
+        "yellow")
+            esc="\e[93m" ;;
+        "cyan")
+            esc="\e[36m" ;;
+        *)
+            ;;
+    esac
+
+    echo -ne "${esc}${STRING}${reset}"
+
+}

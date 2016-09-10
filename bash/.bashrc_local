@@ -33,6 +33,8 @@ done
 command -v virtualenvwrapper.sh > /dev/null && \
 	source $(command -v virtualenvwrapper.sh)
 
+workon default || echo "No Virtualenv configured" 
+
 
 
 ## Setup Shell Prompt
