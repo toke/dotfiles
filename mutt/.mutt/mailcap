@@ -1,7 +1,6 @@
 
-#text/html;                      links %s; nametemplate=%s.html
-#'file://%s'; nametemplate=%s.html
 text/html;                      /usr/bin/surf file://%s; test=test -n "$DISPLAY";  nametemplate=%s.html
+#text/html;                      /usr/bin/dwb file://%s; test=test -n "$DISPLAY";  nametemplate=%s.html
 text/html;                      links %s; nametemplate=%s.html ; needsterminal
 text/html;                      links -dump %s; nametemplate=%s.html; copiousoutput
 application/pdf;                zathura %s
