@@ -8,11 +8,12 @@ User tokemail
 PassCmd "pass show private/mail.kerpe.net/tokemail"
 SSLType STARTTLS
 AuthMechs Login
-PipelineDepth 5
+#PipelineDepth 5
 
 IMAPStore tokemail-remote
 Account tokemail
 UseNamespace yes
+
 
 MaildirStore tokemail-local
 Path ~/Mail/tokemail/
@@ -24,6 +25,7 @@ Channel tokemail-inbox
 Master :tokemail-remote:
 Slave :tokemail-local:
 Patterns INBOX
+
 
 
 Channel tokemail-lists
@@ -52,7 +54,7 @@ Create Slave
 Channel tokemail-archive
 Master :tokemail-remote:
 Slave :tokemail-local:
-Patterns Archive/2016
+Patterns Archives/2016
 MaxMessages 1000
 Create Both
 
@@ -82,6 +84,7 @@ UseNamespace yes
 MaildirStore 1and1-local
 Path ~/Mail/1and1/
 Inbox ~/Mail/1and1/INBOX
+Flatten .
 
 Channel 1u1-inbox
 Master :1and1-remote:
@@ -91,7 +94,7 @@ Patterns INBOX
 Channel 1u1-default
 Master :1and1-remote:
 Slave :1and1-local:
-Patterns * "!Calendar*" "!Archive" "!Archives*" "!DB" "!DB/*" "!Synchronisierungsprobleme*" "!Contacts" "!Deleted Items*" "!Queue" "RSS-Feeds" "Tasks" "Trash" "!Sent Items" "!INBOX"
+Patterns * "!Calendar*" "!Archive" "!Archives*" "!DB" "!DB/*" "!Synchronisierungsprobleme*" "!Contacts" "!Deleted Items*" "!Queue" "RSS-Feeds" "Tasks" "Trash" "!Sent Items" "!INBOX" "!Projekte/*" 
 Create Slave
 
 Channel 1u1-archive
