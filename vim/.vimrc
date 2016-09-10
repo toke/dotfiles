@@ -130,6 +130,14 @@ let g:scratch_filetype = 'markdown'
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
+" Window Tab handling
+nnoremap th  :tabfirst<CR>
+nnoremap tj  :tabnext<CR>
+nnoremap tk  :tabprev<CR>
+nnoremap tl  :tablast<CR>
+nnoremap tt  :tabedit<Space>
+nnoremap tn  :tabnext<Space>
+
 
 "======Solarized theme============
 syntax on
