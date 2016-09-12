@@ -10,6 +10,7 @@ bin_alias translate "/usr/bin/translate-shell"
 bin_alias nessie "${HOME}/git/puppet-dev-env/bin/nessie"
 
 alias ll="ls -lsa"
+alias rss="newsbeuter"
 
 if [[ -e /usr/bin/fzf ]] ; then
     alias vo='vim $(fzf-tmux)'
