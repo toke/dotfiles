@@ -34,6 +34,8 @@ macro pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
 #
 macro index,pager A  "<save-message>=Archives.2016<enter>"  "mark message as Archived"
 
+macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
+macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
 
 set sidebar_visible = yes
 bind index,pager <F2> sidebar-toggle-visible
