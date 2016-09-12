@@ -1,5 +1,6 @@
 
 
+set sendmail="/usr/bin/msmtp -a 1und1"
 set folder="/home/toke/Mail/1and1"
 set spoolfile=+INBOX
 unmailboxes *

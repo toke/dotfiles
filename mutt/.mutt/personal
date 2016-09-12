@@ -1,5 +1,6 @@
 
 
+set sendmail="/usr/bin/msmtp -a kerpe.net"
 set folder="/home/toke/Mail/tokemail"
 set spoolfile=+INBOX
 unmailboxes *
