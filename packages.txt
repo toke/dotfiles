@@ -1,2 +1,16 @@
 # Alternative ssh-agent
 envoy 
+
+abook
+mutt
+tmux
+stow
+neovim
+lilyterm
+i3
+i3blocks
+isync
+git
+gnupg
+compton
+bash
