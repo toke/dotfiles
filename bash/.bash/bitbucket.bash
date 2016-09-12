@@ -1,9 +1,9 @@
 #!/bin/bash
 
-apiurl="https://bitbucket.1and1.org/rest/api/latest"
+readonly apiurl="https://bitbucket.1and1.org/rest/api/latest"
 
-limit=200
-CURL='/usr/bin/curl -n -s'
+readonly limit=200
+readonly CURL='/usr/bin/curl -n -s'
 
 
 function bitbucket () {

@@ -14,6 +14,7 @@ for inc in $HELPER_INC ; do
 		echo "Errors may follow."
 	fi
 done
+unset -v inc
 
 ## Local bin folders
 [[ -e $HOME/bin ]] && PATH=$PATH:$HOME/bin
