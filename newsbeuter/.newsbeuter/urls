@@ -1,0 +1,29 @@
+"query:Unread Articles:unread = \"yes\""
+"query:work Articles:tags # \"Work\""
+https://www.archlinux.org/feeds/news/                                           linux
+https://inside.1and1.org/one/feed/of/21393264?u=tkerpe&private_token=5a5c0a68cd0194afdd4dd9db14d9032b72dafabd4bd8037399120d32e100d3db               work
+http://rss.golem.de/rss_sub.php?token=hwl8or3e 					news it
+http://www.heise.de/newsticker/heise-atom.xml 					news it
+https://blog.fefe.de/rss.xml?html 
+http://alternativlos.org/alternativlos.rss
+http://dradiowissen.de/podcast/einhundert 					podcast
+http://dradiowissen.de/podcast/update podcast 					news
+http://dradiowissen.de/podcast/hoersaal-der-podcast 				podcast
+http://dradiowissen.de/podcast/eine-stunde-talk 				podcast
+http://dradiowissen.de/podcast/eine-stunde-history 				podcast
+http://chaosradio.ccc.de/chaosradio-latest.rss 					podcast
+http://chaosradio.ccc.de/chaosradio_express-latest.rss
+http://www.titanic-magazin.de/ich.war.bei.der.waffen.rss 			satire
+http://feeds.feedburner.com/codinghorror/ 					blog programming
+http://thedailywtf.com/rss.aspx                                                 fun programming
+https://planet.archlinux.de/rss20.xml						linux arch planet
+http://planet.debianforum.de/rss10.xml						linux debian planet
+http://www.uninformativ.de/rss.php
+https://www.uninformativ.de/blog/feeds/en.atom
+https://www.uninformativ.de/blog/feeds/de.atom
+https://bloosplanet.wordpress.com/feed/                                         autism
+https://dasfotobus.wordpress.com/feed/                                          autism
+https://felisautisticus.wordpress.com/feed/                                     autism
+https://www.archlinux.org/feeds/packages/                                       arch linux tool
+https://www.archlinux.org/feeds/news/                                           arch linux news
+https://planet.archlinux.org/rss20.xml

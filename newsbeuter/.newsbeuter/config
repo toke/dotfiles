@@ -1,0 +1,16 @@
+#
+
+auto-reload yes
+reload-time 47
+reload-threads 5
+
+download-path "~/Downloads/%h/%n"
+save-path "~/Documents/SavedArticles"
+
+bookmark-cmd ~/.newsbeuter/bookmark.cmd
+
+podcast-auto-enqueue no
+
+
+error-log ~/.newsbeuter/error.log
+
