@@ -4,13 +4,24 @@ auto-reload yes
 reload-time 47
 reload-threads 5
 
+feedlist-format     "%4i %n %11u %t [%T]"
+articlelist-format  "%4i %f %D   %?T?|%-17T|  ?%t"
+notify-format       "%d new articles (%n unread articles, %f unread feeds)"
+
 download-path "~/Downloads/%h/%n"
 save-path "~/Documents/SavedArticles"
 
-bookmark-cmd ~/.newsbeuter/bookmark.cmd
+bookmark-cmd "~/.newsbeuter/bookmark.cmd"
+bookmark-autopilot yes
+
+browser surf
+notify-program notify-send
 
 podcast-auto-enqueue no
+player "/usr/bin/mpg123"
+
+highlight article "^(Feed|Title|Author|Link|Date):" default default bold
 
 
-error-log ~/.newsbeuter/error.log
+error-log "~/.newsbeuter/error.log"
 
