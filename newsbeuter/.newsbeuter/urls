@@ -1,5 +1,6 @@
 "query:Unread Articles:unread = \"yes\""
 "query:work Articles:tags # \"Work\""
+exec:~/bin/onerss                                                               work one
 http://rss.golem.de/rss_sub.php?token=hwl8or3e 					news it
 http://www.heise.de/newsticker/heise-atom.xml 					news it
 http://alternativlos.org/alternativlos.rss                                      podcast
@@ -28,6 +29,7 @@ https://www.uninformativ.de/blog/feeds/en.atom                                  
 https://www.uninformativ.de/blog/feeds/de.atom                                  blog
 https://sanctum.geek.nz/arabesque/feed/                                         blog
 https://zedshaw.com/feed/                                                       blog
+http://krebsonsecurity.com/feed/                                                blog,security
 https://www.reddit.com/r/science/.rss                                           reddit science
 https://www.reddit.com/r/sysadmin/.rss                                          reddit sysadmin
 https://www.reddit.com/r/networking/.rss                                        reddit networking
