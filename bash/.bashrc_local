@@ -41,6 +41,7 @@ workon default || echo "No Virtualenv configured"
 ## Setup Shell Prompt
 
 [[ $- = *i* ]] && source $HOME/.bash/liquidprompt/liquidprompt
+export PROMPT_DIRTRIM=3
 
 export HISTSIZE=10000
 export HISTTIMEFORMAT="%F %T "

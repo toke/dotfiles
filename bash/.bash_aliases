@@ -11,6 +11,7 @@ bin_alias nessie "${HOME}/git/puppet-dev-env/bin/nessie"
 
 alias ll="ls -lsa"
 alias rss="newsbeuter"
+alias hl="/usr/bin/highlight -O ansi"
 
 if [[ -e /usr/bin/fzf ]] ; then
     alias vo='vim $(fzf-tmux)'
