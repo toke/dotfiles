@@ -16,8 +16,8 @@ UseNamespace yes
 
 
 MaildirStore tokemail-local
-Path ~/Mail/tokemail/
-Inbox ~/Mail/tokemail/INBOX
+Path ~/Mail/toke/
+Inbox ~/Mail/toke/INBOX
 Flatten .
 
 
