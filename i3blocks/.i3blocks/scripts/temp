@@ -10,4 +10,9 @@ case $BLOCK_INSTANCE in
         ;;
 esac
 
-mosquitto_sub -h mqtt.toke.de -t "$TOPIC"
+while true ; do
+    mosquitto_sub -h mqtt.toke.de -t "$TOPIC"
+    echo "☠"
+    sleep 5
+done
+
