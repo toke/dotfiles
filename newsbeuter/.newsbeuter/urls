@@ -2,7 +2,7 @@
 "query:work Articles:tags # \"Work\""
 exec:~/bin/onerss                                                               work one
 http://rss.golem.de/rss_sub.php?token=hwl8or3e 					news it
-http://www.heise.de/newsticker/heise-atom.xml 					news it
+"exec:~/bin/fullfeed http://www.heise.de/news-extern/news.html"
 http://alternativlos.org/alternativlos.rss                                      podcast
 http://dradiowissen.de/podcast/einhundert 					podcast
 http://dradiowissen.de/podcast/update                                           podcast news
@@ -24,12 +24,11 @@ https://bloosplanet.wordpress.com/feed/                                         
 https://dasfotobus.wordpress.com/feed/                                          autism
 https://felisautisticus.wordpress.com/feed/                                     autism
 https://blog.fefe.de/rss.xml?html                                               blog 
-http://www.uninformativ.de/rss.php                                              blog
 https://www.uninformativ.de/blog/feeds/en.atom                                  blog
-https://www.uninformativ.de/blog/feeds/de.atom                                  blog
 https://sanctum.geek.nz/arabesque/feed/                                         blog
 https://zedshaw.com/feed/                                                       blog
 http://krebsonsecurity.com/feed/                                                blog,security
+https://www.schneier.com/blog/atom.xml                                          blog,security
 https://www.reddit.com/r/science/.rss                                           reddit science
 https://www.reddit.com/r/sysadmin/.rss                                          reddit sysadmin
 https://www.reddit.com/r/networking/.rss                                        reddit networking
@@ -40,8 +39,11 @@ https://www.reddit.com/r/netsec/.rss                                            
 https://www.reddit.com/r/Python/.rss                                            reddit programming python
 https://www.reddit.com/r/ansible/.rss                                           reddit ansible
 http://xkcd.com/atom.xml                                                        
+"exec:~/bin/fullfeed https://news.ycombinator.com/rss"
+https://newsbeuter.wordpress.com/feed/
 
 https://www.reddit.com/.rss?feed=7657adba21c631fe9028b2d893257db09d2269d1&user=tkerpe                   reddit
 https://www.reddit.com/saved.rss?feed=7657adba21c631fe9028b2d893257db09d2269d1&user=tkerpe              reddit
 https://www.reddit.com/message/inbox/.rss?feed=7657adba21c631fe9028b2d893257db09d2269d1&user=tkerpe     reddit
+
 

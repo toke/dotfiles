@@ -22,6 +22,5 @@ player "/usr/bin/mpg123"
 
 highlight article "^(Feed|Title|Author|Link|Date):" default default bold
 
-
 error-log "~/.newsbeuter/error.log"
 
