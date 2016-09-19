@@ -21,6 +21,7 @@ alias zeus='dig +noall +answer @zeusmw.tool.1and1.com'
 
 alias http_serv="/usr/bin/python3 -m http.server 8082"
 alias gcav="git commit -av"
+alias gipu="git push"
 alias gl="git log"
 alias ggrep="git grep"
 alias yaourt-upgrade="/usr/bin/yaourt -Syua"
