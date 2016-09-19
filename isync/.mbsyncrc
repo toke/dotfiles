@@ -94,7 +94,7 @@ Patterns INBOX
 Channel 1u1-default
 Master :1and1-remote:
 Slave :1and1-local:
-Patterns * "!Calendar*" "!Archive" "!Archives*" "!DB" "!DB/*" "!Synchronisierungsprobleme*" "!Contacts" "!Deleted Items*" "!Queue" "RSS-Feeds" "Tasks" "Trash" "!Sent Items" "!INBOX" "!Projekte/*" 
+Patterns * "!Calendar*" "!Archive" "!Archives*" "!DB" "!DB/*" "!Synchronisierungsprobleme*" "!Contacts" "!Deleted Items*" "!Queue" "RSS-Feeds" "Tasks" "!Trash" "!Sent Items" "!INBOX" "!Projekte/*" 
 Create Slave
 
 Channel 1u1-archive
