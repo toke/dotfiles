@@ -32,11 +32,12 @@ set postponed="+Drafts"
 macro index c "<change-folder>?<toggle-mailboxes>" "open a different folder"
 macro pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
 #
-macro index,pager A  "<save-message>=Archives.2016<enter>"  "mark message as Archived"
+macro index,pager A  "<save-message>=toke/Archives.2016<enter>"  "mark message as Archived"
 
 #macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
 #macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
 
+macro index , "<pipe-message>mutt2task<enter> <save-message>+TODO<enter>"
 
 bind attach <return> view-mailcap
 
@@ -47,5 +48,7 @@ source ~/.mutt/mutt-notmuch
 source ~/.mutt/colors-solarized/mutt-colors-solarized-dark-256.muttrc
 
 # vi: set ft=muttrc
+#
+source ~/.mutt/mutt.colors
 source ~/.mutt/gpg.rc
 source ~/.mutt/neomutt

@@ -4,3 +4,4 @@ text/html;                      /usr/bin/surf -i -g -p -s file://%s; test=test -
 text/html;                      links %s; nametemplate=%s.html ; needsterminal
 text/html;                      links -dump %s; nametemplate=%s.html; copiousoutput
 application/pdf;                zathura %s
+audio/x-wav;                    mocp %s

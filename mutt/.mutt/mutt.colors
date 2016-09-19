@@ -1,0 +1,30 @@
+
+# Mutt sucks .. anyway .. ;)
+# "General" index-colors
+color header     red                 default     .  # all (x-)header
+color index      blue                black      ~Q  # those I have already replied to.
+color index      blue                default    ~D  # deleted
+color index      blue                default    ~O  # old
+color index      brightblue          default    ~P  # mail from myself
+color index      brightblue          yellow     ~T  # tagged
+color index      brightmagenta       default    ~F  # flagged
+color index      brightyellow        blue       ~v  # collapsed thread
+color index      magenta             black      ~k  # GPG
+color index      red                 default    ~N  # new
+
+
+
+color index      black               yellow   '~t thomas@kerpe.net'
+
+# My name. I'm important ;)
+color body       red                    default         "[Tt]homas [Kk]erpe"
+color body       red                    default         "tkerpe"
+color body       red                    default         "toke"
+
+# *Emphasized*, /emphasized/, -strike-throut- and _emphasized_ words
+#  TODO: Fix the regex for '-strike-through-'.
+color body       yellow                 blue            "[*][-[:alnum:]]+[*]"                 # *bold*
+color body       yellow                 blue            "[*][-[:alnum:]]+ *[-[:alnum:]]+[*]"  # *really bold*
+color body       yellow                 blue            "/[-[:alnum:]]+/"                     # /emphasized/
+#  color body      yellow                 blue            "[-]+[-[[:alnum:]]+[-]{1}"            # -strike-through-
+color body       yellow                 blue            "_[-[:alnum:]]+_"                     # _underline_

@@ -18,11 +18,12 @@ set spoolfile=+toke/INBOX
 ### Sidebar
 sidebar_whitelist '/home/toke/Mail/1and1/INBOX'
 sidebar_whitelist '/home/toke/Mail/toke/INBOX'
+sidebar_whitelist 'Todo'
 set sidebar_visible = yes
 set sidebar_delim_chars = '/.'
 set sidebar_folder_indent = yes
 set sidebar_indent_string="  "
-set sidebar_new_mail_only = yes
+#set sidebar_new_mail_only = yes
 set mail_check_stats
 #set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
 bind index,pager <F2> sidebar-toggle-visible
@@ -36,10 +37,11 @@ bind index,pager \CO sidebar-open
 ### Notmuch
 set nm_exclude_tags = "spam"
 set nm_default_uri = "notmuch:///home/toke/Mail"
-virtual-mailboxes "My INBOX" "notmuch://?query=tag:inbox%20not%20tag:spam"
+virtual-mailboxes "My INBOX" "notmuch://?query=tag:inbox%20not%20tag:spam%20not%20tag:archive"
 virtual-mailboxes "Work" "notmuch://?query=tag:work"
 virtual-mailboxes "Private" "notmuch://?query=tag:private"
-virtual-mailboxes "Issues" "notmuch://?query=tag:jira"
+virtual-mailboxes "Issues" "notmuch://?query=tag:issue"
+virtual-mailboxes "Todo" "notmuch://?query=tag:todo"
 
 # modify (notmuch) tags
 bind index,pager \` modify-labels
