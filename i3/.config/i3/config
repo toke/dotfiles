@@ -132,6 +132,10 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+set $display_int "eDP1"
+set $display_left "DP1-1"
+set $display_right "DP1-2"
+
 # https://github.com/FortAwesome/Font-Awesome/releases
 # Cheat: http://fontawesome.io/cheatsheet/
 set $workspace1 "1: Misc"
@@ -150,6 +154,13 @@ set $workspace8 "8"
 set $workspace9 "9"
 # Music
 set $workspace10 "10: "
+
+workspace $workspace1 output $display_int
+workspace $workspace2 output $display_left
+workspace $workspace3 output $display_left
+workspace $workspace4 output $display_right
+workspace $workspace5 output $display_left
+workspace $workspace10 output $display_int
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
