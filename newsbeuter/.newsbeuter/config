@@ -11,10 +11,14 @@ notify-format       "%d new articles (%n unread articles, %f unread feeds)"
 download-path "~/Downloads/%h/%n"
 save-path "~/Documents/SavedArticles"
 
+
 bookmark-cmd "~/.newsbeuter/bookmark.cmd"
 bookmark-autopilot yes
 
-browser surf
+
+macro E set browser "echo %u | pockyt put -i redirect"; open-in-browser ; set broser "surf %u"
+
+browser "surf %u"
 notify-program notify-send
 
 podcast-auto-enqueue no

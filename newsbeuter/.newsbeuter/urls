@@ -11,6 +11,7 @@ http://dradiowissen.de/podcast/eine-stunde-talk 				podcast
 http://dradiowissen.de/podcast/eine-stunde-history 				podcast
 http://chaosradio.ccc.de/chaosradio-latest.rss 					podcast
 http://chaosradio.ccc.de/chaosradio_express-latest.rss                          podcast 
+https://premium.zeit.de/itunes/feed                                             podcast
 http://www.titanic-magazin.de/ich.war.bei.der.waffen.rss 			satire
 http://feeds.feedburner.com/codinghorror/ 					blog programming
 http://thedailywtf.com/rss.aspx                                                 fun programming
@@ -20,6 +21,7 @@ http://planet.debianforum.de/rss10.xml						linux debian planet
 https://www.archlinux.org/feeds/packages/                                       arch linux tool
 https://www.archlinux.org/feeds/news/                                           arch linux news
 https://planet.archlinux.org/rss20.xml                                          arch linux
+http://www.javaspecialists.eu/archive/tjsn.rss                                  blog java
 https://bloosplanet.wordpress.com/feed/                                         autism
 https://dasfotobus.wordpress.com/feed/                                          autism
 https://felisautisticus.wordpress.com/feed/                                     autism
@@ -41,6 +43,10 @@ https://www.reddit.com/r/ansible/.rss                                           
 http://xkcd.com/atom.xml                                                        
 "exec:~/bin/fullfeed https://news.ycombinator.com/rss"
 https://newsbeuter.wordpress.com/feed/
+http://www.cyanogenmod.org/feed/
+http://der-second-hand-blog.tumblr.com/rss
+http://thehackernews.com/feeds/posts/default
+http://newsfeed.zeit.de/index
 
 https://www.reddit.com/.rss?feed=7657adba21c631fe9028b2d893257db09d2269d1&user=tkerpe                   reddit
 https://www.reddit.com/saved.rss?feed=7657adba21c631fe9028b2d893257db09d2269d1&user=tkerpe              reddit
