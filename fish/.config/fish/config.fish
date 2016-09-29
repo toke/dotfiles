@@ -1,6 +1,9 @@
 # disable fish greeting message
 set fish_greeting
 
+# SSH agent stuff
+eval (envoy -f --print)
+
 # configure fish git prompt
 set __fish_git_prompt_showdirtystate 'true'
 set __fish_git_prompt_showuntrackedfiles 'true'
