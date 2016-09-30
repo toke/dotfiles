@@ -29,3 +29,6 @@ set --export GOPATH $HOME/gocode
 set --export PATH $GOPATH/bin $PATH
 
 
+set --export PATH $HOME/bin $PATH
+
+
