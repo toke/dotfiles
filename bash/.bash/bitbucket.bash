@@ -5,32 +5,32 @@ readonly apiurl="https://bitbucket.1and1.org/rest/api/latest"
 readonly limit=200
 readonly CURL='/usr/bin/curl -n -s'
 
-GRAY="\033[1;30m"
-LIGHT_GRAY="\033[0;37m"
-GREEN="\033[1;32m"
-NO_COLOUR="\033[0m"
+readonly GRAY="\033[1;30m"
+readonly LIGHT_GRAY="\033[0;37m"
+readonly GREEN="\033[1;32m"
+readonly NO_COLOUR="\033[0m"
 
 
 function bitbucket () {
 
     case $1 in
         ls)
-            _bitbucket_ls $2 $3
+            _bitbucket_ls "$2" "$3"
             ;;
         list)
-            _bitbucket_list $2 $3
+            _bitbucket_list "$2" "$3"
             ;;
         mkrepo)
-            _bitbucket_mk $2 $3
+            _bitbucket_mk "$2" "$3"
             ;;
         diff)
             _bitbucket_diff
             ;;
         clone)
-            _bitbucket_clone $2 $3
+            _bitbucket_clone "$2" "$3"
             ;;
         info)
-            _bitbucket_info $2 $3
+            _bitbucket_info "$2" "$3"
             ;;
         *)
             echo "bitbucket <clone> <diff> <ls> <list> <mkrepo> <info>"
@@ -45,7 +45,7 @@ function _bitbucket_cwp () {
 
     local project_key
     if [[ $1 == "." ]] ; then
-        project_key=$(basename $(pwd))
+        project_key=$(basename "$(pwd)")
     else
         project_key=$1
     fi
@@ -56,10 +56,12 @@ function _bitbucket_mk () {
     #
     # Creates a Bitbucket repository within a project
     #
-    : ${2?Usage: <project> <repository>}
+    : "${2?Usage: <project> <repository>}"
 
-    local project_key=$(_bitbucket_cwp $1)
-    local repo="$2"
+    local project_key
+    local repo
+    project_key=$(_bitbucket_cwp "$1")
+    repo="$2"
 
     $CURL -X POST -H "Content-Type: application/json" -d "{\"name\": \"${repo}\", \"public\": true}" "${apiurl}/projects/${project_key}/repos/"
 }
@@ -73,7 +75,8 @@ function _bitbucket_ls () {
     #
     # Usage: lsbitbucket [project-key|.]
 
-    local project_key=$(_bitbucket_cwp $1)
+    local project_key
+    project_key=$(_bitbucket_cwp "$1")
 
     if [[ $project_key == "" ]] ; then
         $CURL "${apiurl}/projects/?limit=${limit}" | /usr/bin/jq -r '.values[].key'
@@ -91,7 +94,8 @@ function _bitbucket_list () {
     #
     # Usage: lsbitbucket [project-key]
 
-    local project_key=$(_bitbucket_cwp $1)
+    local project_key
+    project_key=$(_bitbucket_cwp "$1")
 
     if [[ $project_key == "" ]] ; then
         $CURL "${apiurl}/projects/?limit=${limit}" | jq -r '.values | map([.key, .name] | join("\t")) | join("\n")'
@@ -105,10 +109,12 @@ function _bitbucket_info () {
     #
     # Creates a Bitbucket repository within a project
     #
-    : ${1?Usage: <project> [repository]}
+    : "${1?Usage: <project> [repository]}"
 
-    local project_key=$(_bitbucket_cwp $1)
-    local repo="$2"
+    local project_key
+    local repo
+    project_key=$(_bitbucket_cwp "$1")
+    repo="$2"
 
     if [[ $repo == "" ]] ; then
         $CURL "${apiurl}/projects/${project_key}/" | jq .
@@ -119,13 +125,13 @@ function _bitbucket_info () {
 
 function _bitbucket_clone () {
 
-    : ${2?Usage: <project> <repository>}
+    : "${2?Usage: <project> <repository>}"
 
     local project_key
     project_key=$(_bitbucket_cwp "$1")
     local repo="$2"
 
-    git clone "$(_bitbucket_info $project_key $repo | jq -r '.links.clone[] | select(.name=="ssh").href')"
+    git clone "$(_bitbucket_info \\"$project_key\\" \\"$repo\\" | jq -r '.links.clone[] | select(.name=="ssh").href')"
 
 }
 
