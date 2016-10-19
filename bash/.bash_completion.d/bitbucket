@@ -28,7 +28,7 @@ _projects() {
             ;;
 
         bitbucket)
-            COMPREPLY=( $(compgen -W "clone ls info mkrepo" -- $cur) )
+            COMPREPLY=( $(compgen -W "clone diff ls list info mkrepo" -- $cur) )
             return 0
             ;;
     esac
