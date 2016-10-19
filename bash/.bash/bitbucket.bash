@@ -58,7 +58,7 @@ function _bitbucket_mk () {
     #
     : ${2?Usage: <project> <repository>}
 
-    local project_key="$1"
+    local project_key=$(_bitbucket_cwp $1)
     local repo="$2"
 
     $CURL -X POST -H "Content-Type: application/json" -d "{\"name\": \"${repo}\", \"public\": true}" "${apiurl}/projects/${project_key}/repos/"
@@ -101,8 +101,6 @@ function _bitbucket_list () {
 }
 
 
-
-
 function _bitbucket_info () {
     #
     # Creates a Bitbucket repository within a project
@@ -123,23 +121,53 @@ function _bitbucket_clone () {
 
     : ${2?Usage: <project> <repository>}
 
-    local project_key=$(_bitbucket_cwp $1)
+    local project_key
+    project_key=$(_bitbucket_cwp "$1")
     local repo="$2"
 
     git clone "$(_bitbucket_info $project_key $repo | jq -r '.links.clone[] | select(.name=="ssh").href')"
 
 }
 
+function __bitbucket_diff () {
+    local tmp
+
+    tmp=$(mktemp -d)
+    _bitbucket_ls . | sort  > "$tmp/bb"
+
+    ls . | sort > "$tmp/bl"
+    
+    comm -3 "$tmp/bb" "$tmp/bl"
+    rm -r "$tmp"
+}
+
+function _bitbucket_diff_side () {
+    local diff
+    local uniq
+    diff=$(__bitbucket_diff)
+
+    case $1 in
+        remote)
+            uniq=$(echo "$diff" | grep -e '^\t')
+            ;;
+        local)
+            uniq=$(echo "$diff" | grep -ve "\t" | tr -d '\t')
+            ;;
+    esac
+    echo "$uniq"
+}
 
 function _bitbucket_diff () {
-    local tmp=$(mktemp -d)
-    _bitbucket_ls . | sort  > $tmp/bb
-    ls . | sort > $tmp/bl
 
-    local bbonly=$(comm -2 -3 $tmp/bb $tmp/bl)
-    local localonly=$(comm -1 -3 $tmp/bb $tmp/bl)
-    rm -r "$tmp"
+    local diff
+    local bbonly
+    local localonly
+    diff=$(__bitbucket_diff)
+    localonly=$(echo "$diff" | grep -ve "\t" | tr -d '\t')
+    bbonly=$(echo "$diff" | grep -e '^\t')
 
     echo -e "${LIGHT_GRAY}Bitbucket only:${NO_COLOUR}\n$bbonly"
     echo -e "${LIGHT_GRAY}Local only:${NO_COLOUR}\n$localonly"
 }
+
+
