@@ -25,7 +25,7 @@ function bitbucket () {
             _bitbucket_mk $2 $3
             ;;
         diff)
-            _bitbucket_diff "${2-.}"
+            _bitbucket_diff ${2-.}
             ;;
         clone)
             _bitbucket_clone $2 $3
@@ -33,6 +33,10 @@ function bitbucket () {
         info)
             _bitbucket_info $2 $3
             ;;
+        sync)
+            _bitbucket_sync $2
+            ;;
+
         *)
             echo "bitbucket <clone> <diff> <ls> <list> <mkrepo> <info>"
             ;;
@@ -137,7 +141,7 @@ function _bitbucket_geturl() {
     project_key="$1"
     repo="$2"
 
-    echo  $(_bitbucket_info "$project_key" "$repo" | jq -r '.links.clone[] | select(.name=="ssh").href')
+    echo $(_bitbucket_info "$project_key" "$repo" | jq -r '.links.clone[] | select(.name=="ssh").href')
 }
 
 function _bitbucket_clone () {
@@ -158,7 +162,8 @@ function __bitbucket_diff () {
     local tmp
     local project_key
 
-    project_key=$(_bitbucket_cwp "${1-.}")
+    project_key=$(_bitbucket_cwp ${1-.})
+    echo $project_key
 
     tmp=$(mktemp -d)
     set -o pipefail
@@ -175,12 +180,14 @@ function __bitbucket_diff () {
 function _bitbucket_diff_side () {
     local diff
     local uniq
+    local cmd
     local project_key
 
+    cmd="$1"
     project_key="$(_bitbucket_cwp "${2-.}")"
     diff="$(__bitbucket_diff "$project_key")"
 
-    case $1 in
+    case $cmd in
         local)
             uniq=$(echo "$diff" | grep -Pe '^\t' | tr -d '\t')
             ;;
@@ -208,3 +215,14 @@ function _bitbucket_diff () {
     echo -e "${LIGHT_GRAY}Local only:${NO_COLOUR}\n$localonly"
 }
 
+
+function _bitbucket_sync () {
+
+    local project_key
+
+    project_key=$(_bitbucket_cwp "${1-.}")
+
+    for repo in  $(_bitbucket_diff_side remote $project_key) ; do
+        _bitbucket_clone $project_key $repo
+    done
+}
