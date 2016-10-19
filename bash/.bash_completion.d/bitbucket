@@ -26,6 +26,10 @@ _projects() {
             COMPREPLY=( $( compgen -W "$(bitbucket ls)" -- $cur))
             return 0
             ;;
+        diff)
+            COMPREPLY=( $( compgen -W "$(bitbucket ls)" -- $cur))
+            return 0
+            ;;
 
         bitbucket)
             COMPREPLY=( $(compgen -W "clone diff ls list info mkrepo" -- $cur) )
@@ -35,7 +39,7 @@ _projects() {
     
     case "$pprev" in
         clone)
-            COMPREPLY=( $( compgen -W "$(_bitbucket_diff_side remote)" -- $cur))
+            COMPREPLY=( $( compgen -W "$(_bitbucket_diff_side remote $prev)" -- $cur))
             return 0
             ;;
         info)
