@@ -14,6 +14,9 @@ NO_COLOUR="\033[0m"
 
 function bitbucket () {
 
+    echo "BEGIN $(date)" >> "$BBLOG"
+    echo "$@" >> "$BBLOG"
+
     case $1 in
         ls)
             _bitbucket_ls $2 $3
@@ -36,18 +39,18 @@ function bitbucket () {
         sync)
             _bitbucket_sync $2
             ;;
-
         *)
-            echo "bitbucket <clone> <diff> <ls> <list> <mkrepo> <info>"
+            echo "bitbucket <clone> <diff> <ls> <list> <mkrepo> <info> <sync>"
             ;;
     esac
+    echo -e "\nEND $(date)" >> "$BBLOG"
 }
 
 function _bitbucket_cwp () {
     #
     # Heuristic approach of getting current working project
     # Currently assumes the current directory name is equal to project name
-    readonly REGEXP='\b[A-Z0-9_\-]+\b'
+    local REGEXP='\b[A-Z0-9_\-]+\b'
 
     local project_key
     if [[ $1 == "." ]] ; then
@@ -89,7 +92,7 @@ function _bitbucket_ls () {
     if [[ $project_key == "" ]] ; then
         $CURL "${apiurl}/projects/?limit=${limit}" | /usr/bin/jq -r '.values[].key'
     else
-        $CURL "${apiurl}/projects/${project_key}/repos/?limit=${limit}" | tee "$BBLOG" | /usr/bin/jq -r .values[].slug 2> /dev/null
+        $CURL "${apiurl}/projects/${project_key}/repos/?limit=${limit}" | tee -a "$BBLOG" | /usr/bin/jq -r .values[].slug 2> /dev/null
     fi
 }
 
@@ -107,9 +110,9 @@ function _bitbucket_list () {
 
     set -o pipefail
     if [[ $project_key == "" ]] ; then
-        $CURL "${apiurl}/projects/?limit=${limit}" | tee "$BBLOG" | jq -r '.values | map([.key, .name] | join("\t")) | join("\n")'
+        $CURL "${apiurl}/projects/?limit=${limit}" | tee -a "$BBLOG" | jq -r '.values | map([.key, .name] | join("\t")) | join("\n")'
     else
-        $CURL "${apiurl}/projects/${project_key}/repos/?limit=${limit}" | tee "$BBLOG" | /usr/bin/jq -r '.values | map([.slug, .name] | join("\t")) | join("\n")'
+        $CURL "${apiurl}/projects/${project_key}/repos/?limit=${limit}" | tee -a "$BBLOG" | /usr/bin/jq -r '.values | map([.slug, .name] | join("\t")) | join("\n")'
     fi
 }
 
@@ -163,7 +166,6 @@ function __bitbucket_diff () {
     local project_key
 
     project_key=$(_bitbucket_cwp ${1-.})
-    echo $project_key
 
     tmp=$(mktemp -d)
     set -o pipefail
@@ -219,10 +221,23 @@ function _bitbucket_diff () {
 function _bitbucket_sync () {
 
     local project_key
+    local prjdir
+
+    (
 
     project_key=$(_bitbucket_cwp "${1-.}")
+    if [ "$project_key" == "$(basename "$(pwd)")" ] ; then
+        prjdir=.
+    elif [ -d "$project_key" ] ; then
+        prjdir="$project_key"
+    else 
+        echo "ERROR: create repository $project_key before continueing"
+        return
+    fi
+    cd "$prjdir" || exit 1 
 
     for repo in  $(_bitbucket_diff_side remote $project_key) ; do
         _bitbucket_clone $project_key $repo
     done
+    )
 }
