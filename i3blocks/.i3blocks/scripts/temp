@@ -6,7 +6,7 @@ case $BLOCK_INSTANCE in
         TOPIC="sensors/hugin/2868111e500d5/temp"
         ;;
     "IN")
-        TOPIC="homie/devices/bb1/temperature/degrees"
+        TOPIC="homie/devices/07832fe0/temperature/degrees"
         ;;
 esac
 
