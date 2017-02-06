@@ -35,8 +35,8 @@ au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
 
 " system wide copy-paste with ctrl-c ctrl-v
-vmap <c-c> "+y
-nmap <c-v> "+p
+"vmap <c-c> "+y
+"nmap <c-v> "+p
 
 " Disable comment continuation on paste
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -124,6 +124,11 @@ let g:scratch_height = 0.50
 " Scratch opens in Markdown format
 let g:scratch_filetype = 'markdown'
 "let g:scratch_persistence_file = '.vim_scratch'
+
+
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'template_path': '~/vimwiki/templates/', 'template_default': 'default', 'template_ext': '.tpl',
+            \ 'syntax': 'markdown', 'ext': '.wiki', 'custom_wiki2html': '/home/toke/.gem/ruby/2.3.0/bin/vimwiki_markdown'}]
+
 
 " Emnet
 " Default: Then type <c-y>, (Ctrly,) after typing zen stuff
