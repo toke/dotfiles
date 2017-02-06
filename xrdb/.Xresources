@@ -1,1 +1,2 @@
 #include ".Xresources.d/rxvt-unicode"
+#include ".Xdefaults"
