@@ -18,6 +18,18 @@ if [[ -e /usr/bin/fzf ]] ; then
     #alias vo='vim $(fzf-file-widget)'
 fi
 alias zeus='dig +noall +answer @zeusmw.tool.1and1.com'
+#alias winjumper="rdesktop -d "united" -u "tkerpe" -p "$(pass 1und1/owa.extranet.1and1.org/tkerpe|head -n 1)" winjumperng.united.domain'
+# z.B. in die .bashrc
+
+alias 1pass='PASSWORD_STORE_DIR=$HOME/.password-store-1und1 PASSWORD_STORE_GIT=$HOME/.password-store-1und1 pass'
+
+# z.B. .bashrc oder .bash_completion
+source /usr/share/bash-completion/completions/pass
+_1pass(){
+    PASSWORD_STORE_DIR=$HOME/.password-store-1und1 _pass
+}
+complete -o filenames -o nospace -F _1pass 1pass
+
 
 alias http_serv="/usr/bin/python3 -m http.server 8082"
 alias gcav="git commit -av"

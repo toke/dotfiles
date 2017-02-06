@@ -19,6 +19,7 @@ unset -v inc
 ## Local bin folders
 [[ -e $HOME/bin ]] && PATH=$PATH:$HOME/bin
 [[ -e $HOME/.local/bin ]] && PATH=$PATH:$HOME/.local/bin
+[[ -e $HOME/.gem/ruby/2.4.0/bin ]] && PATH=$PATH:$HOME/.gem/ruby/2.4.0/bin
 
 ## Setup Java
 [[ -e /opt/jdk/bin/ ]] && export PATH="$PATH:/opt/jdk/bin/"
@@ -53,6 +54,7 @@ EDITOR=/usr/bin/nvim
 export PIP_CERT="/etc/ssl/certs/ca-certificates.crt"
 export REQUESTS_CA_BUNDLE="$PIP_CERT"
 
+
 [[ -e "$HOME/.bashrc_$(hostname -s)" ]] && source "$HOME/.bashrc_$(hostname -s)"
 
 
@@ -68,9 +70,9 @@ fi
 #    envoy -t ssh-agent
 #    eval "$(envoy -p)"
 #fi
-if [[ -e /usr/share/fzf/key-bindings.bash ]] ; then
-   . /usr/share/fzf/key-bindings.bash
-fi
+#if [[ -e /usr/share/fzf/key-bindings.bash ]] ; then
+#   . /usr/share/fzf/key-bindings.bash
+#fi
 
 if [[ -e $HOME/.bash_completion.d/ ]] ; then
     source $HOME/.bash_completion.d/*
