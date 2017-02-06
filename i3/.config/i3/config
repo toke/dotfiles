@@ -53,8 +53,9 @@ workspace_auto_back_and_forth yes
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Shift+Return exec /usr/bin/lilyterm -s -e /usr/bin/fish
+#bindsym $mod+Return exec DVTM_TERM=rxvt /usr/bin/st -e dvtm 
+bindsym $mod+Return exec DVTM_TERM=rxvt /usr/bin/st -e dvtm 
+bindsym $mod+Shift+Return exec DVTM_TERM=rxvt /usr/bin/st  -e dvtm /usr/bin/fish
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -75,6 +76,10 @@ bindsym $mod+p exec passmenu
 
 bindsym --release Print exec --no-startup-id scrot -e 'mv $f ~/Pictures/Screenshots/'
 bindsym --release Shift+Print exec --no-startup-id scrot -s -e 'mv $f ~/Pictures/Screenshots/'
+
+
+bindsym $mod+Shift+m exec /usr/bin/st -t edd -e /home/toke/bin/edd
+for_window [title="edd"] floating enable
 
 # change focus
 bindsym $mod+j focus left
@@ -271,6 +276,7 @@ mode "$mode_system" {
 
 bindsym $mod+Pause mode "$mode_system"
 bindsym $mod+Shift+Print mode "$mode_system"
+bindsym $mod+Shift+s mode "$mode_system"
 # Additionally Binding for lock
 bindsym $mod+shift+x exec $Locker
 
@@ -304,6 +310,9 @@ mode "$mode_launcher" {
     bindsym Return mode "default"
 }
 
+
+bindsym $mod+Shift+P exec --no-startup-id /home/toke/bin/plumbclip
+
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
@@ -333,11 +342,13 @@ client.urgent           $base02 $base08    $base00 $base0F
 ##
 # Execs
 #  use exec and exec_always
+exec --no-startup-id /usr/lib/plan9/bin/plumber
 exec --no-startup-id compton --opacity-rule '100:window_type = "dock" && class_g = "i3bar"' --config ~/.config/compton.conf -b
 exec --no-startup-id /usr/bin/syndaemon -i .3 -d -t -K
 exec --no-startup-id /usr/bin/xrdb -load ~/.Xresources
 exec --no-startup-id /usr/bin/nm-applet
-exec --no-startup-id /usr/bin/clipmenud
+exec --no-startup-id /usr/bin/gpg-agent --daemon
+#exec --no-startup-id /usr/bin/clipmenud
  
 exec_always --no-startup-id /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpapers/default.jpg
 
@@ -353,7 +364,7 @@ bar {
 
 	position bottom
 # strip_workspace_Numbers yes
-#	height 25
+	#height 25
 	bindsym button4 nop
 	bindsym button5 nop
 
