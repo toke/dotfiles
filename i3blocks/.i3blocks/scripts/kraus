@@ -1,14 +1,15 @@
 #!/usr/bin/bash
 
+if [[ $(date +%u) -lt 6 ]] ; then # Only on weekdays
+    if [[ $(date +%-H) -le 12 ]] ; then # And only before 12
+      echo "$(kraus -o neat)"
+      kraus -o simple
 
-if [[ $(date +%-H) -le 12 ]] ; then
-    echo "$(kraus -o neat)"
-    kraus -o simple
-
-    ## Highlight between 10:00 and 12:59
-    if [[ $(date +%-H) -ge 10 && $(date +%-H) -le 12 ]] ; then
-        echo "#C99CCDB"
-    fi
-else
-    echo -ne "\n\n#333333a\n"
+      ## Highlight between 10:00 and 12:59
+      if [[ $(date +%-H) -ge 10 && $(date +%-H) -le 12 ]] ; then
+          echo "#C99CCDB"
+      fi
+  else
+      echo -ne "\n\n#333333a\n"
+  fi
 fi
