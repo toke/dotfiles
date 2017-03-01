@@ -49,6 +49,7 @@ class DfBlock(Reentrant):
         if disk.percent >= 90:
             p_color = " color=\'#f44\'"
         self.full_text = "{} (<span{}>{}%</span>)".format(format_size(disk.free), p_color, disk.percent)
+        self.short_text = "<span{}>{}%</span>".format(p_color, disk.percent)
 
         self._to_json()
 
