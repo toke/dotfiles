@@ -2,7 +2,8 @@
 set fish_greeting
 
 # SSH agent stuff
-eval (envoy -f --print)
+#eval (envoy -f --print)
+eval (gpg-agent -s)
 
 # configure fish git prompt
 set __fish_git_prompt_showdirtystate 'true'
