@@ -259,7 +259,8 @@ bindsym $mod+r mode "resize"
 
 ## Locking, sleeping, restart, hibernate...
 #set $Locker i3lock --color "#1f222d" && sleep 1
-set $Locker /usr/bin/loginctl lock-session
+#set $Locker /usr/bin/loginctl lock-session
+set $Locker /home/toke/bin/lock
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -347,6 +348,8 @@ exec --no-startup-id /usr/lib/plan9/bin/plumber
 exec --no-startup-id compton --opacity-rule '100:window_type = "dock" && class_g = "i3bar"' --config ~/.config/compton.conf -b
 exec --no-startup-id /usr/bin/syndaemon -i .3 -d -t -K
 exec --no-startup-id /usr/bin/xrdb -load ~/.Xresources
+exec --no-startup-id /usr/bin/parcellite
+exec --no-startup-id /usr/bin/redhsift-gtk
 exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/gpg-agent --daemon
 #exec --no-startup-id /usr/bin/clipmenud

@@ -1,4 +1,4 @@
 #!/bin/bash
 
 source $HOME/.virtualenvs/default/bin/activate
-exec /home/toke/.i3blocks/scripts/octoprint.py
+exec /home/toke/.config/i3blocks/scripts/octoprint.py

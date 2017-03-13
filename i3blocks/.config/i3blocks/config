@@ -1,4 +1,4 @@
-command=~/.i3blocks/scripts/$BLOCK_NAME
+command=~/.config/i3blocks/scripts/$BLOCK_NAME
 
 ## Fonts fontawsome
 
@@ -25,7 +25,7 @@ separator_block_width=10
 #
 
 [octoprint]
-command=~/.i3blocks/scripts/octoprint
+command=~/.config/i3blocks/scripts/octoprint
 interval=90
 format=json
 instance=A8_1
@@ -34,15 +34,10 @@ instance=A8_1
 interval=300
 signal=1
 
-#disk]
-#nstance=/
-#abel=/
-#nterval=500
-
 
 [df]
 name=df
-command=~/.i3blocks/scripts/psutil
+command=~/.config/i3blocks/scripts/psutil
 format=json
 markup=pango
 instance=/
@@ -51,7 +46,7 @@ interval=100
 
 [df]
 name=df
-command=~/.i3blocks/scripts/psutil
+command=~/.config/i3blocks/scripts/psutil
 format=json
 instance=/home
 label=~/
@@ -59,12 +54,26 @@ interval=100
 
 [netio]
 name=netio
-command=~/.i3blocks/scripts/psutil
+command=~/.config/i3blocks/scripts/psutil
 format=json
 interval=persist
 #min_width=X 9999KiB X 9999KiB
 align=right
 
+[internet]
+command=if ping -w 5 -c 3 8.8.8.8 >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>I</span>"; fi
+markup=pango
+interval=5
+
+[internethome]
+command=if ping -w 5 -c 3 46.237.231.74 >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>H</span>"; fi
+markup=pango
+interval=5
+
+[internethome]
+command=if ping -w 5 -c 3 toke.de >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>T</span>"; fi
+markup=pango
+interval=5
 
 
 #[network]
@@ -106,7 +115,7 @@ label=
 
 [btheadset]
 interval=60
-command=~/.i3blocks/scripts/btheadset "4C:21:D0:A1:47:CA"
+command=~/.config/i3blocks/scripts/btheadset "4C:21:D0:A1:47:CA"
 
 [volume]
 interval=once
