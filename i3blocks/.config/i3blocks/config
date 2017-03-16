@@ -14,14 +14,14 @@ separator_block_width=10
 #interval=persist
 #
 #
-#[taskwarrior]
+[taskwarrior]
 ##label=◔
-#command=~/.i3blocks/scripts/taskwarrior
-##interval=60
-#interval=once
-#signal=1
-#format=json
-##To reload: pkill -RTMIN+1 i3blocks
+command=~/.config/i3blocks/scripts/taskwarrior
+#interval=60
+interval=once
+signal=1
+format=json
+#To reload: pkill -RTMIN+1 i3blocks
 #
 
 [octoprint]

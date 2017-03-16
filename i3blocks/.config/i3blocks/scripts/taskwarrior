@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source ~/.virtualenvs/default-py3/bin/activate
+source ~/.virtualenvs/default/bin/activate
 
-exec ~/.i3blocks/scripts/taskwarrior.py
+exec ~/.config/i3blocks/scripts/taskwarrior.py
