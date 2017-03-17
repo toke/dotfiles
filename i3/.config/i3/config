@@ -71,9 +71,12 @@ bindsym $mod+d exec dmenu_run
 
 # Alternative right now use rofi
 bindsym $mod+Shift+d exec rofi -show run
+#bindsym $mod+Shift+k exec rofi -dmemu
+bindsym $mod+Shift+n exec rofication-gui.py
+bindsym $mod+p exec rofi-pass
 
 # Browse pass entries
-bindsym $mod+p exec passmenu
+#bindsym $mod+p exec passmenu
 
 bindsym --release Print exec --no-startup-id scrot -e 'mv $f ~/Pictures/Screenshots/'
 bindsym --release Shift+Print exec --no-startup-id scrot -s -e 'mv $f ~/Pictures/Screenshots/'
@@ -347,16 +350,17 @@ client.urgent           $base02 $base08    $base00 $base0F
 exec --no-startup-id /usr/lib/plan9/bin/plumber
 exec --no-startup-id compton --opacity-rule '100:window_type = "dock" && class_g = "i3bar"' --config ~/.config/compton.conf -b
 exec --no-startup-id /usr/bin/syndaemon -i .3 -d -t -K
-exec --no-startup-id /usr/bin/xrdb -load ~/.Xresources
+#exec --no-startup-id /usr/bin/xrdb -load ~/.Xresources
 exec --no-startup-id /usr/bin/parcellite
-exec --no-startup-id /usr/bin/redhsift-gtk
-exec --no-startup-id /usr/bin/nm-applet
-exec --no-startup-id /usr/bin/gpg-agent --daemon
 #exec --no-startup-id /usr/bin/clipmenud
+exec --no-startup-id /usr/bin/redshift-gtk
+exec --no-startup-id /usr/bin/nm-applet
+exec --no-startup-id /usr/bin/rofication-daemon.py
+#exec --no-startup-id /usr/bin/gpg-agent --daemon
  
 exec_always --no-startup-id /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpapers/default.jpg
 
-bindsym $mod+Insert exec clipmenu
+#bindsym $mod+Insert exec clipmenu
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -364,8 +368,9 @@ bar {
 	font pango: System San Francisco Display, FontAwesome 9
 
 #        status_command i3status
-        status_command i3blocks
+        status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
 
+        tray_output primary
 	position bottom
 	bindsym button4 nop
 	bindsym button5 nop
