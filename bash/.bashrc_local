@@ -26,7 +26,7 @@ unset -v inc
 
 ## Setup GO
 [[ -e $HOME/gocode ]] && export GOPATH=$HOME/gocode
-[[ -e $HOME/gocode/bin ]] && PATH=$HOME/gocode/bin:$PATH
+[[ -e $HOME/gocode/bin ]] && export PATH=$HOME/gocode/bin:$PATH
 
 ## Setup Python stuff
 # I used to create a virtualenv default-py2 and a default-py3
@@ -36,6 +36,7 @@ command -v virtualenvwrapper.sh > /dev/null && \
 	source $(command -v virtualenvwrapper.sh)
 
 workon default || echo "No Virtualenv configured" 
+[[ -d "$HOME/py" ]] && export PROJECT_HOME="${HOME}/py"
 
 
 
