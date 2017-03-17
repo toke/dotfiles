@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-source /home/toke/.virtualenvs/default/bin/activate
+#source /home/toke/.virtualenvs/default/bin/activate
 
 case $BLOCK_BUTTON in
     1)
