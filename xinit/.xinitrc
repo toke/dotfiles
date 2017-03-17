@@ -13,6 +13,9 @@ xset -dpms
 /usr/bin/env xrdb -load ~/.Xresources
 /usr/bin/env gpg-agent --daemon
 
+xset s 300
+/usr/bin/env light-locker --lock-on-suspend --lock-after-screensaver 20 &
+
 # exec xterm
 # exec gnome-session
 # exec startkde
