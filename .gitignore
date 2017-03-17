@@ -1,3 +1,4 @@
 vim/.vim/bundle/*
 .netrwhist
 *.log
+i3blocks/.config/i3blocks/scripts/venv/
