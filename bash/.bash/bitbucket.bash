@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 readonly apiurl="https://bitbucket.1and1.org/rest/api/latest"
 
 readonly limit=200
@@ -11,6 +13,23 @@ LIGHT_GRAY="\033[0;37m"
 GREEN="\033[1;32m"
 NO_COLOUR="\033[0m"
 
+
+USAGE="
+bitbucket - shell client
+
+Usage:
+    bitbucket mkrepo <project> <repository>
+    bitbucket ls [<project>|.]
+    bitbucket list [<project>]
+    bitbucket info <project> [<repository>]
+    bitbucket diff [<project>|.]
+    bitbucket clone <project> <repository>
+    bitbucket sync [<project>|.]
+
+Parameter:
+    <project> is the Project Key like \"HBSS_ANSIBLE_ROLES\".
+    <repository> is the Repository Key like \"essentials\".
+"
 
 function bitbucket () {
 
@@ -40,7 +59,7 @@ function bitbucket () {
             _bitbucket_sync $2
             ;;
         *)
-            echo "bitbucket [clone] [diff] [ls] [list] [mkrepo] [info] [sync]"
+            echo "$USAGE"
             ;;
     esac
     echo -e "\nEND $(date)" >> "$BBLOG"
