@@ -1,20 +1,18 @@
 #!/bin/bash
 
-set -e
-
 readonly apiurl="https://bitbucket.1and1.org/rest/api/latest"
 
 readonly limit=200
 readonly CURL='/usr/bin/curl -n -s'
 readonly BBLOG="$HOME/bitbucket_client.log"
 
-GRAY="\033[1;30m"
-LIGHT_GRAY="\033[0;37m"
-GREEN="\033[1;32m"
-NO_COLOUR="\033[0m"
+readonly GRAY="\033[1;30m"
+readonly LIGHT_GRAY="\033[0;37m"
+readonly GREEN="\033[1;32m"
+readonly NO_COLOUR="\033[0m"
 
 
-USAGE="
+readonly USAGE="
 bitbucket - shell client
 
 Usage:
