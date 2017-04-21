@@ -40,7 +40,7 @@ function bitbucket () {
             _bitbucket_sync $2
             ;;
         *)
-            echo "bitbucket <clone> <diff> <ls> <list> <mkrepo> <info> <sync>"
+            echo "bitbucket [clone] [diff] [ls] [list] [mkrepo] [info] [sync]"
             ;;
     esac
     echo -e "\nEND $(date)" >> "$BBLOG"
