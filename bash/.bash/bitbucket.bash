@@ -29,6 +29,13 @@ Usage:
 Parameter:
     <project> is the Project Key like \"HBSS_ANSIBLE_ROLES\".
     <repository> is the Repository Key like \"essentials\".
+
+Configuration:
+    The Username and Password has to be set in ~/.netrc for
+    bitbucket.1and1.org. Before doing so the password has to 
+    be set in bitbucket (per default no password authentication
+    possible).
+
 "
 
 function bitbucket () {
