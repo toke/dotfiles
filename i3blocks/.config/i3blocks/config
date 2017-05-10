@@ -1,4 +1,6 @@
-command=~/.config/i3blocks/scripts/$BLOCK_NAME
+## set SCRIPT_DIR via i3/config
+#
+command=$SCRIPT_DIR/$BLOCK_NAME
 
 ## Fonts fontawsome
 
@@ -9,23 +11,19 @@ color=#666666
 separator=false
 separator_block_width=10
 
-#[path]
-#label=
-#interval=persist
-#
-#
-#[taskwarrior]
+
+[taskwarrior]
 ##label=◔
-#command=~/.i3blocks/scripts/taskwarrior
-##interval=60
-#interval=once
-#signal=1
-#format=json
-##To reload: pkill -RTMIN+1 i3blocks
+command=$SCRIPT_DIR/taskwarrior
+#interval=60
+interval=once
+signal=1
+format=json
+#To reload: pkill -RTMIN+1 i3blocks
 #
 
 [octoprint]
-command=~/.config/i3blocks/scripts/octoprint
+command=$SCRIPT_DIR/octoprint
 interval=90
 format=json
 instance=A8_1
@@ -37,7 +35,7 @@ signal=1
 
 [df]
 name=df
-command=~/.config/i3blocks/scripts/psutil
+command=$SCRIPT_DIR/psutil
 format=json
 markup=pango
 instance=/
@@ -46,7 +44,7 @@ interval=100
 
 [df]
 name=df
-command=~/.config/i3blocks/scripts/psutil
+command=$SCRIPT_DIR/psutil
 format=json
 instance=/home
 label=~/
@@ -54,7 +52,7 @@ interval=100
 
 [netio]
 name=netio
-command=~/.config/i3blocks/scripts/psutil
+command=$SCRIPT_DIR/psutil
 format=json
 interval=persist
 #min_width=X 9999KiB X 9999KiB
@@ -115,7 +113,7 @@ label=
 
 [btheadset]
 interval=60
-command=~/.config/i3blocks/scripts/btheadset "4C:21:D0:A1:47:CA"
+command=$SCRIPT_DIR/btheadset "4C:21:D0:A1:47:CA"
 
 [volume]
 interval=once
@@ -141,6 +139,15 @@ interval=23
 [kraus]
 interval=3600
 #min_width=i
+
+
+[rofi]
+#command=/usr/bin/rofication-statusi3blocks.py
+color=#C9CCDB
+command=$SCRIPT_DIR/rofication.py
+interval=2
+label=
+
 
 [date]
 #command=echo "`date +'%d %b'`"

@@ -6,11 +6,35 @@ readonly limit=200
 readonly CURL='/usr/bin/curl -n -s'
 readonly BBLOG="$HOME/bitbucket_client.log"
 
-GRAY="\033[1;30m"
-LIGHT_GRAY="\033[0;37m"
-GREEN="\033[1;32m"
-NO_COLOUR="\033[0m"
+readonly GRAY="\033[1;30m"
+readonly LIGHT_GRAY="\033[0;37m"
+readonly GREEN="\033[1;32m"
+readonly NO_COLOUR="\033[0m"
 
+
+readonly USAGE="
+bitbucket - shell client
+
+Usage:
+    bitbucket mkrepo <project> <repository>
+    bitbucket ls [<project>|.]
+    bitbucket list [<project>]
+    bitbucket info <project> [<repository>]
+    bitbucket diff [<project>|.]
+    bitbucket clone <project> <repository>
+    bitbucket sync [<project>|.]
+
+Parameter:
+    <project> is the Project Key like \"HBSS_ANSIBLE_ROLES\".
+    <repository> is the Repository Key like \"essentials\".
+
+Configuration:
+    The Username and Password has to be set in ~/.netrc for
+    bitbucket.1and1.org. Before doing so the password has to 
+    be set in bitbucket (per default no password authentication
+    possible).
+
+"
 
 function bitbucket () {
 
@@ -40,7 +64,7 @@ function bitbucket () {
             _bitbucket_sync $2
             ;;
         *)
-            echo "bitbucket <clone> <diff> <ls> <list> <mkrepo> <info> <sync>"
+            echo "$USAGE"
             ;;
     esac
     echo -e "\nEND $(date)" >> "$BBLOG"

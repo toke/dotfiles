@@ -1,0 +1,5 @@
+pyyaml
+taskw
+requests
+psutil
+humanfriendly

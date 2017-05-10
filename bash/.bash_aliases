@@ -70,4 +70,11 @@ if [[ $(command -v "docker") ]] ; then
     alias docker-clean='docker-cleanc || true && docker-cleani'
 fi
 
+alias 3dcam="cvlc -q https://toke:xpal,3456@octo.home.kerpe.net/webcam/?action=stream > /dev/null"
+
+
 alias ppaste="curl -F c=@- https://ptpb.pw/"
+
+
+alias git-context-private="export GIT_COMMITTER_EMAIL=toke@toke.de GIT_AUTHOR_EMAIL=toke@toke.de"
+alias git-context-work="export GIT_COMMITTER_EMAIL=thomas.kerpe@1und1.de GIT_AUTHOR_EMAIL=thomas.kerpe@1und1.de"

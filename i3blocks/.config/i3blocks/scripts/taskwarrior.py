@@ -24,4 +24,4 @@ else:
 #if context == 'work':
 #  print(json.dumps(ret))
 
-print(json.dumps(ret))
+print(json.dumps(ret, ensure_ascii=False))

@@ -72,6 +72,7 @@ call vundle#begin()
     Plugin 'fsouza/go.vim'
     Plugin 'wting/rust.vim'
     Plugin 'elzr/vim-json'
+    Plugin 'posva/vim-vue'
     Plugin 'PotatoesMaster/i3-vim-syntax'
     Plugin 'plasticboy/vim-markdown'
     Plugin 'ap/vim-css-color'
