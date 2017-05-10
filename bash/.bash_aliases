@@ -70,4 +70,4 @@ if [[ $(command -v "docker") ]] ; then
     alias docker-clean='docker-cleanc || true && docker-cleani'
 fi
 
-
+alias ppaste="curl -F c=@- https://ptpb.pw/"
