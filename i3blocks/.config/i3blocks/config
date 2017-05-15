@@ -22,56 +22,66 @@ format=json
 #To reload: pkill -RTMIN+1 i3blocks
 #
 
+[ews]
+command=$SCRIPT_DIR/i3-ews.pl
+interval=900
+label=
+
 [octoprint]
 command=$SCRIPT_DIR/octoprint
 interval=90
 format=json
 instance=A8_1
 
-[packages]
-interval=300
+[Updates]
+command=$SCRIPT_DIR/update.sh
+interval=3600
 signal=1
 
 
 [df]
 name=df
-command=$SCRIPT_DIR/psutil
-format=json
+command=$SCRIPT_DIR/disk_usage
 markup=pango
 instance=/
 label=/
-interval=100
+interval=103
 
 [df]
 name=df
-command=$SCRIPT_DIR/psutil
-format=json
+command=$SCRIPT_DIR/disk_usage
+#format=json
 instance=/home
 label=~/
-interval=100
+interval=107
 
-[netio]
-name=netio
-command=$SCRIPT_DIR/psutil
-format=json
-interval=persist
-#min_width=X 9999KiB X 9999KiB
-align=right
+#[netio]
+#name=netio
+#command=$SCRIPT_DIR/traffic
+#format=json
+#interval=persist
+##min_width=X 9999KiB X 9999KiB
+#align=right
 
 [internet]
 command=if ping -w 5 -c 3 8.8.8.8 >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>I</span>"; fi
 markup=pango
-interval=5
+interval=20
 
 [internethome]
 command=if ping -w 5 -c 3 46.237.231.74 >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>H</span>"; fi
 markup=pango
-interval=5
+interval=21
 
 [internethome]
 command=if ping -w 5 -c 3 toke.de >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>T</span>"; fi
 markup=pango
-interval=5
+interval=27
+
+[MOC]
+command=$SCRIPT_DIR/moc.sh
+instance=40
+interval=10
 
 
 #[network]
@@ -87,6 +97,11 @@ interval=5
 [ssid]
 #label=@
 interval=20
+
+[vpn]
+label=
+command=vpn=$(nmcli c|grep vpn|grep -v -- --| awk '{print $1}'); if [ -z "$vpn" ]; then vpn="-"; fi; echo $vpn
+interval=60
 
 #[dev]
 #label=
@@ -111,15 +126,9 @@ label=
 
 [seperator]
 
-[btheadset]
-interval=60
-command=$SCRIPT_DIR/btheadset "4C:21:D0:A1:47:CA"
-
-[volume]
-interval=once
-label=
-
-[seperator]
+#[btheadset]
+#interval=60
+#command=$SCRIPT_DIR/btheadset "4C:21:D0:A1:47:CA"
 
 [temp]
 label=℃
@@ -131,32 +140,28 @@ label=℃
 interval=persist
 instance=OUT
 
+[kraus]
+interval=3600
+#min_width=i
+#
 [seperator]
+[volume]
+interval=once
+label=
 
 [battery]
 interval=23
 
-[kraus]
-interval=3600
-#min_width=i
-
-
 [rofi]
-#command=/usr/bin/rofication-statusi3blocks.py
 color=#C9CCDB
 command=$SCRIPT_DIR/rofication.py
 interval=2
 label=
 
-
-[date]
-#command=echo "`date +'%d %b'`"
-interval=100
-label=
-color=#C9CCDB
-
 [time]
-command=echo "`date +'%H:%M'`"
+command=echo "`date +'%d.%m %H:%M'`"
 interval=1
 label=
 color=#C9CCDB
+
+
