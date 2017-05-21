@@ -66,7 +66,7 @@ our $export_range = { start => {days => $delta}, end => {days => $delta+1}};
 
       $target{subject} = $entry->Subject;
       $target{subject} =~ s/^\s+|\s+$//g; # trim spaces
-      $target{subject} =~ s/^(WG|AW)://g;
+      $target{subject} =~ s/^(WG|AW|Einladung)://g;
 
       next if $entry->IsCancelled;
       next if $entry->IsAllDayEvent;
@@ -75,12 +75,12 @@ our $export_range = { start => {days => $delta}, end => {days => $delta+1}};
       next if (any {$entry->Sensitivity eq $_} @{$ignore->{sensitivity}});
 
       my $min_to_start = $entry->Start->subtract_datetime(DateTime->now)->in_units('minutes');
- 
+
 
       if ($min_to_start <= $notify->[0] && $min_to_start >= $notify->[3]) {
           print "${min_to_start}min $target{subject}\n";
           print "${min_to_start}m\n";
-         
+
           if ($min_to_start <= $notify->[0] && $min_to_start >= $notify->[1]) {
               print "\n";
           } elsif ($min_to_start <= $notify->[1] && $min_to_start >= $notify->[2]) {
