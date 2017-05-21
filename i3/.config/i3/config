@@ -56,7 +56,8 @@ floating_modifier $mod
 # start a terminal
 #bindsym $mod+Return exec DVTM_TERM=rxvt /usr/bin/st -e dvtm 
 #bindsym $mod+Return exec DVTM_TERM=rxvt /usr/bin/st -e dvtm 
-bindsym $mod+Return exec /usr/bin/urxvt -e mksh
+#bindsym $mod+Return exec /usr/bin/urxvt -e mksh
+bindsym $mod+Return exec i3-sensible-terminal -e mksh
 bindsym $mod+Shift+Return exec DVTM_TERM=rxvt /usr/bin/st  -e dvtm /usr/bin/fish
 
 # kill focused window
