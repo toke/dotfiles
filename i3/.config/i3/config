@@ -55,7 +55,8 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec DVTM_TERM=rxvt /usr/bin/st -e dvtm 
-bindsym $mod+Return exec DVTM_TERM=rxvt /usr/bin/st -e dvtm 
+#bindsym $mod+Return exec DVTM_TERM=rxvt /usr/bin/st -e dvtm 
+bindsym $mod+Return exec /usr/bin/urxvt -e mksh
 bindsym $mod+Shift+Return exec DVTM_TERM=rxvt /usr/bin/st  -e dvtm /usr/bin/fish
 
 # kill focused window
@@ -298,6 +299,8 @@ bindsym $mod+minus scratchpad show
 # Show the sup-mail scratchpad window, if any.
 #bindsym mod4+s [title="^Sup ::"] scratchpad show
 
+bindsym $mod+plus [instance="journal"] scratchpad show
+
 
 # Press $mod+o followed by either f, t, Esc or Return to launch firefox,
 # thunderbird or return to the default mode, respectively.
@@ -317,6 +320,7 @@ mode "$mode_launcher" {
 
 
 bindsym $mod+Shift+P exec --no-startup-id /home/toke/bin/plumbclip
+bindsym Mod1+space exec --no-startup-id /home/toke/bin/plumbclip
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -347,7 +351,7 @@ client.urgent           $base02 $base08    $base00 $base0F
 ##
 # Execs
 #  use exec and exec_always
-exec --no-startup-id /usr/lib/plan9/bin/plumber
+#exec --no-startup-id /usr/lib/plan9/bin/plumber
 exec --no-startup-id compton --opacity-rule '100:window_type = "dock" && class_g = "i3bar"' --config ~/.config/compton.conf -b
 exec --no-startup-id /usr/bin/syndaemon -i .3 -d -t -K
 #exec --no-startup-id /usr/bin/xrdb -load ~/.Xresources
@@ -391,5 +395,9 @@ bar {
 # Enable/disable logging - use i3-dump-log to view
 bindsym $mod+x shmlog toggle
 
+#exec urxvt -name scratchpad_urxvt_top -geometry 180x28
+#for_window [instance="scratchpad_urxvt_top"] move to scratchpad, border 1pixel
+#bindsym Mod1+i exec urxvt -name "scratchpad_urxvt_top" -geometry 180x28 , [instance="scratchpad_urxvt_left"] move to scratchpad, border 1pixel, [instance="scratchpad_urxvt_bottom"] move to scratchpad, border 1pixel, [instance="scratchpad_urxvt_top"] scratchpad show, move position 45px 0px
+#
 
 # vim: ft=i3 fdm=marker fmr=«,»

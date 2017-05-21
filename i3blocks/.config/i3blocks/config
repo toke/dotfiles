@@ -24,7 +24,7 @@ format=json
 
 [ews]
 command=$SCRIPT_DIR/i3-ews.pl
-interval=900
+interval=90
 label=
 
 [octoprint]
@@ -130,15 +130,15 @@ label=
 #interval=60
 #command=$SCRIPT_DIR/btheadset "4C:21:D0:A1:47:CA"
 
-[temp]
-label=℃
-interval=persist
-instance=IN
-
-[temp]
-label=℃
-interval=persist
-instance=OUT
+#[temp]
+#label=℃
+#interval=persist
+#instance=IN
+#
+#[temp]
+#label=℃
+#interval=persist
+#instance=OUT
 
 [kraus]
 interval=3600
