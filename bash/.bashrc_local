@@ -41,9 +41,10 @@ workon default || echo "No Virtualenv configured"
 
 
 ## Setup Shell Prompt
-
-[[ $- = *i* ]] && source $HOME/.bash/liquidprompt/liquidprompt
-export PROMPT_DIRTRIM=3
+if [[ -d $HOME/.bash/liquidprompt/liquidprompt ]] ; then
+    #[[ $- = *i* ]] && source $HOME/.bash/liquidprompt/liquidprompt
+    export PROMPT_DIRTRIM=3
+fi
 
 export HISTSIZE=100000
 export HISTTIMEFORMAT="%F %T "
@@ -54,6 +55,7 @@ EDITOR=/usr/bin/nvim
 # Set environment for pip + requests to find combined root CA certs
 export PIP_CERT="/etc/ssl/certs/ca-certificates.crt"
 export REQUESTS_CA_BUNDLE="$PIP_CERT"
+
 
 alias pass='PASSWORD_STORE_ENABLE_EXTENSIONS=true pass'
 

@@ -37,6 +37,7 @@ alias gipu="git push"
 alias gl="git log"
 alias ggrep="git grep"
 alias yaourt-upgrade="/usr/bin/yaourt -Syua"
+alias ync='yaourt --noconfirm'
 
 alias tw="/usr/bin/timew"
 alias tws="/usr/bin/timew summary"
@@ -78,3 +79,40 @@ alias ppaste="curl -F c=@- https://ptpb.pw/"
 
 alias git-context-private="export GIT_COMMITTER_EMAIL=toke@toke.de GIT_AUTHOR_EMAIL=toke@toke.de"
 alias git-context-work="export GIT_COMMITTER_EMAIL=thomas.kerpe@1und1.de GIT_AUTHOR_EMAIL=thomas.kerpe@1und1.de"
+
+
+alias usystemctl="systemctl --user"
+alias usys="usystemctl"
+
+## GTD via https://taskwarrior.org/news/news.20150627.html
+## use as "in"
+alias in='task add +in'
+
+## usage tick friday Feed the sheep
+tickle () {
+    deadline=$1
+    shift
+    in +tickle wait:$deadline $@
+}
+alias tick=tickle
+## move an item another day
+alias think='tickle +1d'
+##
+## NEEDS: html-xml-utils
+
+webpage_title (){
+    wget -qO- "$*" | hxselect -s '\n' -c  'title' 2>/dev/null
+}
+
+read_and_review (){
+    link="$1"
+    title=$(webpage_title $link)
+    echo $title
+    descr="\"Read and review: $title\""
+    id=$(task add +next +rnr "$descr" | sed -n 's/Created task \(.*\)./\1/p')
+    task "$id" annotate "$link"
+}
+
+alias rnr=read_and_review
+
+alias debian="sudo systemd-nspawn -bD /srv/chroot/jessie"
