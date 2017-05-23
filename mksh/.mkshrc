@@ -2,6 +2,8 @@
 
 source $HOME/.mksh/helper.mksh
 
+export FPATH="$HOME/.mksh/func.d"
+
 HISTSIZE=10000
 HISTFILE="$HOME/.local/data/mksh/history"
 
@@ -12,5 +14,17 @@ HISTFILE="$HOME/.local/data/mksh/history"
 
 PS1=$'\E[31;1m$(_exit_status)\E[0m\E[32;1m$LOGNAME$_POLYGLOT_HOSTNAME_STRING\E[0m \E[34;1m$(_prompt_dirtrim $POLYGLOT_PROMPT_DIRTRIM)\E[0m\E[33m$(_branch_status ksh93)\E[0m \$ '
 
+bind '^L=clear-screen'          # Clear Screen
+bind -m ^U='^[0^K'              # rebind ^U to only the line up to the cursor
+
 alias ls="ls --color"
 alias ll="ls -lsa"
+alias lstimer='systemctl list-timers'
+alias http_serv='/usr/bin/python3 -m http.server 8082'
+
+
+alias zeus='dig +noall +answer @zeusmw.tool.1and1.com'
+alias pepe='perl -pe'
+alias ppaste='curl -F c=@- https://ptpb.pw/'
+alias rss='newsbeuter'
+

@@ -1,0 +1,3 @@
+fixscreen () {
+    xset dpms force off
+}
