@@ -2,20 +2,28 @@
 
 source $HOME/.mksh/helper.mksh
 
-[[ -d "$HOME/.mksh/func.d" ]] && export FPATH="$HOME/.mksh/func.d"
+## Function lookup path
+[[ -e "$HOME/.mksh/func.d" ]] && export FPATH="$HOME/.mksh/func.d"
 
+## Create data dir if not existent
+[[ ! -e  $HOME/.local/data/mksh ]] && mkdir -p "$HOME/.local/data/mksh"
+
+## Enable history
 HISTSIZE=10000
 HISTFILE="$HOME/.local/data/mksh/history"
 
+## Setup GO
+[[ -e $HOME/gocode ]] && export GOPATH="$HOME/gocode"
+[[ -e $HOME/gocode/bin ]] && export PATH="$HOME/gocode/bin:$PATH"
 
-#PS1=$'\e[34mLinux\e[00m'
-#PS1=$'\1\r\1\e[7m\1$PWD\1\e[0m\1> '
-#PS1='$(local WD=${PWD/$HOME/~}; if (( ${#WD} > 23 )); then print ${WD:0:10}…${WD: -10: -1}; else print $WD; fi) $(git branch 2>/dev/null | grep \*; )$(if (( USER_ID )); then print \$; else print \#; fi) '
+[[ -d $HOME/bin ]] && export PATH="$HOME/bin:$PATH"
 
+## Prompt needs helper include
 PS1=$'\E[31;1m$(_exit_status)\E[0m\E[32;1m$LOGNAME$_POLYGLOT_HOSTNAME_STRING\E[0m \E[34;1m$(_prompt_dirtrim $POLYGLOT_PROMPT_DIRTRIM)\E[0m\E[33m$(_branch_status ksh93)\E[0m \$ '
 
 bind '^L=clear-screen'          # Clear Screen
 bind -m ^U='^[0^K'              # rebind ^U to only the line up to the cursor
+
 
 alias ls="ls --color"
 alias ll="ls -lsa"
