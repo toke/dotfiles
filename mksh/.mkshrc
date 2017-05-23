@@ -2,7 +2,7 @@
 
 source $HOME/.mksh/helper.mksh
 
-export FPATH="$HOME/.mksh/func.d"
+[[ -d "$HOME/.mksh/func.d" ]] && export FPATH="$HOME/.mksh/func.d"
 
 HISTSIZE=10000
 HISTFILE="$HOME/.local/data/mksh/history"
