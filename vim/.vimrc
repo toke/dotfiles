@@ -154,6 +154,10 @@ set t_Co=256
 let g:solarized_termcolors=256
 colorscheme solarized
 
+" Enable mouse support
+if has('mouse')
+  set mouse=a
+endif
 
 " NERDTree
 nmap <F2> :NERDTreeToggle<CR>
