@@ -1,0 +1,5 @@
+## NEEDS: html-xml-utils
+
+function webpage_title {
+    wget -qO- "$*" | hxselect -s '\n' -c  'title' 2>/dev/null
+}
