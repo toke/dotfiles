@@ -1,0 +1,40 @@
+#!/usr/bin/env mksh
+
+export GIT_CTX="default"
+
+function git-context {
+    case $1 in
+        "private")
+            GIT_CTX="private"
+            GIT_COMMITTER_EMAIL="toke@toke.de"
+            GIT_AUTHOR_EMAIL="${GIT_COMMITTER_EMAIL}"
+
+            echo "new git context: ${GIT_CTX}"
+        ;;
+        "work")
+            GIT_CTX="work"
+            GIT_COMMITTER_EMAIL="thomas.kerpe@1und1.de"
+            GIT_AUTHOR_EMAIL="${GIT_COMMITTER_EMAIL}"
+
+            echo "new git context: ${GIT_CTX}"
+        ;;
+        "show")
+            echo "git context:"
+            echo "  context: ${GIT_CTX}"
+            echo "  committer: ${GIT_COMMITTER_EMAIL}"
+            echo "  author: ${GIT_AUTHOR_EMAIL}"
+        ;;
+        *)
+            echo "$0 - manages the git context (Commit and Author Data)."
+            echo "No persistence - works only in the same environment."
+            echo ""
+            echo "Usage:"
+            echo "$0 CONTEXT"
+            echo "$0 show"
+            echo ""
+            echo "Options:"
+            echo "  CONTEXT - is the context to work in [private|work]"
+            echo "  show - shows the current context"
+        ;;
+    esac
+}

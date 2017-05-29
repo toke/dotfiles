@@ -39,4 +39,4 @@ alias zeus='dig +noall +answer @zeusmw.tool.1and1.com'
 alias pepe='perl -pe'
 alias ppaste='curl -F c=@- https://ptpb.pw/'
 alias rss='newsbeuter'
-
+alias vimwiki='vim -c +VimwikiIndex'
