@@ -1,0 +1,5 @@
+#!/usr/bin/mksh
+
+function surftor {
+    HTTP_PROXY="http://127.0.0.1:8118" HTTPS_PROXY="http://127.0.0.1:8118" surf ${1:-https://start.duckduckgo.com}
+}
