@@ -32,8 +32,10 @@ set $mod Mod4
 # is used in the bar {} block below.
 #font pango:monospace 8
 # https://github.com/supermarin/YosemiteSanFranciscoFont
-font pango:System San Francisco Display 10, FontAwesome 10
+#font pango:System San Francisco Display 10, FontAwesome 10
 #font pango:Cousine, FontAwesome 8
+#font pango:Cousine, FontAwesome 8
+font pango:Hack 10
 
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
@@ -56,9 +58,10 @@ floating_modifier $mod
 # start a terminal
 #bindsym $mod+Return exec DVTM_TERM=rxvt /usr/bin/st -e dvtm 
 #bindsym $mod+Return exec DVTM_TERM=rxvt /usr/bin/st -e dvtm 
-#bindsym $mod+Return exec /usr/bin/urxvt -e mksh
-bindsym $mod+Return exec i3-sensible-terminal -e mksh
-bindsym $mod+Shift+Return exec DVTM_TERM=rxvt /usr/bin/st  -e dvtm /usr/bin/fish
+bindsym $mod+Return exec /usr/bin/urxvt -e mksh
+#bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Shift+Return exec DVTM_TERM=rxvt /usr/bin/st  -e dvtm /usr/bin/fish
+bindsym $mod+Shift+Return exec /usr/bin/urxvt  -e dvtm /usr/bin/fish
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -265,7 +268,7 @@ bindsym $mod+r mode "resize"
 ## Locking, sleeping, restart, hibernate...
 #set $Locker i3lock --color "#1f222d" && sleep 1
 #set $Locker /usr/bin/loginctl lock-session
-set $Locker /home/toke/bin/lock
+set $Locker /usr/bin/i3lock
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -285,7 +288,8 @@ bindsym $mod+Pause mode "$mode_system"
 bindsym $mod+Shift+Print mode "$mode_system"
 bindsym $mod+Shift+s mode "$mode_system"
 # Additionally Binding for lock
-bindsym $mod+shift+x exec $Locker
+#bindsym $mod+shift+x exec --no-startup-id $Locker
+bindsym $mod+shift+x exec --no-startup-id /usr/bin/i3lock
 
 # exec term in active directory
 bindsym $mod+b exec ~/bin/termdo
@@ -370,7 +374,8 @@ exec_always --no-startup-id /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpape
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	font pango: System San Francisco Display, FontAwesome 9
+	#font pango: System San Francisco Display, FontAwesome 9
+	font pango: Hack 10
 
 #        status_command i3status
         status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
