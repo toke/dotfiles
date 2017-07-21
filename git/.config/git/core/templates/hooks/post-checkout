@@ -1,0 +1,3 @@
+#!/bin/bash
+
+~/.config/git/core/scripts/check-committer-info.sh
