@@ -1,0 +1,84 @@
+[user]
+	name = Thomas Kerpe
+	email = toke@toke.de
+[init]
+        templatedir = ~/.config/git/core/templates
+[commit]
+        template = ~/.config/git/core/gitmessage
+[push]
+	default = current
+[core]
+	excludesfile = ~/.config/git/core/gitignore
+[deploy]
+        config-file = ~/git-deploy/git-deploy.ini
+[i18n]
+	commitencondig = UTF-8
+[alias]
+	k=!gitk
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	logs = log --name-status --graph --use-mailmap
+	wdiff = diff --word-diff
+	co = checkout
+	st = status --short --branch
+	ss = status -sb
+	ac1 = push ac1 HEAD:ac1
+	prod = push prod master:prod
+	ru = remote update --prune
+	pa = pull --ff-only --all
+	pulla = pull --ff-only --all
+	new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+	graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+	ci = commit
+	appraise = !/home/toke/gocode/bin/git-appraise
+	please = push --force-with-lease
+	commend = commit --amend --no-edit
+	it = "!git init ; git commit -m “root” --allow-empty"
+	stsh = stash --keep-index
+	staash = stash --include-untracked
+	staaash = stash --all
+	shorty = status --short --branch
+	merc = merge --no-ff
+	grog = log --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)\"
+        # stash pull requests 
+	spr = !sh -c \"git fetch origin pull-requests/${1}/from:pr/${1}\" -
+        # github pull requests
+	gpr = !sh -c \"git fetch origin pull/${1}/head:pr/${1}\" -
+        ignore = update-index --assume-unchanged
+        unignore = update-index --no-assume-unchanged
+        unadd = reset	
+
+[rerere]
+	enabled = true
+
+[color]
+	ui = true
+	branch = auto
+	status = auto
+	disff = auto
+
+[merge]
+	tool = meld
+	summary = true
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
+
+[url "ssh://git@bitbucket.1and1.org/"]
+        insteadOf = work:
+        insteadOf = bitbucket:
+        insteadOf = bb:
+
+[url "ssh://git@github.com/"]
+        insteadOf = github:
+
+[url "ssh://git@bitbucket.1and1.org/deleng_systems/"]
+        insteadOf = systems:
+
+[url "ssh://git@bitbucket.1and1.org/hbss_ansible_roles/"]
+        insteadOf = roles:
+
+[http]
+	followRedirects = true
