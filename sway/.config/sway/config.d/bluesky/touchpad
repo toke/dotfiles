@@ -1,0 +1,6 @@
+input 2:8:AlpsPS\/2_ALPS_GlidePoint {
+    tap enabled
+    #natural_scroll disabled
+    natural_scroll enabled
+    dwt enabled
+}

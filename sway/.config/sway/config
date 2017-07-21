@@ -1,4 +1,5 @@
 #
+
 ## set_from_resource $black i3wm.color0 #000000 
 
 set $base00 #101218
