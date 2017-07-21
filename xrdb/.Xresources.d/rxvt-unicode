@@ -1,44 +1,7 @@
 
-! Black + DarkGrey
-*color0:  #000000
-*color8:  #555753
-! DarkRed + Red
-*color1:  #ff6565
-*color9:  #ff8d8d
-! DarkGreen + Green
-*color2:  #93d44f
-*color10: #c8e7a8
-! DarkYellow + Yellow
-*color3:  #eab93d
-*color11: #ffc123
-! DarkBlue + Blue
-*color4:  #204a87
-*color12: #3465a4
-! DarkMagenta + Magenta
-*color5:  #ce5c00
-*color13: #f57900
-!DarkCyan + Cyan (both not tango)
-*color6:  #89b6e2
-*color14: #46a4ff
-! LightGrey + White
-*color7:  #cccccc
-*color15: #ffffff
-
-
-! Xft ----------------
-Xft.autohint:  0
-Xft.lcdfilter: lcddefault
-Xft.hintstyle: hintfull
-Xft.hinting:   1
-Xft.antialias: 1
-Xft.dpi:       96
-Xft.rgba:      rgb
-
 
 URxvt*.transparent: true
 URxvt*.shading: 20
-URxvt*termName: screen-256color
-!URxvt*geometry: 240x84
 URxvt*loginShell: true
 URxvt*scrollColor: #777777
 URxvt*scrollstyle: plain
@@ -55,14 +18,14 @@ URxvt*utmpInhibit: false
 URxvt*urgentOnBell: false
 URxvt*visualBell: false
 URxvt*mapAlert: true
-URxvt*colorUL: yellow
-URxvt*underlineColor: yellow
+URxvt*locale: utf-8
 
-URxvt.font:           xft:Roboto Mono:pixelsize=14:antialias=true,xft:Droid Sans Mono for Powerline:pixelsize=14:antialias=true
-URxvt.imFont:         xft:Roboto Mono:pixelsize=14:antialias=true,xft:Droid Sans Mono for Powerline:pixelsize=14:antialias=true
-URxvt.boldFont:       xft:Roboto Mono:pixelsize=14:antialias=true,xft:Droid Sans Mono for Powerline:pixelsize=14:antialias=true
-URxvt.italicFont:     xft:Roboto Mono:pixelsize=14:antialias=true,xft:Droid Sans Mono for Powerline:pixelsize=14:antialias=true
-URxvt.boldItalicFont: xft:Roboto Mono:pixelsize=14:antialias=true,xft:Droid Sans Mono for Powerline:pixelsize=14:antialias=true
+URxvt.font: xft:Hack:size=10
+! disable bold/italic fonts (Solarized uses all 16 slots for colors)
+URxvt.boldFont:
+URxvt.italicFont:
+URxvt.boldItalicFont:
+
 URxvt.letterSpace: -1
 
 URxvt*saveLines: 10000
@@ -73,40 +36,56 @@ URxvt*print-pipe: cat > $HOME/$(echo urxvt.dump.$(date +'%Y%M%d%H%m%S'))
 URxvt*perl-ext-common:
 URxvt*perl-ext:
 
+
+!URxvt*perl-ext-common: default,matcher,keyboard-select
+!!URxvt*perl-lib: /home/toke/.urxvt/ext/
+!URxvt*perl-ext: -matcher,plumb_slashproc
+!!URxvt*perl-ext: -matcher,plumb
+!URxvt.keysym.M-Escape: perl:keyboard-select:activate
+
+
+
+! -----------------------------------------------------------------------------
+! Solarized color scheme definition by Ethan Schoonover
+
+! Common
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
+
+! Dark
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
+
 ! colors
-URxvt*background: rgb:10/10/10
-URxvt*foreground: White
-
-!! Black / Grey
-URxvt.color0:  rgb:00/00/00
-URxvt.color8:  rgb:55/57/53
-
-!! Red / Bright Red
-URxvt.color1:  rgb:EF/29/29
-URxvt.color9:  rgb:EF/29/29
-
-!! Green + Bright Green
-URxvt.color2:  rgb:82/d2/33
-URxvt.color10: rgb:9d/ff/3d
-
-!! Yellow (Orange) + Bright Yellow (Yellow)
-URxvt.color3:  rgb:C4/A0/00
-URxvt.color11: rgb:FC/E9/4F
-
-!! Blue + Bright Blue
-URxvt.color4:  rgb:1e/8b/ff
-URxvt.color12: rgb:92/c7/ff
-
-!! Magenta (Purple) + Bright Magenta
-URxvt.color5:  rgb:75/50/7B
-URxvt.color13: rgb:AD/7F/A8
-
-!! Cyan (Aqua) + Bright Cyan
-URxvt.color6:  rgb:06/98/9A
-URxvt.color14: rgb:34/E2/E2
-
-!! Light Grey (Selection) + White (Current Line)
-URxvt.color7:  rgb:D3/D7/CF
-URxvt.color15: rgb:EE/EE/EC
-
-URxvt.colorBD: rgb:ff/ff/ff
+URxvt.background:              S_base03
+URxvt.foreground:              S_base0
+URxvt.cursorColor:             S_base1
+! Solarized 16 color palette
+URxvt.color0:                  S_base02
+URxvt.color1:                  S_red
+URxvt.color2:                  S_green
+URxvt.color3:                  S_yellow
+URxvt.color4:                  S_blue
+URxvt.color5:                  S_magenta
+URxvt.color6:                  S_cyan
+URxvt.color7:                  S_base2
+URxvt.color8:                  S_base03
+URxvt.color9:                  S_orange
+URxvt.color10:                 S_base01
+URxvt.color11:                 S_base00
+URxvt.color12:                 S_base0
+URxvt.color13:                 S_violet
+URxvt.color14:                 S_base1
+URxvt.color15:                 S_base3
