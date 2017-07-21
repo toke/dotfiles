@@ -35,7 +35,7 @@ unset -v inc
 command -v virtualenvwrapper.sh > /dev/null && \
 	source $(command -v virtualenvwrapper.sh)
 
-workon default || echo "No Virtualenv configured" 
+#workon default || echo "No Virtualenv configured" 
 [[ -d "$HOME/py" ]] && export PROJECT_HOME="${HOME}/py"
 
 
