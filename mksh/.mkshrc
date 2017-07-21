@@ -28,15 +28,15 @@ PS1=$'\E[31;1m$(_exit_status)\E[0m\E[32;1m$LOGNAME$_POLYGLOT_HOSTNAME_STRING\E[0
 bind '^L=clear-screen'          # Clear Screen
 bind -m ^U='^[0^K'              # rebind ^U to only the line up to the cursor
 
-
 alias ls="ls --color"
 alias ll="ls -lsa"
 alias lstimer='systemctl list-timers'
 alias http_serv='/usr/bin/python3 -m http.server 8082'
-
 
 alias zeus='dig +noall +answer @zeusmw.tool.1and1.com'
 alias pepe='perl -pe'
 alias ppaste='curl -F c=@- https://ptpb.pw/'
 alias rss='newsbeuter'
 alias vimwiki='vim -c +VimwikiIndex'
+
+alias debian="sudo systemd-nspawn -bD /srv/chroot/jessie"
