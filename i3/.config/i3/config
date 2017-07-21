@@ -30,11 +30,6 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-#font pango:monospace 8
-# https://github.com/supermarin/YosemiteSanFranciscoFont
-#font pango:System San Francisco Display 10, FontAwesome 10
-#font pango:Cousine, FontAwesome 8
-#font pango:Cousine, FontAwesome 8
 font pango:Hack 10
 
 
@@ -56,11 +51,7 @@ workspace_auto_back_and_forth yes
 floating_modifier $mod
 
 # start a terminal
-#bindsym $mod+Return exec DVTM_TERM=rxvt /usr/bin/st -e dvtm 
-#bindsym $mod+Return exec DVTM_TERM=rxvt /usr/bin/st -e dvtm 
 bindsym $mod+Return exec /usr/bin/urxvt -e mksh
-#bindsym $mod+Return exec i3-sensible-terminal
-#bindsym $mod+Shift+Return exec DVTM_TERM=rxvt /usr/bin/st  -e dvtm /usr/bin/fish
 bindsym $mod+Shift+Return exec /usr/bin/urxvt  -e dvtm /usr/bin/fish
 
 # kill focused window
