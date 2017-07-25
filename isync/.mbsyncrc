@@ -94,7 +94,7 @@ Patterns INBOX
 Channel 1u1-default
 Master :1and1-remote:
 Slave :1and1-local:
-Patterns * "!Calendar*" "!Archive" "!Archives*" "!DB" "!DB/*" "!Synchronisierungsprobleme*" "!Contacts" "!Deleted Items*" "!Queue" "RSS-Feeds" "Tasks" "!Trash" "!Sent Items" "!INBOX" "!Projekte/*" 
+Patterns * "!Calendar*" "!Archive" "!Archives*" "!DB" "!DB/*" "!Synchronisierungsprobleme*" "!Contacts" "!Deleted Items*" "!Queue" "RSS-Feeds" "Tasks" "!Trash" "!Sent Items" "!INBOX" "!Projekte/*" "!drafts" 
 Create Slave
 
 Channel 1u1-archive
@@ -121,3 +121,32 @@ Channel tokemail-default
 Group archive
 Channel 1u1-archive
 Channel tokemail-archive
+
+
+IMAPAccount gmail
+# Address to connect to
+Host imap.gmail.com
+Port 993
+User thomas.kerpe@gmail.com
+PassCmd "pass show mail/gmail.com/thomas.kerpe@gmail.com"
+SSLType IMAPS
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+# The trailing "/" is important
+Path ~/Mail/gmail/
+Inbox ~/Mail/gmail/Inbox
+
+Channel gmail
+Master :gmail-remote:
+Slave :gmail-local:
+# Exclude everything under the internal [Gmail] folder, except the interesting folders
+#Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
+# Or include everything
+#Patterns *
+# Automatically create missing mailboxes, both locally and on the server
+Create Both
+# Save the synchronization state files in the relevant directory
+SyncState *
