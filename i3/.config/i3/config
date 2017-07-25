@@ -1,37 +1,63 @@
 #
-## set_from_resource $black i3wm.color0 #000000 
-
-set $base00 #101218
-set $base01 #1f222d
-set $base02 #252936
-set $base03 #7780a1
-set $base04 #C0C5CE
-set $base05 #d1d4e0
-set $base06 #C9CCDB
-set $base07 #ffffff
-set $base08 #ee829f
-set $base09 #f99170
-set $base0A #ffefcc
-set $base0B #a5ffe1
-set $base0C #97e0ff
-set $base0D #97bbf7
-set $base0E #c0b7f9
-set $base0F #fcc09e
-
-# Should you change your keyboard layout some time, delete
-# this file and re-run i3-config-wizard(1).
-#
-
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
+#
+# https://github.com/FortAwesome/Font-Awesome/releases
+# Cheat: http://fontawesome.io/cheatsheet/
+#
 
+# Basic settings and variables
+#
+# Define color variables but allow them to be set via Xresources
+set_from_resource $base00 i3wm.color00 #101218
+set_from_resource $base01 i3wm.color01 #1f222d
+set_from_resource $base02 i3wm.color02 #252936
+set_from_resource $base03 i3wm.color03 #7780a1
+set_from_resource $base04 i3wm.color04 #C0C5CE
+set_from_resource $base05 i3wm.color05 #d1d4e0
+set_from_resource $base06 i3wm.color06 #C9CCDB
+set_from_resource $base07 i3wm.color07 #ffffff
+set_from_resource $base08 i3wm.color08 #ee829f
+set_from_resource $base09 i3wm.color09 #f99170
+set_from_resource $base0A i3wm.color0A #ffefcc
+set_from_resource $base0B i3wm.color0B #a5ffe1
+set_from_resource $base0C i3wm.color0C #97e0ff
+set_from_resource $base0D i3wm.color0D #97bbf7
+set_from_resource $base0E i3wm.color0E #c0b7f9
+set_from_resource $base0F i3wm.color0F #fcc09e
+
+set $wallpaper "/home/toke/Pictures/Wallpapers/default.jpg"
+
+# Workspace names
+set $workspace1 "1: Misc"
+set $workspace2 "2: "
+set $workspace3 "3: "
+set $workspace4 "4: "
+set $workspace5 "5: "
+set $workspace6 "6"
+set $workspace7 "7: "
+set $workspace8 "8"
+set $workspace9 "9"
+set $workspace10 "10"
+
+#
+set $display_int "eDP1"
+set $display_left "DP1-1"
+set $display_right "DP1-2"
+
+# Our modifier
 set $mod Mod4
+
+#
+# Locking, sleeping, restart, hibernate...
+#set $Locker i3lock --color "#1f222d" && sleep 1
+#set $Locker /usr/bin/loginctl lock-session
+set $Locker /usr/bin/i3lock
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:Hack 10
-
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -43,8 +69,12 @@ font pango:Hack 10
 # clear in small sizes. However, its unicode glyph coverage is limited, the old
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
-
 workspace_auto_back_and_forth yes
+
+# Display the popup if it belongs to the fullscreen application only. This is
+# the default and should be reasonable behavior for most users.
+# Modes are smart|ignore|leave_fullscreen
+popup_during_fullscreen smart
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -60,14 +90,10 @@ bindsym $mod+Shift+q kill
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
 
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-
 # Alternative right now use rofi
 bindsym $mod+Shift+d exec rofi -show run
-#bindsym $mod+Shift+k exec rofi -dmemu
+bindsym Menu exec rofi -show run
+bindsym XF86Search exec rofi -combi-modi window,drun -show combi -modi combi
 bindsym $mod+Shift+n exec rofication-gui.py
 bindsym $mod+p exec rofi-pass
 
@@ -138,28 +164,6 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-set $display_int "eDP1"
-set $display_left "DP1-1"
-set $display_right "DP1-2"
-
-# https://github.com/FortAwesome/Font-Awesome/releases
-# Cheat: http://fontawesome.io/cheatsheet/
-set $workspace1 "1: Misc"
-# Terminal
-set $workspace2 "2: "
-# Browser
-set $workspace3 "3: "
-# Code
-set $workspace4 "4: "
-# Mail
-set $workspace5 "5: "
-
-set $workspace6 "6"
-set $workspace7 "7: "
-set $workspace8 "8"
-set $workspace9 "9"
-# Music
-set $workspace10 "10"
 
 workspace $workspace1 output $display_int
 workspace $workspace2 output $display_left
@@ -257,10 +261,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-## Locking, sleeping, restart, hibernate...
-#set $Locker i3lock --color "#1f222d" && sleep 1
-#set $Locker /usr/bin/loginctl lock-session
-set $Locker /usr/bin/i3lock
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -315,7 +315,6 @@ mode "$mode_launcher" {
     bindsym Return mode "default"
 }
 
-
 bindsym $mod+Shift+P exec --no-startup-id /home/toke/bin/plumbclip
 bindsym Mod1+space exec --no-startup-id /home/toke/bin/plumbclip
 
@@ -338,13 +337,6 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# Widow Colours
-#                         border  background text    indicator
-client.focused          $base01 $base01    $base07 $base0F
-client.focused_inactive $base02 $base02    $base03 $base0F
-client.unfocused        $base02 $base02    $base03 $base0F
-client.urgent           $base02 $base08    $base00 $base0F
-
 ##
 # Execs
 #  use exec and exec_always
@@ -358,35 +350,39 @@ exec --no-startup-id /usr/bin/redshift-gtk
 exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/rofication-daemon.py
 #exec --no-startup-id /usr/bin/gpg-agent --daemon
-
 exec /usr/bin/blueman-applet
 
-
-
-exec_always --no-startup-id /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpapers/default.jpg
+# Set wallpaper
+exec_always --no-startup-id /usr/bin/feh --bg-scale $wallpaper
 
 #bindsym $mod+Insert exec clipmenu
+
+# Widow Colours
+#                       border  background text    indicator
+client.focused          $base01 $base01    $base07 $base0F
+client.focused_inactive $base02 $base02    $base03 $base0F
+client.unfocused        $base02 $base02    $base03 $base0F
+client.urgent           $base02 $base08    $base00 $base0F
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	#font pango: System San Francisco Display, FontAwesome 9
-	font pango: Hack 10
+	
+	font pango: Hack, FontAwesome 10
 
-#        status_command i3status
-        status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
+    status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
 
-        tray_output primary
+    tray_output primary
+    binding_mode_indicator yes
 	position bottom
 	bindsym button4 nop
 	bindsym button5 nop
 
-
 	colors {
-	  separator $base03
-	  background $base01
-	  statusline $base05
-#                            border  background text
+	  separator          $base03
+	  background         $base01
+	  statusline         $base05
+#                        border  background text
 	  focused_workspace  $base01 $base01    $base07
 	  active_workspace   $base01 $base02    $base03
 	  inactive_workspace $base01 $base01    $base03
@@ -396,10 +392,5 @@ bar {
 
 # Enable/disable logging - use i3-dump-log to view
 bindsym $mod+x shmlog toggle
-
-#exec urxvt -name scratchpad_urxvt_top -geometry 180x28
-#for_window [instance="scratchpad_urxvt_top"] move to scratchpad, border 1pixel
-#bindsym Mod1+i exec urxvt -name "scratchpad_urxvt_top" -geometry 180x28 , [instance="scratchpad_urxvt_left"] move to scratchpad, border 1pixel, [instance="scratchpad_urxvt_bottom"] move to scratchpad, border 1pixel, [instance="scratchpad_urxvt_top"] scratchpad show, move position 45px 0px
-#
 
 # vim: ft=i3 fdm=marker fmr=«,»
