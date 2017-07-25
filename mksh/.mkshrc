@@ -23,7 +23,7 @@ export FCEDIT="${EDITOR}"
 export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 
 ## Prompt needs helper include
-PS1=$'\E[31;1m$(_exit_status)\E[0m\E[32;1m$LOGNAME$_POLYGLOT_HOSTNAME_STRING\E[0m \E[34;1m$(_prompt_dirtrim $POLYGLOT_PROMPT_DIRTRIM)\E[0m\E[33m$(_branch_status ksh93)\E[0m \$ \n> '
+PS1=$'\E[31;1m$(_exit_status)\E[0m\E[32;1m$LOGNAME$_POLYGLOT_HOSTNAME_STRING\E[0m \E[34;1m$(_prompt_dirtrim $POLYGLOT_PROMPT_DIRTRIM)\E[0m\E[33m$(_branch_status ksh93)\E[0m\n> '
 
 bind '^L=clear-screen'          # Clear Screen
 bind -m ^U='^[0^K'              # rebind ^U to only the line up to the cursor
@@ -40,3 +40,5 @@ alias rss='newsbeuter'
 alias vimwiki='vim -c +VimwikiIndex'
 
 alias debian="sudo systemd-nspawn -bD /srv/chroot/jessie"
+
+alias mkrole="cookiecutter ssh://git@bitbucket.1and1.org/hbss_ansible_roles/role_skeleton.git --checkout=cookiecutter"
