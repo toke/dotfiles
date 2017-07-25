@@ -155,11 +155,11 @@ set $workspace4 "4: "
 set $workspace5 "5: "
 
 set $workspace6 "6"
-set $workspace7 "7"
+set $workspace7 "7: "
 set $workspace8 "8"
 set $workspace9 "9"
 # Music
-set $workspace10 "10: "
+set $workspace10 "10"
 
 workspace $workspace1 output $display_int
 workspace $workspace2 output $display_left
@@ -197,9 +197,10 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 # Program Workspaces
 
 assign [class="Corebird"] → $workspace1
-assign [class="google-chrome"] → $workspace3
+assign [class="Google-chrome"] → $workspace3
 assign [class="Firefox"] → $workspace3
 assign [class="Atom"] → $workspace4
+assign [class="Code"] → $workspace4
 assign [class="Thunderbird"] → $workspace5
 assign [class="Rhythmbox"] → $workspace10
 
@@ -357,7 +358,11 @@ exec --no-startup-id /usr/bin/redshift-gtk
 exec --no-startup-id /usr/bin/nm-applet
 exec --no-startup-id /usr/bin/rofication-daemon.py
 #exec --no-startup-id /usr/bin/gpg-agent --daemon
- 
+
+exec /usr/bin/blueman-applet
+
+
+
 exec_always --no-startup-id /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpapers/default.jpg
 
 #bindsym $mod+Insert exec clipmenu

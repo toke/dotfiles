@@ -78,10 +78,10 @@ command=if ping -w 5 -c 3 toke.de >/dev/null 2>&1; then echo ""; else echo "<spa
 markup=pango
 interval=27
 
-[MOC]
-command=$SCRIPT_DIR/moc.sh
-instance=40
-interval=10
+#[MOC]
+#command=$SCRIPT_DIR/moc.sh
+#instance=40
+#interval=10
 
 
 #[network]
@@ -95,7 +95,7 @@ interval=10
 #interval=10
 
 [ssid]
-#label=@
+label=
 interval=20
 
 [vpn]
@@ -123,8 +123,6 @@ label=
 full_text=
 command=bash ~/.screenlayout/office.sh
 label=
-
-[seperator]
 
 #[btheadset]
 #interval=60
@@ -159,7 +157,7 @@ interval=2
 label=
 
 [time]
-command=echo "`date +'%d.%m %H:%M'`"
+command=echo "`date +'%m%d %H%M'`"
 interval=1
 label=
 color=#C9CCDB
