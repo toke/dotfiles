@@ -7,10 +7,15 @@ export XKB_DEFAULT_LAYOUT=de,us
 export XKB_DEFAULT_VARIANT=,nodeadkeys
 export XKB_DEFAULT_OPTIONS=grp:alt_shift_toggle
 
+# CAPS->CTRL
+setxkbmap -option ctrl:nocaps
+
 /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 
 #syndaemon -i 1 -t -K -d
 xset -dpms
+
+/usr/bin/xrdb "$HOME/.Xresources"
 
 #/usr/lib/plan9/bin/plumber
 
