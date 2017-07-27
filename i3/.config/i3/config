@@ -348,9 +348,13 @@ exec --no-startup-id /usr/bin/parcellite
 #exec --no-startup-id /usr/bin/clipmenud
 exec --no-startup-id /usr/bin/redshift-gtk
 exec --no-startup-id /usr/bin/nm-applet
-exec --no-startup-id /usr/bin/rofication-daemon.py
-#exec --no-startup-id /usr/bin/gpg-agent --daemon
 exec /usr/bin/blueman-applet
+## Start only notification daemon
+#exec --no-startup-id /usr/bin/rofication-daemon.py
+exec --no-startup-id /usr/bin/dunst
+## Started via .xinitrc or .xsession
+#exec --no-startup-id /usr/bin/gpg-agent --daemon
+
 
 # Set wallpaper
 exec_always --no-startup-id /usr/bin/feh --bg-scale $wallpaper

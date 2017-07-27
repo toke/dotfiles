@@ -212,3 +212,5 @@ if has('viminfo')
         augroup END
     endif
 endif
+
+let g:powerline_pycmd="python3"
