@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source $HOME/.config/i3blocks/scripts/venv/bin/activate
+source $XDG_CONFIG_HOME/i3blocks/scripts/venv/bin/activate
 
-exec ~/.config/i3blocks/scripts/psutil_runner.py
+exec $XDG_CONFIG_HOME/i3blocks/scripts/psutil_runner.py

@@ -1,4 +1,4 @@
 #!/bin/bash
 
-source $HOME/.config/i3blocks/scripts
-exec /home/toke/.config/i3blocks/scripts/octoprint.py
+source $XDG_CONFIG_HOME/i3blocks/scripts
+exec $XDG_CONFIG_HOME/i3blocks/scripts/octoprint.py
