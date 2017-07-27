@@ -72,6 +72,7 @@ blocks:
     # The disk block is an aggregate status of overall filesystem usage.
     - type: disk
       label: " "
+      color: "#71b58e"
       # filesystems is a map of strings to floating point numbers. The strings
       # are the filesystems you want to check, and the numbers are the
       # critical usage percentages for those filesystems.
@@ -81,21 +82,25 @@ blocks:
 
     - type: load
       label: " "
+      color: "#71b58e"
       crit_load: 4
 
     # The memory block displays available memory.
     - type: memory
       label: " "
+      color: "#71b58e"
       crit_mem: 1
 
     - type: temperature
       # cpu_temp_path is the path to the "hwmon" directory of the CPU
       # temperature info.
+      color: "#71b58e"
       cpu_temp_path: /sys/devices/platform/coretemp.0/hwmon
       crit_temp: 65
 
     - type: interface
       label: " "
+      color: "#71b58e"
       interface_name: eno1
       # interface_format is a format string that allows you to specify which
       # interface info to display. The syntax for this string is described here:
@@ -120,11 +125,14 @@ blocks:
 
     - type: wifi
       label: " "
+      color: "#71b58e"
       interface_name: wlp2s0
       crit_quality: 30
 
     - type: battery
       label: " "
+      update_interval: 30
+      color: "#71b58e"
       # The battery number can be found in /sys/class/power_supply/
       battery_number: 0
       crit_battery: 20

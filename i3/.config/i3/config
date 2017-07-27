@@ -370,7 +370,8 @@ bar {
 	
 	font pango: Hack, FontAwesome 10
 
-    status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
+    #status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
+    status_command /home/toke/gocode/bin/goblocks
 
     tray_output primary
     binding_mode_indicator yes
