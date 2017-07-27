@@ -41,7 +41,8 @@ func (c *Counter) sample() CounterP {
 func (c *Counter) getSample() {
 	n, _ := net.IOCounters(true)
 	for _, iface := range n {
-		if iface.Name == "wlp2s0" {
+                //if iface.Name == "wlp2s0" {
+		if iface.Name == "eno1" {
 			c.probe(iface.BytesSent, iface.BytesRecv)
 		}
 	}
