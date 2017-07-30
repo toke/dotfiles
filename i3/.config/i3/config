@@ -80,9 +80,14 @@ popup_during_fullscreen smart
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+#### Key bindings
+
 # start a terminal
 bindsym $mod+Return exec /usr/bin/urxvt -e mksh
 bindsym $mod+Shift+Return exec /usr/bin/urxvt  -e dvtm /usr/bin/fish
+
+# exec term in active directory
+bindsym $mod+b exec ~/bin/termdo
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -282,9 +287,6 @@ bindsym $mod+Shift+s mode "$mode_system"
 # Additionally Binding for lock
 #bindsym $mod+shift+x exec --no-startup-id $Locker
 bindsym $mod+shift+x exec --no-startup-id /usr/bin/i3lock
-
-# exec term in active directory
-bindsym $mod+b exec ~/bin/termdo
 
 
 # Make the currently focused window a scratchpad
