@@ -9,8 +9,9 @@ import webbrowser
 
 requests.packages.urllib3.disable_warnings()
 
+CONFIG_FILE = os.path.expanduser("~/.config/octoclient/config.yml")
 
-with open("/home/toke/.octoprint.yml", 'r') as stream:
+with open(CONFIG_FILE, 'r') as stream:
     try:
         config = yaml.safe_load(stream)
     except yaml.YAMLError as exc:
