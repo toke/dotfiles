@@ -7,7 +7,6 @@ import requests
 import yaml
 import webbrowser
 
-requests.packages.urllib3.disable_warnings()
 
 CONFIG_FILE = os.path.expanduser("~/.config/octoclient/config.yml")
 
@@ -28,13 +27,12 @@ if 'BLOCK_BUTTON' in os.environ and os.environ['BLOCK_BUTTON'] == "1":
     w = webbrowser.get('firefox')
     w.open(pconfig["baseUrl"])
 
-headers = {"X-Api-Key": pconfig["apiKey"]}
 if "basicAuth" in pconfig:
     auth = (pconfig["basicAuth"]["user"], pconfig["basicAuth"]["pass"])
-r = requests.get(pconfig["url"], auth=auth, headers=headers, verify=False)
+headers = {"X-Api-Key": pconfig["apiKey"]}
+r = requests.get(pconfig["url"], auth=auth, headers=headers, verify=True)
 
 res = r.json()
-
 
 etl = time.strftime('%H:%M:%S', time.gmtime(res['progress']['printTimeLeft']))
 if res['state'] == 'Printing':
@@ -47,6 +45,6 @@ res['progress']['icon'] = icon
 
 i3block = {}
 i3block['label'] = icon
-i3block['full_text'] = '{progress[icon]} {progress[completion]:.03n}% {progress[etl]}'.format(**res)
-i3block['short_text'] = '{progress[icon]} {progress[completion]:.03n}%'.format(**res)
+i3block['full_text'] = '{progress[icon]} {progress[completion]:.01f}% {progress[etl]}'.format(**res)
+i3block['short_text'] = '{progress[icon]} {progress[completion]:.01f}%'.format(**res)
 print(json.dumps(i3block, ensure_ascii=False))
