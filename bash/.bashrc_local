@@ -1,84 +1,9 @@
+#!/usr/bin/bash
 #
 # ~/.bashrc_local to be included in .bashrc
 #
 
-## Files to be included
-HELPER_INC="$HOME/.bash/helper.bash $HOME/.bash/multimedia.sh $HOME/.bash_aliases $HOME/.bash/bitbucket.bash"
+source "${HOME}/.bash/env"
 
-## Include helper
-for inc in $HELPER_INC ; do
-	if [ -e "$inc" ] ; then
-		source "$inc"
-	else
-		echo "Something is wrong, I need includes and \`$inc\` is missing."
-		echo "Errors may follow."
-	fi
-done
-unset -v inc
-
-## Local bin folders
-[[ -e $HOME/bin ]] && PATH=$PATH:$HOME/bin
-[[ -e $HOME/.local/bin ]] && PATH=$PATH:$HOME/.local/bin
-[[ -e $HOME/.gem/ruby/2.4.0/bin ]] && PATH=$PATH:$HOME/.gem/ruby/2.4.0/bin
-
-## Setup Java
-[[ -e /opt/jdk/bin/ ]] && export PATH="$PATH:/opt/jdk/bin/"
-
-## Setup GO
-[[ -e $HOME/gocode ]] && export GOPATH=$HOME/gocode
-[[ -e $HOME/gocode/bin ]] && export PATH=$HOME/gocode/bin:$PATH
-
-## Setup Python stuff
-# I used to create a virtualenv default-py2 and a default-py3
-# to manage my local default environments for python2 and python3
-# to create one I do `mkvirtualenv -p /usr/bin/python2 default-py2`
-command -v virtualenvwrapper.sh > /dev/null && \
-	source $(command -v virtualenvwrapper.sh)
-
-#workon default || echo "No Virtualenv configured" 
-[[ -d "$HOME/py" ]] && export PROJECT_HOME="${HOME}/py"
-
-
-
-## Setup Shell Prompt
-if [[ -d $HOME/.bash/liquidprompt/liquidprompt ]] ; then
-    #[[ $- = *i* ]] && source $HOME/.bash/liquidprompt/liquidprompt
-    export PROMPT_DIRTRIM=3
-fi
-
-export HISTSIZE=100000
-export HISTTIMEFORMAT="%F %T "
-export HISTCONTROL=ignoreboth:erasedups
-
-EDITOR=/usr/bin/nvim
-
-# Set environment for pip + requests to find combined root CA certs
-export PIP_CERT="/etc/ssl/certs/ca-certificates.crt"
-export REQUESTS_CA_BUNDLE="$PIP_CERT"
-
-
-alias pass='PASSWORD_STORE_ENABLE_EXTENSIONS=true pass'
-
-
+[[ $- == *i* ]] && source "${HOME}/.bash/interactive"
 [[ -e "$HOME/.bashrc_$(hostname -s)" ]] && source "$HOME/.bashrc_$(hostname -s)"
-
-
-GPG_TTY=$(tty)
-export GPG_TTY
-unset SSH_AGENT_PID
-if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-fi
-
-
-#if [[ -e /usr/bin/envoy ]] ; then
-#    envoy -t ssh-agent
-#    eval "$(envoy -p)"
-#fi
-#if [[ -e /usr/share/fzf/key-bindings.bash ]] ; then
-#   . /usr/share/fzf/key-bindings.bash
-#fi
-
-if [[ -e $HOME/.bash_completion.d/ ]] ; then
-    source $HOME/.bash_completion.d/*
-fi

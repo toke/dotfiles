@@ -1,0 +1,14 @@
+## Environment settings for all kind of modes
+## Environments used only in interactive shells have to be
+## put in ./interactive! An example for this is PS1.
+
+export MAIL="thomas@kerpe.net"
+export EDITOR=/usr/bin/vim
+export FCEDIT="${EDITOR}"
+export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+
+## Setup GO
+[[ -e $HOME/gocode ]] && export GOPATH="$HOME/gocode"
+[[ -e $HOME/gocode/bin ]] && export PATH="$HOME/gocode/bin:$PATH"
+
+[[ -d $HOME/bin ]] && export PATH="$HOME/bin:$PATH"

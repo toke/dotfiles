@@ -1,0 +1,34 @@
+#!/usr/bin/env mksh
+## Configuration for interactive shells only!
+## Most likely aliases, Prompts and key bindings
+
+## Prompt needs helper include
+source "${HOME}/.mksh/helper.mksh"
+PS1=$'\E[31;1m$(_exit_status)\E[0m\E[32;1m$LOGNAME$_POLYGLOT_HOSTNAME_STRING\E[0m \E[34;1m$(_prompt_dirtrim $POLYGLOT_PROMPT_DIRTRIM)\E[0m\E[33m$(_branch_status ksh93)\E[0m\n> '
+
+## Enable history
+export HISTSIZE=10000
+export HISTFILE="$HOME/.local/data/mksh/history"
+
+## Key bindings
+bind '^L=clear-screen'          # Clear Screen
+bind -m ^U='^[0^K'              # rebind ^U to only the line up to the cursor
+
+## Aliases
+alias ls="ls --color"
+alias ll="ls -lsa"
+alias lstimer='systemctl list-timers'
+alias http_serv='/usr/bin/python3 -m http.server 8082'
+
+alias zeus='dig +noall +answer @zeusmw.tool.1and1.com'
+alias pepe='perl -pe'
+alias ppaste='curl -F c=@- https://ptpb.pw/'
+alias rss='newsbeuter'
+alias vimwiki='vim -c +VimwikiIndex'
+alias 1pass='PASSWORD_STORE_DIR=$HOME/.password-store-1und1 PASSWORD_STORE_GIT=$HOME/.password-store-1und1 pass'
+
+alias debian="sudo systemd-nspawn -bD /srv/chroot/jessie"
+
+alias mkrole="cookiecutter ssh://git@bitbucket.1and1.org/hbss_ansible_roles/role_skeleton.git --checkout=cookiecutter"
+
+alias coa="coa -c /home/toke/.config/coa/"

@@ -1,47 +1,17 @@
 #!/usr/bin/mksh
 
-source $HOME/.mksh/helper.mksh
+MKHOME="${HOME}/.mksh"
+source "${MKHOME}/helper.mksh"
+source "${MKHOME}/env"
 
 ## Function lookup path
-[[ -e "$HOME/.mksh/func.d" ]] && export FPATH="$HOME/.mksh/func.d"
+[[ -e "${MKHOME}/func.d" ]] && export FPATH="${MKHOME}/func.d"
 
 ## Create data dir if not existent
 [[ ! -e  $HOME/.local/data/mksh ]] && mkdir -p "$HOME/.local/data/mksh"
 
-## Enable history
-HISTSIZE=10000
-HISTFILE="$HOME/.local/data/mksh/history"
-
-## Setup GO
-[[ -e $HOME/gocode ]] && export GOPATH="$HOME/gocode"
-[[ -e $HOME/gocode/bin ]] && export PATH="$HOME/gocode/bin:$PATH"
-
-[[ -d $HOME/bin ]] && export PATH="$HOME/bin:$PATH"
-
-export EDITOR=/usr/bin/vim
-export FCEDIT="${EDITOR}"
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-
-## Prompt needs helper include
-PS1=$'\E[31;1m$(_exit_status)\E[0m\E[32;1m$LOGNAME$_POLYGLOT_HOSTNAME_STRING\E[0m \E[34;1m$(_prompt_dirtrim $POLYGLOT_PROMPT_DIRTRIM)\E[0m\E[33m$(_branch_status ksh93)\E[0m\n> '
-
-bind '^L=clear-screen'          # Clear Screen
-bind -m ^U='^[0^K'              # rebind ^U to only the line up to the cursor
-
-alias ls="ls --color"
-alias ll="ls -lsa"
-alias lstimer='systemctl list-timers'
-alias http_serv='/usr/bin/python3 -m http.server 8082'
-
-alias zeus='dig +noall +answer @zeusmw.tool.1and1.com'
-alias pepe='perl -pe'
-alias ppaste='curl -F c=@- https://ptpb.pw/'
-alias rss='newsbeuter'
-alias vimwiki='vim -c +VimwikiIndex'
-alias 1pass='PASSWORD_STORE_DIR=$HOME/.password-store-1und1 PASSWORD_STORE_GIT=$HOME/.password-store-1und1 pass'
-
-alias debian="sudo systemd-nspawn -bD /srv/chroot/jessie"
-
-alias mkrole="cookiecutter ssh://git@bitbucket.1and1.org/hbss_ansible_roles/role_skeleton.git --checkout=cookiecutter"
-
-alias coa="coa -c /home/toke/.config/coa/"
+case "$-" in
+  *i*)
+    source "${MKHOME}/interactive"
+    ;;
+esac
