@@ -128,9 +128,8 @@ read_and_review (){
 alias rnr=read_and_review
 
 
-
-if [[ -e $HOME/.bash_completion.d/ ]] ; then
-    source $HOME/.bash_completion.d/*
+if [[ -e $BASHCFG/completion.d/ ]] ; then
+    source $BASHCFG/completion.d/*
 fi
 
 
