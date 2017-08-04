@@ -1,0 +1,19 @@
+
+
+h=$home
+history=$h/.local/data/rc/history
+
+cdpath=($home $home/git)
+
+#prompt=$PWD^'$ '
+
+
+#-------
+# Tell me automatically when a command has a nonzero status.
+#-------
+fn prompt	\
+{
+	Status = $status
+	~ $Status 0 || echo '[status '$Status']'
+        pwd
+}
