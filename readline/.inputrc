@@ -5,7 +5,7 @@ set editing-mode vi
 set completion-ignore-case on
 
 # Show mode 
-set show-mode-in-prompt on
+#set show-mode-in-prompt on
 
 ###########################################################
 # Keymaps for when we're in command mode (e.g., after hitting ESC)

@@ -6,6 +6,8 @@ export HISTSIZE=100000
 export HISTTIMEFORMAT="%F %T "
 export HISTCONTROL=ignoreboth:erasedups
 
+CDPATH="$HOME:$HOME/git"
+
 PS1='[\u@\h \W]\$ '
 
 ## Files to be included
