@@ -1,0 +1,5 @@
+#!/usr/bin/env mksh
+
+function mkd() {
+    mkdir -p "$@" && cd "$@"
+}
