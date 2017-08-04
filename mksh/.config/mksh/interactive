@@ -3,7 +3,7 @@
 ## Most likely aliases, Prompts and key bindings
 
 ## Prompt needs helper include
-source "${HOME}/.mksh/helper.mksh"
+source "${XDG_CONFIG_HOME}/mksh/helper.mksh"
 PS1=$'\E[31;1m$(_exit_status)\E[0m\E[32;1m$LOGNAME$_POLYGLOT_HOSTNAME_STRING\E[0m \E[34;1m$(_prompt_dirtrim $POLYGLOT_PROMPT_DIRTRIM)\E[0m\E[33m$(_branch_status ksh93)\E[0m\n> '
 
 ## Enable history

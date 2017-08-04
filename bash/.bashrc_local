@@ -3,7 +3,7 @@
 # ~/.bashrc_local to be included in .bashrc
 #
 
-source "${HOME}/.bash/env"
+source "${HOME}/.config/bash/env"
 
-[[ $- == *i* ]] && source "${HOME}/.bash/interactive"
+[[ $- == *i* ]] && source "${HOME}/.config/bash/interactive"
 [[ -e "$HOME/.bashrc_$(hostname -s)" ]] && source "$HOME/.bashrc_$(hostname -s)"

@@ -9,7 +9,8 @@ export HISTCONTROL=ignoreboth:erasedups
 PS1='[\u@\h \W]\$ '
 
 ## Files to be included
-HELPER_INC="$HOME/.bash/helper.bash $HOME/.bash/multimedia.sh $HOME/.bash_aliases $HOME/.bash/bitbucket.bash"
+BASHCFG="$HOME/.config/bash"
+HELPER_INC="$BASHCFG/helper.bash $BASHCFG/multimedia.sh $HOME/.bash_aliases $BASHCFG/bitbucket.bash"
 ## Include helper
 for inc in $HELPER_INC ; do
 	if [ -e "$inc" ] ; then
@@ -126,11 +127,6 @@ read_and_review (){
 
 alias rnr=read_and_review
 
-## Setup Shell Prompt
-if [[ -d $HOME/.bash/liquidprompt/liquidprompt ]] ; then
-    #[[ $- = *i* ]] && source $HOME/.bash/liquidprompt/liquidprompt
-    export PROMPT_DIRTRIM=3
-fi
 
 
 if [[ -e $HOME/.bash_completion.d/ ]] ; then

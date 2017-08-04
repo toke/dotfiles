@@ -1,8 +1,7 @@
 #!/usr/bin/mksh
 
-MKHOME="${HOME}/.mksh"
-source "${MKHOME}/helper.mksh"
-source "${MKHOME}/env"
+MKHOME="${XDG_CONFIG_HOME}/mksh"
+[[ -e "${MKHOME}/env" ]] && source "${MKHOME}/env"
 
 ## Function lookup path
 [[ -e "${MKHOME}/func.d" ]] && export FPATH="${MKHOME}/func.d"
