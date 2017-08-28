@@ -10,7 +10,7 @@ PS1=$'\E[31;1m$(_exit_status)\E[0m\E[32;1m$LOGNAME$_POLYGLOT_HOSTNAME_STRING\E[0
 export HISTSIZE=10000
 export HISTFILE="$HOME/.local/data/mksh/history"
 
-CDPATH="$HOME:$HOME/git"
+CDPATH=".:$HOME:$HOME/git"
 
 ## Key bindings
 bind '^L=clear-screen'          # Clear Screen
