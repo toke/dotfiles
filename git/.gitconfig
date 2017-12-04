@@ -9,6 +9,7 @@
 	default = current
 [core]
 	excludesfile = ~/.config/git/core/gitignore
+	quotepath = false
 [deploy]
         config-file = ~/git-deploy/git-deploy.ini
 [i18n]
