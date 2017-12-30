@@ -1,6 +1,6 @@
 #!/usr/bin/mksh
 
-MKHOME="${XDG_CONFIG_HOME}/mksh"
+MKHOME="${XDG_CONFIG_HOME-$HOME/.config}/mksh"
 [[ -e "${MKHOME}/env" ]] && source "${MKHOME}/env"
 
 ## Function lookup path
