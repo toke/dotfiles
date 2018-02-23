@@ -127,8 +127,17 @@ let g:scratch_filetype = 'markdown'
 "let g:scratch_persistence_file = '.vim_scratch'
 
 
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'template_path': '~/vimwiki/templates/', 'template_default': 'default', 'template_ext': '.tpl',
-            \ 'syntax': 'markdown', 'ext': '.wiki', 'custom_wiki2html': '/home/toke/.gem/ruby/2.3.0/bin/vimwiki_markdown'}]
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'template_path': '~/vimwiki/templates/',
+    \ 'template_default': 'default', 'template_ext': '.tpl',
+    \ 'syntax': 'markdown', 'ext': '.md'}]
+
+" vimwiki with markdown support
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown',
+    \ '.mdown': 'markdown', 'path': '~/vimwiki/', 'ext': '.md'}
+
+let g:instant_markdown_autostart = 0	" disable autostart
+map <leader>md :InstantMarkdownPreview<CR>
+
 
 
 " Emnet
