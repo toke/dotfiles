@@ -25,7 +25,8 @@ alias http_serv='/usr/bin/python3 -m http.server 8082'
 alias zeus='dig +noall +answer @zeusmw.tool.1and1.com'
 alias pepe='perl -pe'
 alias ppaste='curl -F c=@- https://ptpb.pw/'
-alias rss='newsbeuter'
+alias rss='newsboat'
+alias irc='weechat-curses'
 alias vimwiki='(cd $HOME/vimwiki ; vim -c +VimwikiIndex)'
 alias 1pass='PASSWORD_STORE_DIR=$HOME/.password-store-1und1 PASSWORD_STORE_GIT=$HOME/.password-store-1und1 pass'
 
@@ -34,3 +35,5 @@ alias debian="sudo systemd-nspawn -bD /srv/chroot/jessie"
 alias mkrole="cookiecutter ssh://git@bitbucket.1and1.org/hbss_ansible_roles/role_skeleton.git --checkout=cookiecutter"
 
 alias coa="coa -c /home/toke/.config/coa/"
+alias ssh='TERM=xterm ssh'
+
