@@ -4,7 +4,7 @@
 #
 # Executed by startx (run your window manager from here)
 export XKB_DEFAULT_LAYOUT=de,us
-export XKB_DEFAULT_VARIANT=,nodeadkeys
+export XKB_DEFAULT_VARIANT=nodeadkeys
 export XKB_DEFAULT_OPTIONS=grp:alt_shift_toggle
 
 # CAPS->CTRL
