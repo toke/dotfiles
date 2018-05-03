@@ -63,20 +63,20 @@ interval=107
 ##min_width=X 9999KiB X 9999KiB
 #align=right
 
-[internet]
-command=if ping -w 5 -c 3 8.8.8.8 >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>I</span>"; fi
-markup=pango
-interval=20
+#[internet]
+#command=if ping -w 5 -c 3 8.8.8.8 >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>I</span>"; fi
+#markup=pango
+#interval=20
 
-[internethome]
-command=if ping -w 5 -c 3 46.237.231.74 >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>H</span>"; fi
-markup=pango
-interval=21
+#[internethome]
+#command=if ping -w 5 -c 3 46.237.231.74 >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>H</span>"; fi
+#markup=pango
+#interval=21
 
-[internethome]
-command=if ping -w 5 -c 3 toke.de >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>T</span>"; fi
-markup=pango
-interval=27
+#[internethome]
+#command=if ping -w 5 -c 3 toke.de >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>T</span>"; fi
+#markup=pango
+#interval=27
 
 #[MOC]
 #command=$SCRIPT_DIR/moc.sh
