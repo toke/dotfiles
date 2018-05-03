@@ -306,7 +306,7 @@ client.urgent           $base02 $base08    $base00 $base0F
 ##
 # Execs
 #  use exec and exec_always
-exec /usr/bin/xrdb -load ~/.Xresources
+#exec /usr/bin/xrdb -load ~/.Xresources
 #exec /usr/bin/urxvtd -q -f -o
 #exec /usr/bin/pidgin
 #exec /usr/bin/feh --bg-scale /home/toke/Pictures/Wallpapers/default.jpg
@@ -318,7 +318,9 @@ bar {
 	font pango: System San Francisco Display, FontAwesome 11
 
 #        status_command i3status
-        status_command i3blocks
+    #    status_command i3blocks
+
+    status_command /home/toke/src/barista/toke-bar
 
 	position bottom
 # strip_workspace_Numbers yes
