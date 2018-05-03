@@ -83,7 +83,8 @@ floating_modifier $mod
 #### Key bindings
 
 # start a terminal
-bindsym $mod+Return exec /usr/bin/urxvt -e mksh
+#bindsym $mod+Return exec /usr/bin/urxvt -e mksh
+bindsym $mod+Return exec /usr/bin/termite -e mksh
 bindsym $mod+Shift+Return exec /usr/bin/urxvt  -e dvtm /usr/bin/fish
 
 # exec term in active directory
@@ -374,10 +375,11 @@ client.urgent           $base02 $base08    $base00 $base0F
 # finds out, if available)
 bar {
 	
-	font pango: Hack, FontAwesome 10
+	font pango: Hack, Font Awesome, Typicons, Material Icons 10
 
+    status_command /home/toke/src/barista/toke-bar
     #status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
-    status_command /home/toke/gocode/bin/goblocks
+    #status_command /home/toke/gocode/bin/goblocks
 
     tray_output primary
     binding_mode_indicator yes
