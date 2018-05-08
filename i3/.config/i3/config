@@ -227,6 +227,7 @@ for_window [window_role="task_dialog"] floating enable
 for_window [title="Preferences$"] floating enable
 for_window [title="taskwin"] floating enable
 
+for_window [class="gcr-prompter"] floating_enabled focus
 
 # Pidgin stuff
 assign [class="^Pidgin$"] → $workspace1
