@@ -22,6 +22,10 @@ alias ll="ls -lsa"
 alias lstimer='systemctl list-timers'
 alias http_serv='/usr/bin/python3 -m http.server 8082'
 
+alias nv='nvim'
+alias exa='exa --git -lgH'
+alias e=exa
+
 alias zeus='dig +noall +answer @zeusmw.tool.1and1.com'
 alias pepe='perl -pe'
 alias ppaste='curl -F c=@- https://ptpb.pw/'
