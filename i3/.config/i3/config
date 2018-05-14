@@ -84,7 +84,8 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec /usr/bin/urxvt -e mksh
-bindsym $mod+Return exec /usr/bin/termite -e mksh
+#bindsym $mod+Return exec /usr/bin/termite -e mksh
+bindsym $mod+Return exec /usr/bin/kitty -e mksh
 bindsym $mod+Shift+Return exec /usr/bin/urxvt  -e dvtm /usr/bin/fish
 
 # exec term in active directory
