@@ -40,5 +40,8 @@ alias debian="sudo systemd-nspawn -bD /srv/chroot/jessie"
 alias mkrole="cookiecutter ssh://git@bitbucket.1and1.org/hbss_ansible_roles/role_skeleton.git --checkout=cookiecutter"
 
 alias coa="coa -c /home/toke/.config/coa/"
-alias ssh='TERM=xterm ssh'
+
+alias sshx='TERM=xterm ssh'
+
+alias icat='kitty icat'
 
