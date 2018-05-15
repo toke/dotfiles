@@ -4,3 +4,6 @@
 [submodule "mutt/.mutt/colors-solarized"]
 	path = mutt/.mutt/colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized.git
+[submodule "vim/.vim/pack/plugins/start/vimwiki"]
+	path = vim/.vim/pack/plugins/start/vimwiki
+	url = https://github.com/vimwiki/vimwiki.git
