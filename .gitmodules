@@ -1,9 +1,24 @@
-[submodule "vim/.vim/bundle/Vundle.vim"]
-	path = vim/.vim/bundle/Vundle.vim
-	url = https://github.com/VundleVim/Vundle.vim.git
 [submodule "mutt/.mutt/colors-solarized"]
 	path = mutt/.mutt/colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized.git
 [submodule "vim/.vim/pack/plugins/start/vimwiki"]
 	path = vim/.vim/pack/plugins/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki.git
+[submodule "vim/.vim/pack/plugins/start/vim-airline"]
+	path = vim/.vim/pack/plugins/start/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
+[submodule "vim/.vim/pack/themes/opt/solarized8"]
+	path = vim/.vim/pack/themes/opt/solarized8
+	url = https://github.com/lifepillar/vim-solarized8.git
+[submodule "vim/.vim/pack/plugins/start/vim-airline-themes"]
+	path = vim/.vim/pack/plugins/start/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
+[submodule "vim/.vim/pack/plugins/start/nerdtree"]
+	path = vim/.vim/pack/plugins/start/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "vim/.vim/pack/plugins/start/fugitive"]
+	path = vim/.vim/pack/plugins/start/fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "vim/.vim/pack/plugins/start/tagbar"]
+	path = vim/.vim/pack/plugins/start/tagbar
+	url = https://github.com/majutsushi/tagbar.git

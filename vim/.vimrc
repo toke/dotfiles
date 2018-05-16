@@ -1,9 +1,12 @@
 " Basic Vimrc
 
+":packadd vimwiki
 
 set nocompatible   " Don't behave like vi
 
-filetype off " when file types are on before plugins are loaded stuff happens
+filetype indent plugin on
+syntax on
+set termguicolors
 
 set encoding=utf-8 " UTF-8 is my default text encoding.
 set scrolloff=5    " scroll within n lines ow window edge
@@ -59,66 +62,14 @@ set foldmethod=syntax
 set foldcolumn=1
 set foldlevelstart=20
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-    " let Vundle manage Vundle, required
-    Plugin 'VundleVim/Vundle.vim'
-
-    Plugin 'bling/vim-airline'
-    Plugin 'vim-airline/vim-airline-themes'
-    Plugin 'altercation/vim-colors-solarized'
-
-    Plugin 'fsouza/go.vim'
-    Plugin 'wting/rust.vim'
-    Plugin 'elzr/vim-json'
-    Plugin 'posva/vim-vue'
-    Plugin 'PotatoesMaster/i3-vim-syntax'
-    Plugin 'plasticboy/vim-markdown'
-    Plugin 'ap/vim-css-color'
-    Plugin 'pearofducks/ansible-vim'
-    Plugin 'vim-scripts/vim-vagrant'
-
-    Plugin 'neomake/neomake'
-    Plugin 'godlygeek/tabular'
-    Plugin 'mtth/scratch.vim'
-    Plugin 'xolox/vim-misc'
-    Plugin 'xolox/vim-easytags'
-    Plugin 'majutsushi/tagbar'
-    Plugin 'scrooloose/nerdtree'
-
-    Plugin 'tpope/vim-fugitive'
-    Plugin 'editorconfig/editorconfig-vim'
-    Plugin 'mattn/emmet-vim'
-    Plugin 'christoomey/vim-tmux-navigator'
-    Plugin 'scrooloose/syntastic'
-    Plugin 'vimwiki'
-
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-"
-syntax on
 
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_frontmatter = 1
 
 " Enable Powerline fonts for airline
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
 let g:airline_powerline_fonts = 1
-let g:airline_theme='distinguished'
 
 " Scratch splits the current window in half
 let g:scratch_height = 0.50
@@ -127,7 +78,7 @@ let g:scratch_filetype = 'markdown'
 "let g:scratch_persistence_file = '.vim_scratch'
 
 
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'template_path': '~/vimwiki/templates/',
+let g:vimwiki_list = [{'path': '~/doc/vimwiki/', 'template_path': '~/doc/vimwiki/templates/',
     \ 'template_default': 'default', 'template_ext': '.tpl',
     \ 'syntax': 'markdown', 'ext': '.md'}]
 
@@ -155,13 +106,11 @@ nnoremap tn  :tabnext<Space>
 
 
 "======Solarized theme============
-syntax on
-syntax enable
 let g:solarized_termtrans = 1
 set background=dark
 set t_Co=256
 let g:solarized_termcolors=256
-colorscheme solarized
+colorscheme solarized8
 
 " Enable mouse support
 if has('mouse')
@@ -223,3 +172,4 @@ if has('viminfo')
 endif
 
 let g:powerline_pycmd="python3"
+
