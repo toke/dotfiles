@@ -3,9 +3,11 @@
 ## put in ./interactive! An example for this is PS1.
 
 export MAIL="thomas@kerpe.net"
-export EDITOR=/usr/bin/vim
-export FCEDIT="${EDITOR}"
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+
+command -v vim > /dev/null && export EDITOR=/usr/bin/vim 
+if [ -n "$EDITOR" ] ; then  export FCEDIT="${EDITOR}" ; fi
+
+command -v gpgconf && export SSH_AUTH_SOCK="$(/usr/bin/env gpgconf --list-dirs agent-ssh-socket)"
 
 ## Setup GO
 [[ -e $HOME/gocode ]] && export GOPATH="$HOME/gocode"
