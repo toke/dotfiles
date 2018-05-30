@@ -4,6 +4,9 @@ set editing-mode vi
 # Ignore case
 set completion-ignore-case on
 
+# enable braketet paste mode
+set enable-bracketed-paste on
+
 # Show mode 
 #set show-mode-in-prompt on
 

@@ -1,5 +1,5 @@
 
-./.xsession
+$HOME/.xsession
 
 # exec xterm
 # exec gnome-session

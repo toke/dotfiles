@@ -75,6 +75,10 @@
 [url "ssh://git@github.com/"]
         insteadOf = github:
 
+[url "git@github.com:"]
+	pushInsteadOf = "git://github.com/"
+	pushInsteadOf = "https://github.com/"
+
 [url "ssh://git@bitbucket.1and1.org/deleng_systems/"]
         insteadOf = systems:
 

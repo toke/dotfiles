@@ -377,9 +377,9 @@ client.urgent           $base02 $base08    $base00 $base0F
 # finds out, if available)
 bar {
 	
-	font pango: Hack, Font Awesome, Typicons, Material Icons 10
+    font pango: Hack, Font Awesome, Typicons, Material Icons 10
 
-    status_command /home/toke/src/barista/toke-bar
+    status_command /home/toke/gocode/bin/mybarista
     #status_command SCRIPT_DIR=~/.config/i3blocks/scripts i3blocks
     #status_command /home/toke/gocode/bin/goblocks
 
