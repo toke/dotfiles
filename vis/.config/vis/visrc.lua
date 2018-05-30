@@ -2,6 +2,7 @@
 require('vis')
 require('plugins/vis-ctags/ctags')
 require('plugins/vis-fzf-open/fzf-open')
+require('plugins/vis-modelines/vis-modelines')
 
 vis.events.subscribe(vis.events.INIT, function()
     -- Your global configuration options
