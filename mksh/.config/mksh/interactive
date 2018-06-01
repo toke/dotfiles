@@ -45,3 +45,4 @@ alias sshx='TERM=xterm ssh'
 
 alias icat='kitty icat'
 
+export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
