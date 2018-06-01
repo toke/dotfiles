@@ -1,13 +1,17 @@
 # My Setup regarding to this Dotfiles
 
 
-Used Software
+Used Software and preferences.
+
+I endorse the [suckless](https://suckless.org) project.
+For my daily activities I try to avoid bloated software but
+sometimes it's not that easy.
 
 ## OS
 
-* [Arch Linux](https://www.archlinux.org)
-* [Debian GNU Linux](https://debian.org)
-* [Alpine Linux](https://alpinelinux.org)
+* [Arch Linux](https://www.archlinux.org) Laptops, main development Machines.
+* [Debian GNU Linux](https://debian.org) Running on most of the servers.
+* [Alpine Linux](https://alpinelinux.org) Some machines.
 
 ## GUI
 
@@ -36,7 +40,8 @@ Used Software
 *   [vis](https://github.com/martanne/vis) Trying to replace vim completely
 *   [tmux](https://tmux.github.io/)
 *   [git](http://www.git-scm.com)
-*   [mutt](http://www.mutt.org/)
+*   [mutt](http://www.mutt.org/) Mail Client
+*   [irssi](https://irssi.org/) IRC Client
 *   [pass](https://www.passwordstore.org/) (Password Manager)
 *   [clipmenu](https://github.com/cdown/clipmenu) (clipboard "Manager")
 *   [Taskwarrior](https://taskwarrior.org/)
@@ -44,4 +49,4 @@ Used Software
 *   [newsboat](https://newsboat.org/) (RSS Feed Aggregator / Reader)
 *   [ranger](https://ranger.github.io/) (File manager)
 *   [ansible](https://www.ansible.com) 
-
+*   [tor](https://www.torproject.org) Anonymity Online - I use it as a way to reach all my hosts via ssh.
