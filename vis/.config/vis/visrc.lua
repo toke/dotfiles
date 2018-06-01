@@ -1,11 +1,16 @@
 -- load standard vis module, providing parts of the Lua API
 require('vis')
 require('plugins/vis-ctags/ctags')
-require('plugins/vis-fzf-open/fzf-open')
 require('plugins/vis-modelines/vis-modelines')
+plugin_vis_open = require('plugins/vis-fzf-open/fzf-open')
 
 vis.events.subscribe(vis.events.INIT, function()
     -- Your global configuration options
+
+    -- Path to the fzf executable (default: "fzf")
+    -- plugin_vis_open.fzf_path = "fzf"
+    -- Arguments passed to fzf (default: "")
+    -- plugin_vis_open.fzf_args = "-q '!.class '"
 end)
 
 vis.events.subscribe(vis.events.WIN_OPEN, function(win)
