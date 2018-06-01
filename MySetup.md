@@ -17,6 +17,7 @@ Used Software
 *   [compton](https://github.com/chjj/compton "Compton is a compositor for X")
 *   [DeaDBeeF](http://deadbeef.sourceforge.net/ "Music Player")
 *   [feh](https://feh.finalrewind.org/ "feh is an X11 image viewer aimed mostly at console users")
+*   [imv](https://github.com/exec64/imv "mv - X11/Wayland Image Viewer")
 *   [ZATHURA](https://pwmt.org/projects/zathura/ "zathura is a highly customizable and functional document viewer.")
 
 ## Shell
@@ -33,7 +34,7 @@ Used Software
 *   [mutt](http://www.mutt.org/)
 *   [pass](https://www.passwordstore.org/) (Password Manager)
 *   [clipmenu](https://github.com/cdown/clipmenu) (clipboard "Manager")
+*   [Taskwarrior](https://taskwarrior.org/)
 *   Timewarrior
-*   Taskwarrior
-*   newsboat (RSS Feed Aggregator / Reader)
-*   ranger (File manager)
+*   [newsboat](https://newsboat.org/) (RSS Feed Aggregator / Reader)
+*   [ranger](https://ranger.github.io/) (File manager)
