@@ -28,8 +28,9 @@ when ths checkout lives in `$HOME/.dotfiles` and you are in it and run
 
 ### Vim Config (vim)
 
-I use [Vundle.vim][vundle] to manage vim plugins. These Plugins are not
-part of this repository (Vundle.vim is indeed a submodule).
+I use [Vundle.vim][vundle] to manage vim plugins. I moved from git submodules to git
+subtrees. So the old approach of using submodules is deprecated - see Vis config for an
+example.
 To reflect changes or initial use your Vim plugins run
 `vim +PluginInstall`. Thats it.
 
