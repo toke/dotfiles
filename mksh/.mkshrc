@@ -14,3 +14,5 @@ case "$-" in
     source "${MKHOME}/interactive"
     ;;
 esac
+
+[[ -e /etc/profile.d/plan9.sh ]] && source /etc/profile.d/plan9.sh

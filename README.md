@@ -28,12 +28,33 @@ when ths checkout lives in `$HOME/.dotfiles` and you are in it and run
 
 ### Vim Config (vim)
 
-I use [Vundle.vim][vundle] to manage vim plugins. These Plugins are not
-part of this repository (Vundle.vim is indeed a submodule).
+I use [Vundle.vim][vundle] to manage vim plugins. I moved from git submodules to git
+subtrees. So the old approach of using submodules is deprecated - see [Vis config](#vis-config)
+for an example.
 To reflect changes or initial use your Vim plugins run
 `vim +PluginInstall`. Thats it.
+
+
+### Vis config
+
+I started using git subtree in the [vis][vis] config for plugins. I used the following approach:
+
+```sh
+git remote add -f vis-surround https://gitserver/user/vis-surround.git
+git subtree add --prefix vis/.config/vis/plugins/vis-surround vis-surround master --squash
+```
+
+Then I added the require lines in [visrc.lua](vis/.config/vis/visrc.lua).
+
+The command to update the sub-project at a later date becomes:
+
+```sh
+git fetch vis-surround master
+git subtree pull --prefix vis/.config/vis/plugins/vis-surround vis-surround master --squash
+```
 
 
 [stow]: https://www.gnu.org/software/stow/
 [editorconfig]: http://editorconfig.org/
 [vundle]: https://github.com/VundleVim/Vundle.vim
+[vis]: https://github.com/martanne/vis

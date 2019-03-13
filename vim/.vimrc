@@ -84,7 +84,9 @@ let g:vimwiki_list = [{'path': '~/doc/vimwiki/', 'template_path': '~/doc/vimwiki
 
 " vimwiki with markdown support
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown',
-    \ '.mdown': 'markdown', 'path': '~/vimwiki/', 'ext': '.md'}
+    \ '.mdown': 'markdown'}
+let g:vimwiki_auto_chdir = 1
+
 
 let g:instant_markdown_autostart = 0	" disable autostart
 map <leader>md :InstantMarkdownPreview<CR>

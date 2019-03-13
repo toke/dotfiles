@@ -2,7 +2,7 @@
 "query:work Articles:tags # \"Work\""
 exec:~/bin/onerss                                                               work one
 http://rss.golem.de/rss_sub.php?token=hwl8or3e 					news it
-"exec:~/bin/fullfeed http://www.heise.de/news-extern/news.html"
+"exec:~/bin/fullfeed https://www.heise.de/newsticker/heise-atom.xml"
 http://alternativlos.org/alternativlos.rss                                      podcast
 http://dradiowissen.de/podcast/einhundert 					podcast
 http://dradiowissen.de/podcast/update                                           podcast news
@@ -11,6 +11,9 @@ http://dradiowissen.de/podcast/eine-stunde-talk 				podcast
 http://dradiowissen.de/podcast/eine-stunde-history 				podcast
 http://chaosradio.ccc.de/chaosradio-latest.rss 					podcast
 http://chaosradio.ccc.de/chaosradio_express-latest.rss                          podcast 
+http://www1.swr.de/podcast/xml/swr2/hoerspiel.xml                               podcast
+http://web.ard.de/radiotatort/rss/podcast.xml                                   podcast
+http://www1.swr.de/podcast/xml/swr2/feature.xml                                 podcast
 https://premium.zeit.de/itunes/feed                                             podcast
 http://www.titanic-magazin.de/ich.war.bei.der.waffen.rss 			satire
 http://feeds.feedburner.com/codinghorror/ 					blog programming
@@ -26,12 +29,14 @@ https://bloosplanet.wordpress.com/feed/                                         
 https://dasfotobus.wordpress.com/feed/                                          autism
 https://felisautisticus.wordpress.com/feed/                                     autism
 https://blog.fefe.de/rss.xml?html                                               blog 
+https://commandcenter.blogspot.com/feeds/posts/default                          blog
 https://www.uninformativ.de/blog/feeds/en.atom                                  blog
 https://sanctum.geek.nz/arabesque/feed/                                         blog
 https://zedshaw.com/feed/                                                       blog
 http://krebsonsecurity.com/feed/                                                blog,security
 https://www.schneier.com/blog/atom.xml                                          blog,security
 https://blog.filippo.io/rss/                                                    blog
+http://forkbomb-blog.de/comments/feed                                           blog iot mqtt
 https://www.reddit.com/r/science/.rss                                           reddit science
 https://www.reddit.com/r/sysadmin/.rss                                          reddit sysadmin
 https://www.reddit.com/r/networking/.rss                                        reddit networking
@@ -41,8 +46,8 @@ https://www.reddit.com/r/Information_Security/.rss                              
 https://www.reddit.com/r/netsec/.rss                                            reddit security networking
 https://www.reddit.com/r/Python/.rss                                            reddit programming python
 https://www.reddit.com/r/ansible/.rss                                           reddit ansible
+https://vorpus.org/blog/feeds/atom.xml
 http://xkcd.com/atom.xml                                                        
-"exec:~/bin/fullfeed https://news.ycombinator.com/rss"
 https://newsbeuter.wordpress.com/feed/
 http://www.cyanogenmod.org/feed/
 http://der-second-hand-blog.tumblr.com/rss
