@@ -16,19 +16,37 @@ set $right l
 # Your preferred terminal emulator
 set $term termite
 # Your preferred application launcher
-set $menu dmenu_run
-#set $menu bemenu-run
+#set $menu dmenu_run
+set $menu rofi -show drun
+
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# Default wallpaper (more resolutions are available in __DATADIR__/backgrounds/sway/)
+#output * bg @datadir@/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg /home/toke/Pictures/Wallpapers/colorful-triangles-background.jpg stretch
 #
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Idle configuration
+#
+# Example configuration:
+#
+exec swayidle \
+    timeout 300 'swaylock -c 000000' \
+    timeout 600 'swaymsg "output * dpms off"' \
+       resume 'swaymsg "output * dpms on"' \
+    before-sleep 'swaylock -c 000000'
+
+exec mako --anchor bottom-right
+
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 600 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Input configuration
 #
@@ -43,6 +61,24 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
+input "2:14:ETPS/2_Elantech_Touchpad" {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+}
+
+input * {
+    xkb_layout us,de
+}
+
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout de,de
+}
+
+
+
 
 ### Key bindings
 #
@@ -56,6 +92,41 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
     # start your launcher
     bindsym $mod+d exec $menu
+    bindsym $mod+Shift+x exec swaylock
+
+    # grim -g "$(slurp -d)" 
+    bindsym $mod+Shift+Print exec grim -g \"$(slurp)" "$(xdg-user-dir PICTURES)/Screenshots/$(date +%Y%m%d%H%M%S-sway.png)"
+    bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') "$(xdg-user-dir PICTURES)/Screenshots/$(date +'%Y%m%d%H%M%S-sway.png')"
+    bindsym XF86MonBrightnessDown exec light -U 5
+    bindsym XF86MonBrightnessUp exec light -A 5
+
+
+    mode "cast" {
+        # Cast to chromecast
+        bindsym c exec catt cast "$(wl-paste --no-newline)" 
+        bindsym a exec catt add "$(wl-paste --no-newline)" 
+        bindsym Shift+p exec catt pause 
+        bindsym p exec catt play
+        bindsym Shift+s exec /home/toke/bin/castshot
+        
+        bindsym w exec catt cast_site "$(wl-paste --no-newline)" 
+        bindsym Backspace exec catt remove
+        bindsym Minus exec catt volumedown
+        bindsym Plus exec catt volumeup
+        bindsym s exec catt save
+        bindsym r exec catt restore
+        bindsym Shift+Right exec catt skip
+        bindsym Left exec catt rewind 10
+        bindsym Down exec catt rewind 60
+        bindsym Right exec catt ffwd 10
+        bindsym Up exec catt ffwd 60
+
+        # return to default mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+    }
+
+    bindsym $mod+Shift+c mode "cast"
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -65,7 +136,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     floating_modifier $mod normal
 
     # reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym $mod+Shift+r reload
 
     # exit sway (logs you out of your wayland session)
     bindsym $mod+Shift+e exit
@@ -120,6 +191,8 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     bindsym $mod+Shift+0 move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
+    workspace_auto_back_and_forth yes
 #
 # Layout stuff:
 #
@@ -165,16 +238,16 @@ mode "resize" {
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 10 px or 10 ppt
-    bindsym $down resize grow height 10 px or 10 ppt
-    bindsym $up resize shrink height 10 px or 10 ppt
-    bindsym $right resize grow width 10 px or 10 ppt
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
 
     # ditto, with arrow keys
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
 
     # return to default mode
     bindsym Return mode "default"
@@ -188,6 +261,9 @@ bindsym $mod+r mode "resize"
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
+    #status_command i3blocks 
+    #status_command /home/toke/go/bin/mybarista
+    swaybar_command waybar
     colors {
         statusline #ffffff
         background #323232
@@ -195,4 +271,5 @@ bar {
     }
 }
 
-include /etc/sway/config.d/*
+include @sysconfdir@/sway/config.d/*
+
