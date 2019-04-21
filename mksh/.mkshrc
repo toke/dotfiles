@@ -15,4 +15,5 @@ case "$-" in
     ;;
 esac
 
+
 [[ -e /etc/profile.d/plan9.sh ]] && source /etc/profile.d/plan9.sh
