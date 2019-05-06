@@ -35,7 +35,7 @@ au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
 
 " system wide copy-paste with ctrl-c ctrl-v
-set clipboard=unnamed
+set clipboard=unnamedplus
 "vmap <c-c> "+y
 "inoremap <C-v> "*p
 "vnoremap <C-c> "*y
