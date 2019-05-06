@@ -59,58 +59,40 @@ set foldmethod=syntax
 set foldcolumn=1
 set foldlevelstart=20
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-    " let Vundle manage Vundle, required
-    Plugin 'VundleVim/Vundle.vim'
-
-    Plugin 'bling/vim-airline'
-    Plugin 'vim-airline/vim-airline-themes'
-    Plugin 'altercation/vim-colors-solarized'
-
-    Plugin 'fsouza/go.vim'
-    Plugin 'wting/rust.vim'
-    Plugin 'elzr/vim-json'
-    Plugin 'posva/vim-vue'
-    Plugin 'PotatoesMaster/i3-vim-syntax'
-    Plugin 'plasticboy/vim-markdown'
-    Plugin 'ap/vim-css-color'
-    Plugin 'pearofducks/ansible-vim'
-    Plugin 'vim-scripts/vim-vagrant'
-    Plugin 'python-mode/python-mode' , { 'branch': 'develop' }
-    Plugin 'plytophogy/vim-virtualenv'
-
-    Plugin 'neomake/neomake'
-    Plugin 'godlygeek/tabular'
-    Plugin 'mtth/scratch.vim'
-    Plugin 'xolox/vim-misc'
-    Plugin 'majutsushi/tagbar'
-    Plugin 'scrooloose/nerdtree'
-
-    Plugin 'tpope/vim-fugitive'
-    Plugin 'editorconfig/editorconfig-vim'
-    Plugin 'mattn/emmet-vim'
-    Plugin 'christoomey/vim-tmux-navigator'
-"    Plugin 'scrooloose/syntastic'
-    Plugin 'vimwiki'
 
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+call plug#begin('~/.local/share/nvim/plugged')
+    Plug 'bling/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'altercation/vim-colors-solarized'
 
+    Plug 'fsouza/go.vim'
+    Plug 'wting/rust.vim'
+    Plug 'elzr/vim-json'
+    Plug 'posva/vim-vue'
+    Plug 'PotatoesMaster/i3-vim-syntax'
+    Plug 'plasticboy/vim-markdown'
+    Plug 'ap/vim-css-color'
+    Plug 'pearofducks/ansible-vim'
+    Plug 'vim-scripts/vim-vagrant'
+    Plug 'python-mode/python-mode' , { 'branch': 'develop' }
+    Plug 'plytophogy/vim-virtualenv'
+
+    Plug 'neomake/neomake'
+    Plug 'godlygeek/tabular'
+    Plug 'mtth/scratch.vim'
+    Plug 'xolox/vim-misc'
+    Plug 'majutsushi/tagbar'
+    Plug 'scrooloose/nerdtree'
+
+    Plug 'tpope/vim-fugitive'
+    Plug 'editorconfig/editorconfig-vim'
+    Plug 'mattn/emmet-vim'
+    Plug 'christoomey/vim-tmux-navigator'
+    Plug 'vimwiki/vimwiki'
+call plug#end()
+
+filetype plugin on
 "
 syntax on
 
@@ -134,7 +116,7 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'template_path': '~/vimwiki/templat
 
 " vimwiki with markdown support
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown',
-    \ '.mdown': 'markdown', 'path': '~/vimwiki/', 'ext': '.md'}
+    \ '.mdown': 'markdown'}
 
 let g:instant_markdown_autostart = 0	" disable autostart
 map <leader>md :InstantMarkdownPreview<CR>
