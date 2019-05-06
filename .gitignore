@@ -2,3 +2,4 @@ vim/.vim/bundle/*
 .netrwhist
 *.log
 i3blocks/.config/i3blocks/scripts/venv/
+waybar/.config/waybar/modules/mailsecrets.py
