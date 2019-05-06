@@ -16,8 +16,19 @@ set $right l
 # Your preferred terminal emulator
 set $term termite
 # Your preferred application launcher
-set $menu dmenu_run
-#set $menu bemenu-run
+set $dmenu "bemenu -p '> ' --nf '#d7d7d5' --nb '#232729' --sb '#585858' --sf '#bcbcbc' --fn 'xos4 Terminus 12' -i"
+set $menu bemenu-run
+
+
+exec swayidle -f \
+    timeout 300 'swaylock -f -c 000000' \
+    timeout 600 'swaymsg "output * dpms off"' \
+       resume 'swaymsg "output * dpms on"' \
+    before-sleep 'swaylock -f -c 000000'
+
+exec mako --anchor bottom-right
+
+
 
 ### Output configuration
 #
@@ -34,12 +45,20 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
+input "2:8:AlpsPS/2_ALPS_GlidePoint" {
+   dwt enabled
+   tap enabled
+   natural_scroll enabled
+   middle_emulation enabled
+   events disabled_on_external_mouse
+}
+
+input "*" {
+   xkb_layout de
+   xkb_variant ,nodeadkeys
+   xkb_options compose:caps
+}
+
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
@@ -56,6 +75,10 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
     # start your launcher
     bindsym $mod+d exec $menu
+    bindsym $mod+Shift+d exec rofi -show run
+
+    bindsym $mod+Shift+x exec swaylock
+
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -65,7 +88,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     floating_modifier $mod normal
 
     # reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym $mod+Shift+r reload
 
     # exit sway (logs you out of your wayland session)
     bindsym $mod+Shift+e exit
@@ -120,6 +143,9 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     bindsym $mod+Shift+0 move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
+    workspace_auto_back_and_forth yes    
+
 #
 # Layout stuff:
 #
@@ -157,6 +183,26 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+    bindsym $mod+Shift+v exec termite -e vifm
+    bindsym $mod+Shift+i exec swaymsg -t get_tree > /tmp/sway_tree.json
+
+    bindsym $mod+p exec gopass ls --flat | "$dmenu" | xargs --no-run-if-empty gopass show -o | wl-copy -o
+    bindsym $mod+Shift+p exec gopass ls --flat | "$dmenu" | xargs --no-run-if-empty gopass show | head -n 1 | xargs ydotool type
+    # 
+    #bindsym --release Print exec grim -g \"$(slurp)" - | wl-copy
+    bindsym $mod+Shift+Print exec grim -g \"$(slurp)" "$(xdg-user-dir PICTURES)/Screenshots/$(date +%Y%m%d%H%M%S-sway.png)"
+    bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') "$(xdg-user-dir PICTURES)/Screenshots/$(date +'%Y%m%d%H%M%S-sway.png')"
+    bindsym Pause exec bin/backlight_toggle
+
+
+    ## Multimedia Keys
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    bindsym XF86MonBrightnessDown exec light -U 5
+    bindsym XF86MonBrightnessUp exec light -A 5
 #
 # Resizing containers:
 #
@@ -188,6 +234,7 @@ bindsym $mod+r mode "resize"
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
+    swaybar_command waybar    
     colors {
         statusline #ffffff
         background #323232
