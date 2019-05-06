@@ -35,8 +35,16 @@ au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
 
 " system wide copy-paste with ctrl-c ctrl-v
+set clipboard=unnamed
 "vmap <c-c> "+y
-"nmap <c-v> "+p
+"inoremap <C-v> "*p
+"vnoremap <C-c> "*y
+" copy and paste
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <ESC>"+pa
+
 
 " Disable comment continuation on paste
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
