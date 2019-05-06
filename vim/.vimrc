@@ -92,6 +92,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'xolox/vim-misc'
     Plug 'majutsushi/tagbar'
     Plug 'scrooloose/nerdtree'
+    Plug 'ConradIrwin/vim-bracketed-paste'
 
     Plug 'tpope/vim-fugitive'
     Plug 'editorconfig/editorconfig-vim'
