@@ -10,6 +10,8 @@ CDPATH="$HOME:$HOME/git"
 
 PS1='[\u@\h \W]\$ '
 
+echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null 2&>1
+
 ## Files to be included
 BASHCFG="$HOME/.config/bash"
 HELPER_INC="$BASHCFG/helper.bash $BASHCFG/multimedia.sh $HOME/.bash_aliases $BASHCFG/bitbucket.bash"
@@ -23,6 +25,12 @@ for inc in $HELPER_INC ; do
 	fi
 done
 unset -v inc
+
+## Allow CTRLt to work in termite - open terminal in current directory
+if [[ $TERM == xterm-termite ]]; then
+  . /etc/profile.d/vte.sh
+  __vte_prompt_command
+fi
 
 ## Aliases
 
