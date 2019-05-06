@@ -78,12 +78,13 @@ call vundle#begin()
     Plugin 'ap/vim-css-color'
     Plugin 'pearofducks/ansible-vim'
     Plugin 'vim-scripts/vim-vagrant'
+    Plugin 'python-mode/python-mode' , { 'branch': 'develop' }
+    Plugin 'plytophogy/vim-virtualenv'
 
     Plugin 'neomake/neomake'
     Plugin 'godlygeek/tabular'
     Plugin 'mtth/scratch.vim'
     Plugin 'xolox/vim-misc'
-    Plugin 'xolox/vim-easytags'
     Plugin 'majutsushi/tagbar'
     Plugin 'scrooloose/nerdtree'
 
@@ -91,7 +92,7 @@ call vundle#begin()
     Plugin 'editorconfig/editorconfig-vim'
     Plugin 'mattn/emmet-vim'
     Plugin 'christoomey/vim-tmux-navigator'
-    Plugin 'scrooloose/syntastic'
+"    Plugin 'scrooloose/syntastic'
     Plugin 'vimwiki'
 
 
@@ -139,7 +140,6 @@ let g:instant_markdown_autostart = 0	" disable autostart
 map <leader>md :InstantMarkdownPreview<CR>
 
 
-
 " Emnet
 " Default: Then type <c-y>, (Ctrly,) after typing zen stuff
 let g:user_emmet_install_global = 0
@@ -175,14 +175,25 @@ nmap <F8> :TagbarToggle<CR>
 
 
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
+
+function! MyOnBattery()
+  return readfile('/sys/class/power_supply/AC/online') == ['0']
+endfunction
+
+if MyOnBattery()
+  call neomake#configure#automake('w')
+else
+  call neomake#configure#automake('nw', 1000)
+endif
+let g:neomake_open_list = 2
 
 
 " Don't backup files in temp directories or shm
@@ -222,4 +233,9 @@ if has('viminfo')
     endif
 endif
 
+let g:virtualenv_directory = '/home/toke/.virtualenvs'
+let g:virtualenv_auto_activate = 'yes'
+let g:pymode_python = 'python3'
+let g:pymode_virtualenv = 1
+let g:pymode_virtualenv_path = $VIRTUAL_ENV
 let g:powerline_pycmd="python3"
