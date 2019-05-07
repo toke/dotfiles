@@ -19,6 +19,8 @@ set incsearch " search while typing
 set hlsearch " Highlight search results
 set showmatch " briefly jump to matching bracket pairs, if they are visible.
 
+set modeline
+
 set backspace=indent,eol,start
 
 " Default to soft tabs, 4 spaces
@@ -34,6 +36,8 @@ au BufRead,BufNewFile tmpmsg.* set filetype=mail
 au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
 
+
+"" CLIPBOARD HANDLING
 " system wide copy-paste with ctrl-c ctrl-v
 set clipboard=unnamedplus
 "vmap <c-c> "+y
@@ -118,36 +122,60 @@ let g:scratch_height = 0.50
 let g:scratch_filetype = 'markdown'
 "let g:scratch_persistence_file = '.vim_scratch'
 
-
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'template_path': '~/vimwiki/templates/',
-    \ 'template_default': 'default', 'template_ext': '.tpl',
-    \ 'syntax': 'markdown', 'ext': '.md'}]
-
+"" VIMWIKI
+let g:vimwiki_list = [
+    \ {'path': '~/vimwiki/',
+    \ 'template_path': '~/vimwiki/templates/',
+    \ 'template_default': 'default',
+    \ 'template_ext': '.tpl',
+    \ 'syntax': 'markdown',
+    \ 'auto_tags': 1,
+    \ 'list_margin': 0,
+    \ 'vimwiki_auto_chdir': 1,
+    \ 'vimwiki_autowriteall': 1,
+    \ 'vimwiki_hl_headers': 1,
+    \ 'ext': '.wiki',
+    \ 'nested_syntaxes': {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'go': 'go', 'yaml': 'yaml', 'vim': 'vim'},
+    \ }]
+nnoremap <leader>o mmI:<esc>v$h"oy@o<CR>x`m
+nnoremap <silent> <F3> :exec (&ft == 'vim' ? '' : &ft) . ' ' . getline('.')<CR>
 " vimwiki with markdown support
 let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown',
     \ '.mdown': 'markdown'}
+function! MyVimwikiLinkHandler(link)
+    try
+      let browser = '/usr/lib/plan9/bin/plumb'
+      execute '!start "'.browser.'" ' . a:link
+      return 1
+    catch
+      echo "This can happen for a variety of reasons ..."
+    endtry
+    return 0
+endfunction
 
 let g:instant_markdown_autostart = 0	" disable autostart
 map <leader>md :InstantMarkdownPreview<CR>
 
+" Usage Open ~/.vims hover over an entry and `gF`
+function! MoshBookmark()
+  redir >> ~/.vims
+  echo
+  echo strftime("%Y-%b-%d %a %H:%M")
+  echo "cd ". $PWD
+  echo "vim ". expand("%:p").':'.line('.')
+  echo ' word='.expand("<cword>")
+  echo ' cline='.getline('.')
+  redir END
+endfunction
+:command! MoshBookmark :call MoshBookmark()
 
 " Emnet
 " Default: Then type <c-y>, (Ctrly,) after typing zen stuff
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
-" Window Tab handling
-nnoremap th  :tabfirst<CR>
-nnoremap tj  :tabnext<CR>
-nnoremap tk  :tabprev<CR>
-nnoremap tl  :tablast<CR>
-nnoremap tt  :tabedit<Space>
-nnoremap tn  :tabnext<Space>
-
-
 "======Solarized theme============
 syntax on
-syntax enable
 let g:solarized_termtrans = 1
 set background=dark
 set t_Co=256
@@ -159,22 +187,29 @@ if has('mouse')
   set mouse=a
 endif
 
+
+" CUSTOM KEYBINDINGS AND COMMANDS
+"
 " NERDTree
 nmap <F2> :NERDTreeToggle<CR>
-" Tagbar
 nmap <F8> :TagbarToggle<CR>
+map <F12> :set number!<Bar>set number?<CR>
+
+" Window Tab handling
+nnoremap th  :tabfirst<CR>
+nnoremap tj  :tabnext<CR>
+nnoremap tk  :tabprev<CR>
+nnoremap tl  :tablast<CR>
+nnoremap tt  :tabedit<Space>
+nnoremap tn  :tabnext<Space>
 
 
-" Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+" Command named R to ececute a command and output to a scratch buffer
+" Source: https://vim.fandom.com/wiki/Append_output_of_an_external_command
+command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 0
 
+"" NEOMAKE
 function! MyOnBattery()
   return readfile('/sys/class/power_supply/AC/online') == ['0']
 endfunction
