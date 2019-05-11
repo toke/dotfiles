@@ -35,6 +35,8 @@ To reflect changes or initial use your Vim plugins run
 `vim +PluginInstall`. Thats it.
 
 
+
+
 ### Vis config
 
 I started using git subtree in the [vis][vis] config for plugins. I used the following approach:

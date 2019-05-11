@@ -47,6 +47,7 @@ sometimes it's not that easy.
 *   [Taskwarrior](https://taskwarrior.org/)
 *   Timewarrior
 *   [newsboat](https://newsboat.org/) (RSS Feed Aggregator / Reader)
+*   [vifm](https://vifm.info/) (File manager)
 *   [ranger](https://ranger.github.io/) (File manager)
 *   [ansible](https://www.ansible.com) 
 *   [tor](https://www.torproject.org) Anonymity Online - I use it as a way to reach all my hosts via ssh. See my [ansible-tor](https://github.com/toke/ansible-tor) role for an example.
