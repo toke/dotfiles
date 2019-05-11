@@ -2,17 +2,17 @@
 
 abook
 mutt
+mksh
 tmux
 stow
 neovim
 lilyterm
-i3
-i3blocks
 isync
 git
 gnupg
-compton
 bash
 fish
 vim
 vimpager
+sway
+waybar

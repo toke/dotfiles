@@ -47,6 +47,7 @@
         ignore = update-index --assume-unchanged
         unignore = update-index --no-assume-unchanged
         unadd = reset	
+        uncommit = reset --soft HEAD^
 
 [rerere]
 	enabled = true
@@ -60,12 +61,6 @@
 [merge]
 	tool = meld
 	summary = true
-
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	required = true
-	process = git-lfs filter-process
 
 [url "ssh://git@bitbucket.1and1.org/"]
         insteadOf = work:
@@ -87,3 +82,8 @@
 
 [http]
 	followRedirects = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
