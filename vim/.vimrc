@@ -225,7 +225,12 @@ command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=h
 
 "" NEOMAKE
 function! MyOnBattery()
-  return readfile('/sys/class/power_supply/AC/online') == ['0']
+  if filereadable('/sys/class/power_supply/AC/online')
+    return readfile('/sys/class/power_supply/AC/online') == ['0']
+  elseif filereadable('/sys/class/power_supply/ADP1/online')
+    return readfile('/sys/class/power_supply/ADP1/online') == ['0']
+  endif
+
 endfunction
 
 if MyOnBattery()
