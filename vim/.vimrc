@@ -135,7 +135,7 @@ let g:vimwiki_list = [
     \ 'vimwiki_autowriteall': 1,
     \ 'vimwiki_hl_headers': 1,
     \ 'ext': '.wiki',
-    \ 'nested_syntaxes': {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'go': 'go', 'yaml': 'yaml', 'vim': 'vim'},
+    \ 'nested_syntaxes': {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'go': 'go', 'yaml': 'yaml', 'vim': 'vim', 'sql': 'sql'},
     \ }]
 nnoremap <leader>o mmI:<esc>v$h"oy@o<CR>x`m
 nnoremap <silent> <F3> :exec (&ft == 'vim' ? '' : &ft) . ' ' . getline('.')<CR>
