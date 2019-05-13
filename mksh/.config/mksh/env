@@ -10,7 +10,7 @@ if [ -n "$EDITOR" ] ; then  export FCEDIT="${EDITOR}" ; fi
 command -v gpgconf && export SSH_AUTH_SOCK="$(/usr/bin/env gpgconf --list-dirs agent-ssh-socket)"
 
 ## Setup GO
-[[ -e $HOME/gocode ]] && export GOPATH="$HOME/gocode"
-[[ -e $HOME/gocode/bin ]] && export PATH="$HOME/gocode/bin:$PATH"
+[[ -e $HOME/go ]] && export GOPATH="$HOME/go"
+[[ -e $HOME/go/bin ]] && export PATH="$HOME/go/bin:$PATH"
 
 [[ -d $HOME/bin ]] && export PATH="$HOME/bin:$PATH"

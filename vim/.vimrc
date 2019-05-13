@@ -174,6 +174,15 @@ endfunction
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
+" Window Tab handling
+nnoremap th  :tabfirst<CR>
+nnoremap tj  :tabnext<CR>
+nnoremap tk  :tabprev<CR>
+nnoremap tl  :tablast<CR>
+nnoremap tt  :tabedit<Space>
+nnoremap tn  :tabnext<Space>
+
+
 "======Solarized theme============
 syntax on
 let g:solarized_termtrans = 1
@@ -192,6 +201,7 @@ endif
 "
 " NERDTree
 nmap <F2> :NERDTreeToggle<CR>
+" Tagbar
 nmap <F8> :TagbarToggle<CR>
 map <F12> :set number!<Bar>set number?<CR>
 
@@ -203,6 +213,10 @@ nnoremap tl  :tablast<CR>
 nnoremap tt  :tabedit<Space>
 nnoremap tn  :tabnext<Space>
 
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 " Command named R to ececute a command and output to a scratch buffer
 " Source: https://vim.fandom.com/wiki/Append_output_of_an_external_command
@@ -211,7 +225,12 @@ command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=h
 
 "" NEOMAKE
 function! MyOnBattery()
-  return readfile('/sys/class/power_supply/AC/online') == ['0']
+  if filereadable('/sys/class/power_supply/AC/online')
+    return readfile('/sys/class/power_supply/AC/online') == ['0']
+  elseif filereadable('/sys/class/power_supply/ADP1/online')
+    return readfile('/sys/class/power_supply/ADP1/online') == ['0']
+  endif
+
 endfunction
 
 if MyOnBattery()

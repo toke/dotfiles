@@ -79,6 +79,37 @@ input "*" {
 
     bindsym $mod+Shift+x exec swaylock
 
+    # grim -g "$(slurp -d)" 
+    bindsym $mod+Shift+Print exec grim -g \"$(slurp)" "$(xdg-user-dir PICTURES)/Screenshots/$(date +%Y%m%d%H%M%S-sway.png)"
+    bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') "$(xdg-user-dir PICTURES)/Screenshots/$(date +'%Y%m%d%H%M%S-sway.png')"
+
+
+    mode "cast" {
+        # Cast to chromecast
+        bindsym c exec catt cast "$(wl-paste --no-newline)" 
+        bindsym a exec catt add "$(wl-paste --no-newline)" 
+        bindsym Shift+p exec catt pause 
+        bindsym p exec catt play
+        bindsym Shift+s exec /home/toke/bin/castshot
+        
+        bindsym w exec catt cast_site "$(wl-paste --no-newline)" 
+        bindsym Backspace exec catt remove
+        bindsym Minus exec catt volumedown
+        bindsym Plus exec catt volumeup
+        bindsym s exec catt save
+        bindsym r exec catt restore
+        bindsym Shift+Right exec catt skip
+        bindsym Left exec catt rewind 10
+        bindsym Down exec catt rewind 60
+        bindsym Right exec catt ffwd 10
+        bindsym Up exec catt ffwd 60
+
+        # return to default mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+    }
+
+    bindsym $mod+Shift+c mode "cast"
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -190,9 +221,6 @@ input "*" {
     bindsym $mod+p exec gopass ls --flat | "$dmenu" | xargs --no-run-if-empty gopass show -o | wl-copy -o
     bindsym $mod+Shift+p exec gopass ls --flat | "$dmenu" | xargs --no-run-if-empty gopass show | head -n 1 | xargs ydotool type
     # 
-    #bindsym --release Print exec grim -g \"$(slurp)" - | wl-copy
-    bindsym $mod+Shift+Print exec grim -g \"$(slurp)" "$(xdg-user-dir PICTURES)/Screenshots/$(date +%Y%m%d%H%M%S-sway.png)"
-    bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') "$(xdg-user-dir PICTURES)/Screenshots/$(date +'%Y%m%d%H%M%S-sway.png')"
     bindsym Pause exec bin/backlight_toggle
 
 

@@ -1,0 +1,4 @@
+
+
+
+bindsym $mod+Shift+C exec catt cast "$(wl-paste --no-newline)" 
