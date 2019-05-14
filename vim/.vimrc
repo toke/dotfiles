@@ -101,7 +101,6 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'tpope/vim-fugitive'
     Plug 'editorconfig/editorconfig-vim'
     Plug 'mattn/emmet-vim'
-    Plug 'christoomey/vim-tmux-navigator'
     Plug 'vimwiki/vimwiki'
 call plug#end()
 
@@ -174,13 +173,25 @@ endfunction
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
+
+" Autorenew
+    autocmd BufWritePost ~/.config/bmfiles,~/.config/bmdirs !shortcuts
+
+" Autocommit for vimwiki
+    autocmd BufEnter ~/vimwiki/** silent!  lcd %:p:h
+    autocmd BufWritePost ~/vimwiki/** 
+        \ !git add *
+        \ ;git commit -am "autocommit"
+        \ ; git push
+
+
 " Window Tab handling
-nnoremap th  :tabfirst<CR>
-nnoremap tj  :tabnext<CR>
-nnoremap tk  :tabprev<CR>
-nnoremap tl  :tablast<CR>
-nnoremap tt  :tabedit<Space>
-nnoremap tn  :tabnext<Space>
+    nnoremap th  :tabfirst<CR>
+    nnoremap tj  :tabnext<CR>
+    nnoremap tk  :tabprev<CR>
+    nnoremap tl  :tablast<CR>
+    nnoremap tt  :tabedit<Space>
+    nnoremap tn  :tabnext<Space>
 
 
 "======Solarized theme============

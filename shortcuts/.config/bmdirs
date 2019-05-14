@@ -1,0 +1,15 @@
+# You can add comments to these files with #
+# be aware that most of the time those get prefixed with g
+-       -
+h	~/
+d	~/Documents
+D	~/Downloads
+m	~/Music
+pp	~/Pictures
+vv	~/Videos
+cf	~/.config
+sc	~/.scripts
+gi      ~/git
+do      ~/.dotfiles
+wi      ~/projects/hugowiki/nowiki/
+mn	/mnt
