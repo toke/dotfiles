@@ -7,7 +7,7 @@
 
 export EDITOR="/usr/bin/nvim"
 export VISUAL="/usr/bin/nvim"
-export BROWER="/usr/bin/firefox"
+export BROWSER="/usr/bin/firefox"
 export TERMINAL="/usr/bin/termite"
 export READER="/usr/bin/zathura"
 export FILE="/usr/bin/vifm"
