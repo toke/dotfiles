@@ -46,8 +46,6 @@ alias gcav="git commit -av"
 alias gipu="git push"
 alias gl="git log"
 alias ggrep="git grep"
-alias yaourt-upgrade="/usr/bin/yaourt -Syua"
-alias ync='yaourt --noconfirm'
 
 alias tw="/usr/bin/timew"
 alias tws="/usr/bin/timew summary"
