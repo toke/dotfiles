@@ -1,0 +1,6 @@
+# Lines in this files will be handled as commands
+"QR-Code":qr-clip
+"Show as Notification":showclip
+"Translate 2 English":wl-paste | translate-shell -b de:en 
+"Translate 2 English and Speak":wl-paste | translate-shell -b de:en -p 
+"Plumb":plumb "$(wl-paste)"

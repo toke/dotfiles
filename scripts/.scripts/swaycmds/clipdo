@@ -1,0 +1,15 @@
+#!/bin/sh
+
+choice=$(
+    grep -v "#" ~/.config/clipdo | sort | \
+        sed -r 's/"\<([^"]+)"/\1/g' | \
+        awk -F: '{ st = index($0,":");printf "%s\t→\t%s\n", $1, substr($0,st+1)}' | \
+    bemenu -p "Clipboard> " -l 10 --fn 'Droid Sans Mono-9'
+)
+
+if [ $? == "0" ] ; then
+   echo $choice |
+       sh -c "$(awk  -F'→'  '{ print $2 }')"&
+   
+
+fi

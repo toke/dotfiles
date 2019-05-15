@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+PASTECMD=${PASTECMD:-wl-paste}
+GENCMD="qr-gen"
+SHOWCMD="qr-show"
+
+outfile=$(mktemp -u  /tmp/qr-clip.XXXXX.png)
+
+trap "{ rm -f \"${outfile}\" ; exit 0; }" EXIT
+
+"${PASTECMD}" | "${GENCMD}" -o "${outfile}" | "${SHOWCMD}" 2> /dev/null
+
+
+

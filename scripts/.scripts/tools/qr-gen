@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+QRCMD=qrencode
+QRCMD_OPTS="-t PNG32 -s 10 -m 3"
+
+outfile=
+
+while getopts o:h param
+do
+case $param in
+    o)
+        outfile=$OPTARG
+        ;;
+    h)
+        printf "Usage %s [-o outfile] [-h]\n" $0
+        exit 2
+        ;;
+    ?)
+ esac
+done
+shift $(( OPTIND - 1 ))  # shift past the last flag or argument
+
+if [ -z  "$outfile" ] ; then
+    outfile=$(mktemp -u  /tmp/qrgen.XXXXX.png)
+fi
+
+"${QRCMD}" ${QRCMD_OPTS} -o "${outfile}"
+echo "${outfile}"
+
+exit 0

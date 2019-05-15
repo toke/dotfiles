@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+VIEWER=imv
+VIEWER_OPTS="${VIEWER_OPTS:-"-bffffff"}"
+
+"${VIEWER}" ${VIEWER_OPTS}
+
+exit 0
+

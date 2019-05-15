@@ -1,6 +1,4 @@
 " Basic Vimrc
-
-
     set nocompatible   " Don't behave like vi
 
     filetype off " when file types are on before plugins are loaded stuff happens
@@ -27,6 +25,8 @@
     set expandtab
     set sw=4
     set sts=4
+
+    let mapleader = ","
 " Except for Makefiles: Hard tabs of width 2
 " More exceptions may be found in editorconfig/.editorconfig
     autocmd FileType make set ts=2
@@ -184,6 +184,11 @@
         \ ;git commit -am "autocommit"
         \ ; git push
 
+" Autoreload and also grouping to prevent multiple reloads
+    augroup myvimrchooks
+        au!
+        autocmd bufwritepost .vimrc source ~/.vimrc
+    augroup END
 
 " Window Tab handling
     nnoremap th  :tabfirst<CR>
@@ -192,6 +197,30 @@
     nnoremap tl  :tablast<CR>
     nnoremap tt  :tabedit<Space>
     nnoremap tn  :tabnext<Space>
+    
+" Execute 
+    nnoremap <leader>2 :@"<CR>
+    vmap <space> "xy:@x<CR>
+    vmap l :w !plumb <CR> 
+    
+    
+" terminal Map ESC to leave insert mode
+" :vsplit term://python
+    tnoremap <Esc> <C-\><C-n>
+
+" To use `ALT+{h,j,k,l}` to navigate windows from any mode:
+    :tnoremap <A-h> <C-\><C-N><C-w>h
+    :tnoremap <A-j> <C-\><C-N><C-w>j
+    :tnoremap <A-k> <C-\><C-N><C-w>k
+    :tnoremap <A-l> <C-\><C-N><C-w>l
+    :inoremap <A-h> <C-\><C-N><C-w>h
+    :inoremap <A-j> <C-\><C-N><C-w>j
+    :inoremap <A-k> <C-\><C-N><C-w>k
+    :inoremap <A-l> <C-\><C-N><C-w>l
+    :nnoremap <A-h> <C-w>h
+    :nnoremap <A-j> <C-w>j
+    :nnoremap <A-k> <C-w>k
+    :nnoremap <A-l> <C-w>l
 
 
 "======Solarized theme============
@@ -224,10 +253,6 @@
     nnoremap tt  :tabedit<Space>
     nnoremap tn  :tabnext<Space>
 
-" Syntastic
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
 
 " Command named R to ececute a command and output to a scratch buffer
 " Source: https://vim.fandom.com/wiki/Append_output_of_an_external_command
@@ -289,7 +314,7 @@
         endif
     endif
 
-    let g:virtualenv_directory = '/home/toke/.virtualenvs'
+    let g:virtualenv_directory = '~/.virtualenvs'
     let g:virtualenv_auto_activate = 'yes'
     let g:pymode_python = 'python3'
     let g:pymode_virtualenv = 1

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Terminal
+Comment=termite
+Exec=termite
+Icon=termite
+Terminal=false
+StartupNotify=false
+Categories=Application;

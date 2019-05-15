@@ -1,0 +1,19 @@
+VIM/NEOVIM Keybindings
+---------------------------------------------------------------------
+
+<leader>=,
+
+<F2>    → Nerdtree
+<F8>    → Tagbar
+<F12>   → number?
+
+[Navigation]
+
+th,tj,tk,tl → Tab navigation
+<A-h>,<A-j>,<A-k>,<A-l> → Window navigation
+
+[Execute selections]
+
+  <leader>2 → :@"
+v <space>   → "xy:@x
+

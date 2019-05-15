@@ -1,7 +1,7 @@
 [options]
 #allow_bold = true
 #audible_bell = false
-clickable_url = true
+#clickable_url = true
 #dynamic_title = true
 font = Monospace 9
 #fullscreen = true
@@ -15,10 +15,11 @@ font = Monospace 9
 scrollback_lines = 10000
 #search_wrap = true
 #urgent_on_bell = true
-hyperlinks = true
+#hyperlinks = true
 
 # $BROWSER is used by default if set, with xdg-open as a fallback
-#browser = xdg-open
+browser = xdg-open
+#browser = plumb
 
 # "system", "on" or "off"
 #cursor_blink = system

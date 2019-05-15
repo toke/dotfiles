@@ -1,160 +1,32 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
-
-### Variables
-#
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
-# Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
-# Your preferred terminal emulator
-#set $term termite
-set $term --no-startup-id $TERMINAL
-# Your preferred application launcher
-set $dmenu "bemenu -p '> ' --nf '#d7d7d5' --nb '#232729' --sb '#585858' --sf '#bcbcbc' --fn 'xos4 Terminus 12' -i"
-set $menu bemenu-run
-
-
-set $ws1 1
-set $ws2 2
-set $ws3 3
-set $ws4 4
-set $ws5 5
-set $ws6 6
-set $ws7 7
-set $ws8 8
-set $ws9 9
-
-
-assign [app_id="firefox"] → workspace $ws2
-
-exec swayidle -w     timeout 300 'swaylock -f -c 000000'     timeout 600 'swaymsg "output * dpms off"'     resume 'swaymsg "output * dpms on"'     before-sleep 'swaylock -f -c 000000'
-
-exec mako --anchor bottom-right
-
-
-
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
-
-### Input configuration
-#
-# Example configuration:
-#
-input "2:8:AlpsPS/2_ALPS_GlidePoint" {
-   dwt enabled
-   tap enabled
-   natural_scroll enabled
-   middle_emulation enabled
-   events disabled_on_external_mouse
-}
-
-input "*" {
-   xkb_layout de
-  # xkb_variant ,nodeadkeys
-   xkb_options compose:caps
-}
-
-
-
-# #---Dropdown Windows---# #
-# General dropdown window traits. The order can matter.
-for_window [app_id="dropdown_*"] floating enable
-for_window [app_id="dropdown_*"] move scratchpad
-for_window [app_id="dropdown_*"] sticky enable
-for_window [app_id="dropdown_*"] scratchpad show
-for_window [app_id="dropdown_tmuxdd"] resize set 625 450
-for_window [app_id="dropdown_dropdowncalc"] resize set 800 300
-for_window [app_id="dropdown_tmuxdd"] border pixel 3
-for_window [app_id="dropdown_dropdowncalc"] border pixel 2
-for_window [app_id="dropdown_ncmpcpp"] border pixel 2 ; resize set 800 400
-for_window [app_id="dropdown_*"] move position center
-
-for_window [class="Pinentry"] sticky enable
-for_window [class="sent"] border pixel 0px
-for_window [title="GIMP Startup"] move workspace $ws5
-for_window [class="Gimp"] move workspace $ws5
-for_window [window_role="GtkFileChooserDialog"] resize set 800 600
-for_window [window_role="GtkFileChooserDialog"] move position center
-for_window [title="Default - Wine desktop"] floating enable
-
-# Bindings to make the webcam float and stick.
-for_window [title="mpvfloat"] floating enable
-for_window [title="mpvfloat"] sticky enable
-for_window [title="mpvfloat"] border pixel 0
-no_focus [title="mpvfloat"]
-
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
-
-### Key bindings
-#
-# Basics:
-#
     bindsym $mod+F1                 exec --no-startup-id groff -mom ~/.local/share/toke/readme.mom -Tpdf | zathura -
     bindsym $mod+F2                 restart
-    # start a terminalmy
     bindsym $mod+Return             exec $term
-
     bindsym $mod+grave	            exec --no-startup-id dmenuunicode
-
-    # kill focused window
     bindsym $mod+Shift+q            kill
-
-
     #bindsym $mod+c	   i        wxec --no-startup-id ddspawn dropdowncalc
     bindsym $mod+c		    exec --no-startup-id clipdo
-    # start your launcher
     bindsym $mod+d                  exec $menu
     bindsym $mod+Shift+d            exec rofi -show run
-
     bindsym $mod+n		    exec --no-startup-id ddspawn nmtui
     bindsym $mod+Shift+w	    exec --no-startup-id $BROWSER
     bindsym $mod+o		    sticky toggle
     bindsym $mod+Shift+a	    exec --no-startup-id ddspawn pulsemixer
     bindsym $mod+m                  exec --no-startup-id ddspawn ncmpcpp
     bindsym $mod+Shift+m            exec --no-startup-id mpc pause ; exec --no-startup-id pamixer -t
-    #
     #bindsym $mod+Ctrl+v             exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
     bindsym $mod+x                  exec --no-startup-id mpc pause; exec --no-startup-id swaylock
     bindsym $mod+Shift+x            exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
     bindsym $mod+Ctrl+x             exec --no-startup-id xwayland_debuginfo.sh
-
     bindsym $mod+y                  exec --no-startup-id ddspawn ipython
     #bindsym $mod+m		    exec --no-startup-id $term -e "$EDITOR -c VimwikiIndex"
     bindsym $mod+Shift+Delete	    exec --no-startup-id pauseallmpv; exec --no-startup-id pamixer -t ; workspace 0; exec $term -e htop ; exec $term -e $FILE
-
-
-
-
-    # grim -g "$(slurp -d)" 
     bindsym Shift+Print            exec grim -g \"$(slurp)" "$(xdg-user-dir PICTURES)/Screenshots/$(date +%Y%m%d%H%M%S-sway.png)"
     bindsym Print                  exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') "$(xdg-user-dir PICTURES)/Screenshots/$(date +'%Y%m%d%H%M%S-sway.png')"
-
-
-    mode "cast" {
-        # Cast to chromecast
         bindsym c exec catt cast "$(wl-paste --no-newline)" 
         bindsym a exec catt add "$(wl-paste --no-newline)" 
         bindsym Shift+p exec catt pause 
         bindsym p exec catt play
         bindsym Shift+s exec /home/toke/bin/castshot
-
         bindsym w exec catt cast_site "$(wl-paste --no-newline)" 
         bindsym Backspace exec catt remove
         bindsym Minus exec catt volumedown
@@ -166,54 +38,27 @@ no_focus [title="mpvfloat"]
         bindsym Down exec catt rewind 60
         bindsym Right exec catt ffwd 10
         bindsym Up exec catt ffwd 60
-
-        # return to default mode
         bindsym Return mode "default"
         bindsym Escape mode "default"
-    }
-
     bindsym $mod+Shift+c mode "cast"
-
-
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
-    floating_modifier $mod normal
-
-    # reload the configuration file
     bindsym $mod+Shift+r reload
-
-    # exit sway (logs you out of your wayland session)
     bindsym $mod+Shift+e exit
-#
-# Moving around:
-#
-    # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
-    # or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
-
-    # _move_ the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
-    # ditto, with arrow keys
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
-#
-# Workspaces:
-#
-    # switch to workspace
     bindsym $mod+1 workspace 1
     bindsym $mod+2 workspace 2
     bindsym $mod+3 workspace 3
@@ -224,7 +69,6 @@ no_focus [title="mpvfloat"]
     bindsym $mod+8 workspace 8
     bindsym $mod+9 workspace 9
     bindsym $mod+0 workspace 10
-    # move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace 1
     bindsym $mod+Shift+2 move container to workspace 2
     bindsym $mod+Shift+3 move container to workspace 3
@@ -235,110 +79,37 @@ no_focus [title="mpvfloat"]
     bindsym $mod+Shift+8 move container to workspace 8
     bindsym $mod+Shift+9 move container to workspace 9
     bindsym $mod+Shift+0 move container to workspace 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
     bindsym $mod+Tab workspace back_and_forth
-
-    workspace_auto_back_and_forth yes    
-
-#
-# Layout stuff:
-#
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
     bindsym $mod+b splith
     bindsym $mod+v splitv
-
-    # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
-
-    # Make the current focus fullscreen
     bindsym $mod+f fullscreen
-
-    # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
-
-    # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
-
-    # move focus to the parent container
     bindsym $mod+a focus parent
-#
-# Scratchpad:
-#
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
-    # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+minus move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-
     bindsym $mod+Shift+v exec $term -e vifm
     bindsym $mod+Shift+i exec swaymsg -t get_tree > /tmp/sway_tree.json
-
     bindsym $mod+p exec gopass ls --flat | "$dmenu" | xargs --no-run-if-empty gopass show -o | wl-copy -o
     bindsym $mod+Shift+p exec gopass ls --flat | "$dmenu" | xargs --no-run-if-empty gopass show | head -n 1 | xargs ydotool type
-    # 
     bindsym Pause exec bin/backlight_toggle
-
-
-    ## Multimedia Keys
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
     bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
     bindsym XF86MonBrightnessDown exec light -U 5
     bindsym XF86MonBrightnessUp exec light -A 5
-#
-# Resizing containers:
-#
-mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
     bindsym $left resize shrink width 10 px or 10 ppt
     bindsym $down resize grow height 10 px or 10 ppt
     bindsym $up resize shrink height 10 px or 10 ppt
     bindsym $right resize grow width 10 px or 10 ppt
-
-    # ditto, with arrow keys
     bindsym Left resize shrink width 10 px or 10 ppt
     bindsym Down resize grow height 10 px or 10 ppt
     bindsym Up resize shrink height 10 px or 10 ppt
     bindsym Right resize grow width 10 px or 10 ppt
-
-    # return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
-}
 bindsym $mod+r mode "resize"
-
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
-    font pango: Hack, Font Awesome, Typicons, Material Icons 10
-    #font pango:DejaVu Sans Mono 10
-    #swaybar_command waybar
-    status_command i3blocks
-
-    #status_command /home/toke/gocode/bin/mybarista
-    #status_command exec ~/bin/mybar
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
-
-include /etc/sway/config.d/*
-
