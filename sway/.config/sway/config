@@ -128,16 +128,16 @@ no_focus [title="mpvfloat"]
     bindsym $mod+o		    sticky toggle
     bindsym $mod+Shift+a	    exec --no-startup-id ddspawn pulsemixer
     bindsym $mod+m                  exec --no-startup-id ddspawn ncmpcpp
-    bindsym $mod+Shift+m            exec --no-startup-id mpc pause ; exec --no-startup-id pamixer -t
+    bindsym $mod+Shift+m            exec --no-startup-id lmc mute ; exec --no-startup-id lmc pause
     #
     #bindsym $mod+Ctrl+v             exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
-    bindsym $mod+x                  exec --no-startup-id mpc pause; exec --no-startup-id swaylock
+    bindsym $mod+x                  exec --no-startup-id pauseallmpv; exec --no-startup-id lmc pause; exec --no-startup-id swaylock
     bindsym $mod+Shift+x            exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
     bindsym $mod+Ctrl+x             exec --no-startup-id xwayland_debuginfo.sh
 
     bindsym $mod+y                  exec --no-startup-id ddspawn ipython
     #bindsym $mod+m		    exec --no-startup-id $term -e "$EDITOR -c VimwikiIndex"
-    bindsym $mod+Shift+Delete	    exec --no-startup-id pauseallmpv; exec --no-startup-id pamixer -t ; workspace 0; exec $term -e htop ; exec $term -e $FILE
+    bindsym $mod+Shift+Delete	    exec --no-startup-id pauseallmpv; exec --no-startup-id lmc mute ; workspace 0; exec $term -e htop ; exec $term -e $FILE
 
 
 

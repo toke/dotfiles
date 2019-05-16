@@ -5,7 +5,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "custom/spotify", "custom/weather", "custom/mail", "custom/storage", "backlight", "pulseaudio", "network", "idle_inhibitor", "battery", "clock"],
+    "modules-right": ["tray", "custom/weather", "custom/mail", "custom/storage", "backlight", "pulseaudio", "network", "idle_inhibitor", "battery", "clock"],
     "sway/mode": {
         "format": " {}"
     },
@@ -57,12 +57,11 @@
         "on-click": "pavucontrol",
         "tooltip": false
     },
-    "custom/spotify": {
-        "interval": 1,
-        "return-type": "json",
-        "exec": "~/.config/waybar/modules/spotify.sh",
-        "exec-if": "pgrep spotify",
-        "escape": true
+    "mpd": {
+        "format": "{}  ",
+        "format-alt": "{artist} - {title}",
+        "format-alt-click": "click-right",
+        "tooltip": true
     },
     "custom/storage": {
         "format": "{} ",
@@ -105,12 +104,6 @@
         "return-type": "json",
         "exec": "~/.config/waybar/modules/mail.sh",
         "tooltip": false
-    },
-    "custom/test": {
-        "format": "{}",
-        "exec": "/tmp/test blub",
-        "param": "blah",
-        "interval": 5
     },
     "tray": {
         "icon-size": 18

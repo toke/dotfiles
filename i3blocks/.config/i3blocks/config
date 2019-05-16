@@ -1,6 +1,6 @@
 ## set SCRIPT_DIR via i3/config
 #
-command=$SCRIPT_DIR/$BLOCK_NAME
+command=$HOME/.config/i3blocks/scripts/$BLOCK_NAME
 
 ## Fonts fontawsome
 
@@ -12,48 +12,54 @@ separator=false
 separator_block_width=10
 
 
-[taskwarrior]
-##label=◔
-command=$SCRIPT_DIR/taskwarrior
-#interval=60
-interval=once
-signal=1
-format=json
-#To reload: pkill -RTMIN+1 i3blocks
-#
-
-[ews]
-command=$SCRIPT_DIR/i3-ews.pl
-interval=90
-label=
-
-[octoprint]
-command=$SCRIPT_DIR/octoprint
-interval=90
-format=json
-instance=A8_1
-
-[Updates]
-command=$SCRIPT_DIR/update.sh
-interval=3600
-signal=1
-
-
-[df]
-name=df
-command=$SCRIPT_DIR/disk_usage
-markup=pango
-instance=/
-label=/
-interval=103
-
-[df]
-name=df
-command=$SCRIPT_DIR/disk_usage
+#[taskwarrior]
+###label=◔
+#command=$SCRIPT_DIR/taskwarrior
+##interval=60
+#interval=once
+#signal=1
 #format=json
-instance=/home
-label=~/
-interval=107
+##To reload: pkill -RTMIN+1 i3blocks
+##
+
+#[ews]
+#command=$SCRIPT_DIR/i3-ews.pl
+#interval=90
+#label=
+
+#[octoprint]
+#command=$SCRIPT_DIR/octoprint
+#interval=90
+#format=json
+#instance=A8_1
+
+#[Updates]
+#command=$SCRIPT_DIR/update.sh
+#interval=3600
+#signal=1
+
+
+#[df]
+#name=df
+#command=disk
+#markup=pango
+#instance=/
+#label=/
+#interval=103
+
+#[df]
+#name=df
+#command=$SCRIPT_DIR/disk_usage
+##format=json
+#instance=/home
+#label=~/
+#interval=107
+
+[music]
+label=♪
+command=mpc current | sed "{ s/\&/&amp;/ }"
+interval=5
+signal=10
 
 #[netio]
 #name=netio
@@ -93,15 +99,22 @@ interval=107
 #label=
 #instance=wlp2s0
 #interval=10
+[mailbox]
+label=📬
+interval=180
+signal=12
 
 [ssid]
 label=
 interval=20
 
-[vpn]
+[nm-vpn]
 label=
-command=vpn=$(nmcli c|grep vpn|grep -v -- --| awk '{print $1}'); if [ -z "$vpn" ]; then vpn="-"; fi; echo $vpn
+#command=vpn=$(nmcli c|grep vpn|grep -v -- --| awk '{print $1}'); if [ -z "$vpn" ]; then vpn="-"; fi; echo $vpn
 interval=60
+
+[internet]
+interval=10
 
 #[dev]
 #label=
@@ -119,14 +132,10 @@ interval=60
 interval=1
 label=
 
-[randr]
-full_text=
-command=bash ~/.screenlayout/office.sh
-label=
 
-#[btheadset]
-#interval=60
-#command=$SCRIPT_DIR/btheadset "4C:21:D0:A1:47:CA"
+[btheadset]
+command=/home/toke/.config/i3blocks/scripts/btheadset 00:16:94:26:81:08
+interval=60
 
 #[temp]
 #label=℃
@@ -138,8 +147,8 @@ label=
 #interval=persist
 #instance=OUT
 
-[kraus]
-interval=3600
+#[kraus]
+#interval=3600
 #min_width=i
 #
 [seperator]
@@ -150,11 +159,6 @@ label=
 [battery]
 interval=23
 
-[rofi]
-color=#C9CCDB
-command=$SCRIPT_DIR/rofication.py
-interval=2
-label=
 
 [time]
 command=echo "`date +'%m%d %H%M'`"
