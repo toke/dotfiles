@@ -19,21 +19,21 @@ cat > $BM_CONFIG_FILE <<EOF
 # <name>:<make>:<filename>
 bm:bm:${HOME}/.config/bmmaps
 files:shortcuts:${HOME}/.config/bmfiles
-dirs:shortcuts:${HOME}/.config/bmdirs"
+dirs:shortcuts:${HOME}/.config/bmdirs
 EOF
     printf "Config file: %s created" $BM_CONFIG_FILE
 fi
 
 filemap=$(sed "s/\s*#.*$//;/^\$*$/d" "$BM_CONFIG_FILE")
 
-getfile() {
+getmap() {
     search=$1
     shift
     IFS=':'
     while read -r type make file
     do
         if [ "$type" == "$search" ] ; then
-            echo "$file"
+            echo "$type $make $file"
         fi
     done  <<<  "${filemap}"
     IFS=' '
@@ -64,7 +64,7 @@ show_all() {
 
     IFS=':'
     while read -r type make filename ; do
-        if [ -f "$filename" ] ; then
+        if [ -n "$filename" ] ; then
             printf "Type: \"%s\", file: \"%s\"\n\n" $type $filename
             cat "$filename"
         fi
@@ -72,6 +72,8 @@ show_all() {
 }
 
 fzf_all() {
+    # FIXME: this can be an alias easily no need to reimplemnt the wheel
+
     IFS=':'
     while read -r type make filename ; do
         if [ -f "$filename" ] ; then
@@ -81,6 +83,8 @@ fzf_all() {
 }
 
 grep_all() {
+    # FIXME: this can be an alias easily no need to reimplemnt the wheel
+    
     pattern=$1
     shift
     IFS=':'
@@ -95,23 +99,45 @@ grep_all() {
 }
 
 edit() {
-    if [ $# -eq 1 ] ; then
-        $EDITOR $1
+    if [ $# -eq 3 ] ; then
+        $EDITOR "$3"
     else
         usage
     fi
 }
 
 show() {
-    if [ $# -eq 1 ] ; then
-        $PAGER $1
+    if [ $# -eq 3 ] ; then
+        $PAGER "$3"
     else
         usage
     fi
 }
 
 make() {
-    $GENERATOR && echo "Done"
+    if [ $# -eq 1 ] ; then
+        if [ $1 == 'bm' ] ; then
+            echo "can not do anything right now with type bm"
+            exit 3
+        else 
+            cmd=$(getmap $1 | cut -d' ' -f2,3)
+            if [ -n "$cmd" ] ; then
+                echo "Runing: $cmd"
+                $cmd
+            else
+                echo "Command or mapping for type \"$1\" can not be found $cmd"
+                exit 4
+            fi
+            err=$?
+            [ $err -eq 0 ] && echo "Done" || echo "Something went wrong: $err"
+        fi
+
+    else
+        ## FIXME - Old behaviour
+        ## only for shortcuts
+        echo "FIXME: running default generator: $GENRATOR"
+        $GENERATOR && echo "Done"
+    fi
 }
 
 
@@ -121,16 +147,16 @@ case $command in
         usage
         ;;
     e|edit)
-        edit $(getfile $1)
+        edit $(getmap $1)
         ;;
     s|show)
-        show $(getfile $1)
+        show $(getmap $1)
         ;;
     m|ake)
-        make
+        make $@
         ;;
     g|grep)
-        grep_all $1
+        grep_all $@
         ;;
     f|fzf)
         if [ -z $1 ] ; then
