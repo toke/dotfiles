@@ -5,6 +5,7 @@ scriptname=$(basename $0)
 GENERATOR="shortcuts"
 EDITOR=${EDITOR-vi}
 PAGER=${PAGER-cat}
+GREP=${GREP-grep}
 
 filemap="files:shortcuts:${HOME}/.config/bmfiles
 dirs:shortcuts:${HOME}/.config/bmdirs"
@@ -23,9 +24,11 @@ getfile() {
 }
 
 usage() {
+    printf "%s - Bookmark (shortcuts) helper / generator\n\n" $scriptname
     printf "Usage:\n"
     printf "\t%s h|elp\t\tShows this help\n" $scriptname 
     printf "\t%s [a|show_all]\t\tShows all mappings\n" $scriptname 
+    printf "\t%s [g|grep]\t\tGreps through all mappings\n" $scriptname 
     printf "\t%s e|edit <name>\tEdit a mapping\n" $scriptname 
     printf "\t%s s|show <name>\tShows a single mapping\n" $scriptname 
     printf "\t%s m|make [<name>]\tRegenerates the mappings\n" $scriptname 
@@ -46,6 +49,20 @@ show_all() {
         if [ -f "$filename" ] ; then
             printf "Type: \"%s\", file: \"%s\"\n\n" $type $filename
             cat "$filename"
+        fi
+    done  <<<  "${filemap}"
+}
+
+grep_all() {
+    pattern=$1
+    shift
+    IFS=':'
+    while read -r type make filename ; do
+        if [ -f "$filename" ] ; then
+            matches=$($GREP $pattern "$filename")
+            if [ -n "$matches" ] ; then
+                printf "%s:\n%s\n" "$type" "$matches"
+            fi
         fi
     done  <<<  "${filemap}"
 }
@@ -85,6 +102,10 @@ case $command in
     m|ake)
         make
         ;;
+    g|grep)
+        grep_all $1
+        ;;
+
     a|show_all|'')
         show_all | $PAGER
         ;;
