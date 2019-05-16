@@ -1,0 +1,96 @@
+#!/bin/sh
+
+scriptname=$(basename $0)
+
+GENERATOR="shortcuts"
+EDITOR=${EDITOR-vi}
+PAGER=${PAGER-cat}
+
+filemap="files:shortcuts:${HOME}/.config/bmfiles
+dirs:shortcuts:${HOME}/.config/bmdirs"
+
+getfile() {
+    search=$1
+    shift
+    IFS=':'
+    while read -r type make file
+    do
+        if [ "$type" == "$search" ] ; then
+            echo "$file"
+        fi
+    done  <<<  "${filemap}"
+    IFS=' '
+}
+
+usage() {
+    printf "Usage:\n"
+    printf "\t%s h|elp\t\tShows this help\n" $scriptname 
+    printf "\t%s [a|show_all]\t\tShows all mappings\n" $scriptname 
+    printf "\t%s e|edit <name>\tEdit a mapping\n" $scriptname 
+    printf "\t%s s|show <name>\tShows a single mapping\n" $scriptname 
+    printf "\t%s m|make [<name>]\tRegenerates the mappings\n" $scriptname 
+
+    printf "\nKnown types:\n"
+    printf "<name>:<make>:<filename\n"
+    IFS=''
+    echo $filemap
+    [ -z "$1" ] && printf "\n%s" $1 
+    exit 1
+}
+
+show_all() {
+    printf "Current Configuration:\n\n"
+
+    IFS=':'
+    while read -r type make filename ; do
+        if [ -f "$filename" ] ; then
+            printf "Type: \"%s\", file: \"%s\"\n\n" $type $filename
+            cat "$filename"
+        fi
+    done  <<<  "${filemap}"
+}
+
+edit() {
+    if [ $# -eq 1 ] ; then
+        $EDITOR $1
+    else
+        usage
+    fi
+}
+
+show() {
+    if [ $# -eq 1 ] ; then
+        $PAGER $1
+    else
+        usage
+    fi
+}
+
+make() {
+    $GENERATOR && echo "Done"
+}
+
+
+[ $# -gt 0 ] && command=$1 && shift
+case $command in
+    h|help)
+        usage
+        ;;
+    e|edit)
+        edit $(getfile $1)
+        ;;
+    s|show)
+        show $(getfile $1)
+        ;;
+    m|ake)
+        make
+        ;;
+    a|show_all|'')
+        show_all | $PAGER
+        ;;
+    *)
+        usage
+
+esac
+
+
