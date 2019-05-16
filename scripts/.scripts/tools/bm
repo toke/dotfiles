@@ -6,9 +6,11 @@ GENERATOR="shortcuts"
 EDITOR=${EDITOR-vi}
 PAGER=${PAGER-cat}
 GREP=${GREP-grep}
+FZF=${FZF-fzf}
 
 filemap="files:shortcuts:${HOME}/.config/bmfiles
 dirs:shortcuts:${HOME}/.config/bmdirs"
+
 
 getfile() {
     search=$1
@@ -26,14 +28,16 @@ getfile() {
 usage() {
     printf "%s - Bookmark (shortcuts) helper / generator\n\n" $scriptname
     printf "Usage:\n"
+    printf "\t%s [command] [option…]\tGeneral usage\n" $scriptname 
     printf "\t%s h|elp\t\tShows this help\n" $scriptname 
     printf "\t%s [a|show_all]\t\tShows all mappings\n" $scriptname 
-    printf "\t%s [g|grep]\t\tGreps through all mappings\n" $scriptname 
+    printf "\t%s g|grep\t\tGreps through all mappings\n" $scriptname 
     printf "\t%s e|edit <name>\tEdit a mapping\n" $scriptname 
     printf "\t%s s|show <name>\tShows a single mapping\n" $scriptname 
     printf "\t%s m|make [<name>]\tRegenerates the mappings\n" $scriptname 
-
-    printf "\nKnown types:\n"
+    printf "\t%s f|fzf [%s command]\tInteractive select a mapping file, the optional\n" $scriptname $scriptname 
+    printf "\t\t\t\t\`%s command\` is applied on the selection.\n" $scriptname
+    printf "\nKnown types:\n\n"
     printf "<name>:<make>:<filename\n"
     IFS=''
     echo $filemap
@@ -49,6 +53,15 @@ show_all() {
         if [ -f "$filename" ] ; then
             printf "Type: \"%s\", file: \"%s\"\n\n" $type $filename
             cat "$filename"
+        fi
+    done  <<<  "${filemap}"
+}
+
+fzf_all() {
+    IFS=':'
+    while read -r type make filename ; do
+        if [ -f "$filename" ] ; then
+            sed -e "s/^/${type}:/" $filename
         fi
     done  <<<  "${filemap}"
 }
@@ -105,6 +118,14 @@ case $command in
     g|grep)
         grep_all $1
         ;;
+    f|fzf)
+        if [ -z $1 ] ; then
+            fzf_all | $FZF
+        else
+            fzf_all | $FZF | cut -d: -f1 | xargs bm $1
+        fi
+        ;;
+
 
     a|show_all|'')
         show_all | $PAGER
