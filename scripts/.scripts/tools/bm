@@ -8,9 +8,23 @@ PAGER=${PAGER-cat}
 GREP=${GREP-grep}
 FZF=${FZF-fzf}
 
-filemap="files:shortcuts:${HOME}/.config/bmfiles
-dirs:shortcuts:${HOME}/.config/bmdirs"
+BM_CONFIG_FILE="${HOME}/.config/bmmaps"
 
+if [ ! -f "$BM_CONFIG_FILE" ] ; then
+cat > $BM_CONFIG_FILE <<EOF
+# bm mapping config
+# You can add comments to this file by using #
+# Empty Lines are ignored
+
+# <name>:<make>:<filename>
+bm:bm:${HOME}/.config/bmmaps
+files:shortcuts:${HOME}/.config/bmfiles
+dirs:shortcuts:${HOME}/.config/bmdirs"
+EOF
+    printf "Config file: %s created" $BM_CONFIG_FILE
+fi
+
+filemap=$(sed "s/\s*#.*$//;/^\$*$/d" "$BM_CONFIG_FILE")
 
 getfile() {
     search=$1
