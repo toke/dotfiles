@@ -1,3 +1,6 @@
+# Fast Access to files
+# Generated using shortcits
+# You can add comments to these file with #
 ebmf    ~/.config/bmfiles
 ebmd    ~/.config/bmdirs
 evrc    ~/.vimrc

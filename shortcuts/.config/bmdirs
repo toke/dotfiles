@@ -1,15 +1,16 @@
+# Fast access for directories
+# generated using shortcits
 # You can add comments to these files with #
-# be aware that most of the time those get prefixed with g
 -       -
-h	~/
-d	~/Documents
-D	~/Downloads
-m	~/Music
-pp	~/Pictures
-vv	~/Videos
-cf	~/.config
-sc	~/.scripts
-gi      ~/git
-do      ~/.dotfiles
-wi      ~/projects/hugowiki/nowiki/
-mn	/mnt
+gh	~/
+gd	~/Documents
+gD	~/Downloads
+gm	~/Music
+gpp	~/Pictures
+gvv	~/Videos
+gcf	~/.config
+gsc	~/.scripts
+ggi      ~/git
+gdo      ~/.dotfiles
+gwi      ~/projects/hugowiki/nowiki/
+gmn	/mnt
