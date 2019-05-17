@@ -1,0 +1,155 @@
+#/usr/bin/bash --posix
+#
+#
+
+set -e 
+#set -x 
+
+KEEP_POLICY="--keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-tag important"
+BASE_DIR="$HOME/.config/backup"
+REPO_CFG_DIR="$BASE_DIR/repos.d"
+JOB_CFG_DIR="$BASE_DIR/jobs.d"
+BACKUP_EXCLUDE_FILE=${BACKUP_EXCLUDE_FILE-"$BASE_DIR/excludes"}
+BACKUP_PATTERN=${BACKUP_PATTERN-"$HOME"}
+BACKUP_TAGS=${BACKUP_TAGS-"default"}
+
+scriptname=`basename $0`
+
+cmd=
+repo=
+
+[ -n "$1" ] && cmd=$1 && shift
+[ -n "$1" ] && repo=$1 && shift
+
+error() {
+    code="${3:-1}"
+    echo "An Error occoured in line $1"
+    exit $code
+}
+trap 'error ${LINENO}' ERR
+
+
+usage(){
+
+cat<<EOF
+$scriptname - backup helper
+usage:
+    $scriptname help                            - this help
+    $scriptname check <repo|default>            
+    $scriptname forget
+    $scriptname rebuild-index <repo|default>
+    $scriptname prune <repo|default>
+    $scriptname maint <repo|default>            - runs check, rebuild-index and prune
+    $scriptname backup <repo|default> [patterns]
+    $scriptname ls                              - Prints out configured repo names
+    $scriptname job <job|default>               - Runs named job (job.d/<job>.conf>
+EOF
+}
+
+check_cfg(){
+    if [ -n "$repo" ] && [ "$repo" != "all" ] ; then
+        repo_cfg="$REPO_CFG_DIR/${repo}.conf"
+        if [ -e "$repo_cfg" ] ; then
+            source "$repo_cfg"
+
+            export RESTIC_REPOSITORY RESTIC_PASSWORD AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+        else
+            printf "Error: Repo Configuration \"%s\" does not exist in: \"%s\"\n" "$repo" "$REPO_CFG_DIR"
+            printf "Hint: use '%s ls' to find configurations\n\n" "$scriptname"
+            error 2
+        fi
+    fi
+
+    if [ -z "$repo_cfg" ] 
+    then
+        usage
+        printf "Error: You have to specify a repository configuation\n"
+        printf "Hint: use '%s ls' to find configurations\n\n" "$scriptname"
+        error 1
+    fi
+}
+
+get_tags(){
+    IFS=', '
+    #echo $BACKUP_TAGS
+    while read -r tag ; do
+        printf -- '--tag %s ' $tag
+    done <<< $BACKUP_TAGS
+    IFS=' '
+}
+
+
+start_job() {
+    job="$repo"
+    if [ -n "$job" ] ; then
+        job_cfg="$JOB_CFG_DIR/$job.conf"
+        if [ -f "$job_cfg" ] ; then
+            source "$job_cfg"
+        fi
+        export BACKUP_PATTERN
+        export BACKUP_REPOSITORY
+        export BACKUP_TAGS
+        export BACKUP_EXCLUDE_FILE
+        exec "$0" backup "$BACKUP_REPOSITORY" $BACKUP_PATTERN
+    fi
+    echo 1
+
+}
+
+case $cmd in
+    forget)
+        check_cfg
+        restic forget $KEEP_POLICY
+        ;;
+    check)
+        check_cfg
+        restic check
+        ;;
+    rebuild-index)
+        check_cfg
+        restic rebuild-index
+        ;;
+    prune)
+        check_cfg
+        restic prune
+        ;;
+    maint)
+        check_cfg
+        restic check
+        restic rebuild-index
+        restic prune
+        ;;
+    job)
+        start_job
+        ;;
+    backup)
+        check_cfg
+        if [ $# -gt 0 ] ; then
+            BACKUP_PATTERN=$@
+        fi
+        printf "Using repository %s: %s\n" "$REPO_NAME" "$RESTIC_REPOSITORY"
+        restic backup $(get_tags) --exclude-file "$BACKUP_EXCLUDE_FILE" --exclude-caches -x $BACKUP_PATTERN
+        ;;
+    ls)
+        echo "Configured repos and jobs:"
+        repo_type=""
+        for type in $REPO_CFG_DIR $JOB_CFG_DIR ; do
+            for cfg in $type/*.conf ; do
+                repo_name=$(basename -s ".conf" "$cfg")
+                [ "$repo_name" == "default" ] && repo_type='(*)' || repo_type=""
+                printf "\t%s\t%s\n" $repo_name $repo_type
+            done
+            if [ -L "$type/default.conf" ] ; then
+                printf "\n(*) Default configuration:\n"
+                stat --printf "%N" $type/default.conf 
+                echo ""
+            fi
+            echo ""
+        done
+        ;;
+    *)
+        usage
+        exit 9
+esac
+
+
