@@ -5,7 +5,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "custom/weather", "custom/mail", "custom/storage", "backlight", "pulseaudio", "network", "idle_inhibitor", "battery", "clock"],
+    "modules-right": ["tray", "custom/weather","mpd", "custom/mail", "custom/storage", "backlight", "pulseaudio", "network", "idle_inhibitor", "battery", "clock"],
     "sway/mode": {
         "format": " {}"
     },
@@ -58,10 +58,30 @@
         "tooltip": false
     },
     "mpd": {
-        "format": "{}  ",
-        "format-alt": "{artist} - {title}",
-        "format-alt-click": "click-right",
-        "tooltip": true
+	"format": "{stateIcon}{title} ",
+	"format-alt": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+	"format-disconnected": "Disconnected ",
+	"format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+	"interval": 2,
+	"consume-icons": {
+		"on": " " // Icon shows only when "consume" is on
+	},
+	"random-icons": {
+		"off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
+		"on": " "
+	},
+	"repeat-icons": {
+		"on": " "
+	},
+	"single-icons": {
+		"on": "1 "
+	},
+	"state-icons": {
+		"paused": "",
+		"playing": ""
+	},
+	"tooltip-format": "MPD (connected)",
+	"tooltip-format-disconnected": "MPD (disconnected)"
     },
     "custom/storage": {
         "format": "{} ",
@@ -75,7 +95,7 @@
         "format": "{icon}",
         "format-alt": "{percent}% {icon}",
         "format-alt-click": "click-right",
-        "format-icons": ["", ""],
+        "format-icons": ["", ""],
         "on-scroll-down": "light -A 1",
         "on-scroll-up": "light -U 1"
     },
@@ -109,4 +129,4 @@
         "icon-size": 18
     }
 }
-
+// vim: set filetype=json :
