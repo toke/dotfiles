@@ -29,15 +29,16 @@ filemap=$(sed "s/\s*#.*$//;/^\$*$/d" "$BM_CONFIG_FILE")
 getmap() {
     search=$1
     shift
-    IFS=':'
-    while read -r type make file
+    echo "${filemap}" | while IFS=":" read  type make file
     do
-        if [ "$type" == "$search" ] ; then
-            echo "$type $make $file"
+        # FIXME Posix handling with spaces
+        if [ "$type" = "$search" ] ; then
+            echo "$type '$make' $file"
         fi
-    done  <<<  "${filemap}"
-    IFS=' '
+    done
 }
+
+getmap bm
 
 usage() {
     printf "%s - Bookmark (shortcuts) helper / generator\n\n" $scriptname
@@ -62,24 +63,22 @@ usage() {
 show_all() {
     printf "Current Configuration:\n\n"
 
-    IFS=':'
-    while read -r type make filename ; do
+    echo "${filemap}" | while IFS=':' read -r type make filename ; do
         if [ -n "$filename" ] ; then
             printf "Type: \"%s\", file: \"%s\"\n\n" $type $filename
             cat "$filename"
         fi
-    done  <<<  "${filemap}"
+    done
 }
 
 fzf_all() {
     # FIXME: this can be an alias easily no need to reimplemnt the wheel
 
-    IFS=':'
-    while read -r type make filename ; do
+    echo "${filemap}" | while IFS=':' read -r type make filename ; do
         if [ -f "$filename" ] ; then
             sed -e "s/^/${type}:/" $filename
         fi
-    done  <<<  "${filemap}"
+    done
 }
 
 grep_all() {
@@ -87,15 +86,14 @@ grep_all() {
     
     pattern=$1
     shift
-    IFS=':'
-    while read -r type make filename ; do
+    echo "${filemap}" | while IFS=':' read -r type make filename ; do
         if [ -f "$filename" ] ; then
             matches=$($GREP $pattern "$filename")
             if [ -n "$matches" ] ; then
                 printf "%s:\n%s\n" "$type" "$matches"
             fi
         fi
-    done  <<<  "${filemap}"
+    done
 }
 
 edit() {
@@ -116,7 +114,7 @@ show() {
 
 make() {
     if [ $# -eq 1 ] ; then
-        if [ $1 == 'bm' ] ; then
+        if [ $1 = 'bm' ] ; then
             echo "can not do anything right now with type bm"
             exit 3
         else 

@@ -1,4 +1,4 @@
-#/usr/bin/bash --posix
+#!/usr/bin/env bash
 #
 #
 
@@ -12,8 +12,14 @@ JOB_CFG_DIR="$BASE_DIR/jobs.d"
 BACKUP_EXCLUDE_FILE=${BACKUP_EXCLUDE_FILE-"$BASE_DIR/excludes"}
 BACKUP_PATTERN=${BACKUP_PATTERN-"$HOME"}
 BACKUP_TAGS=${BACKUP_TAGS-"default"}
+RESTIC_DEFAULT_PARAMS=${RESTIC_DEFAULT_PARAMS-"--exclude-caches -x"}
 
 scriptname=`basename $0`
+
+
+# Since we're sometimes quite long running do some
+# magic to get better visibility in ps output
+#[ "$1" != "wrap" ] && exec "$0" "wrap" $@ || shift
 
 cmd=
 repo=
@@ -26,7 +32,7 @@ error() {
     echo "An Error occoured in line $1"
     exit $code
 }
-trap 'error ${LINENO}' ERR
+trap 'error ${LINENO}' ERR   # BASHISM
 
 
 usage(){
@@ -50,7 +56,7 @@ check_cfg(){
     if [ -n "$repo" ] && [ "$repo" != "all" ] ; then
         repo_cfg="$REPO_CFG_DIR/${repo}.conf"
         if [ -e "$repo_cfg" ] ; then
-            source "$repo_cfg"
+            . "$repo_cfg"
 
             export RESTIC_REPOSITORY RESTIC_PASSWORD AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
         else
@@ -72,9 +78,10 @@ check_cfg(){
 get_tags(){
     IFS=', '
     #echo $BACKUP_TAGS
-    while read -r tag ; do
+    echo ${BACKUP_TAGS} | while read -r tag ; do
         printf -- '--tag %s ' $tag
-    done <<< $BACKUP_TAGS
+    done 
+
     IFS=' '
 }
 
@@ -84,7 +91,7 @@ start_job() {
     if [ -n "$job" ] ; then
         job_cfg="$JOB_CFG_DIR/$job.conf"
         if [ -f "$job_cfg" ] ; then
-            source "$job_cfg"
+            . "$job_cfg"
         fi
         export BACKUP_PATTERN
         export BACKUP_REPOSITORY
@@ -122,13 +129,21 @@ case $cmd in
     job)
         start_job
         ;;
+    restic-repo)
+        # runs $@ in context of repo confiog
+        check_cfg
+        restic $@
+        ;;
     backup)
         check_cfg
         if [ $# -gt 0 ] ; then
             BACKUP_PATTERN=$@
         fi
         printf "Using repository %s: %s\n" "$REPO_NAME" "$RESTIC_REPOSITORY"
-        restic backup $(get_tags) --exclude-file "$BACKUP_EXCLUDE_FILE" --exclude-caches -x $BACKUP_PATTERN
+        if [ -n "$BACKUP_EXCLUDE_FILE" ] && [ -e "$BACKUP_EXCLUDE_FILE" ] ; then
+            BACKUP_EXCLUDE_FILE="--exclude-file $BACKUP_EXCLUDE_FILE"
+        fi
+        restic backup $(get_tags) $BACKUP_EXCLUDE_FILE $RESTIC_DEFAULT_PARAMS $BACKUP_PATTERN
         ;;
     ls)
         echo "Configured repos and jobs:"
@@ -136,7 +151,7 @@ case $cmd in
         for type in $REPO_CFG_DIR $JOB_CFG_DIR ; do
             for cfg in $type/*.conf ; do
                 repo_name=$(basename -s ".conf" "$cfg")
-                [ "$repo_name" == "default" ] && repo_type='(*)' || repo_type=""
+                [ "$repo_name" = "default" ] && repo_type='(*)' || repo_type=""
                 printf "\t%s\t%s\n" $repo_name $repo_type
             done
             if [ -L "$type/default.conf" ] ; then
