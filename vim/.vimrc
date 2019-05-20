@@ -184,11 +184,18 @@
         \ ;git commit -am "autocommit"
         \ ; git push
 
+
+    "    autocmd BufEnter **/.config/waybar/config set ft=json
 " Autoreload and also grouping to prevent multiple reloads
     augroup myvimrchooks
         au!
         autocmd bufwritepost .vimrc source ~/.vimrc
     augroup END
+
+    augroup textfile
+      autocmd!
+      autocmd filetype markdown :setlocal spell spelllang=en | syntax clear
+    augroup end
 
 " Window Tab handling
     nnoremap th  :tabfirst<CR>
