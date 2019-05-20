@@ -31,4 +31,40 @@ alias ka="killall" \
 
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 
-vf() { fzf | xargs -r -I % $EDITOR % ;}
+fv() { fzf | xargs -r -I % $EDITOR % ;}
+
+## CD Helper
+
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+  ls
+}
+
+# fdr - cd to selected parent directory
+fdr() {
+  get_parent_dirs() {
+    if [[ -d "${1}" ]]; then echo "$1"; else return; fi
+    if [[ "${1}" == '/' ]]; then
+      echo ".."
+    else
+      get_parent_dirs $(dirname "$1")
+    fi
+  }
+  DIR=$(get_parent_dirs $(realpath "${1:-$PWD}") | fzf-tmux )
+  cd "$DIR"
+}
+
+cdans() {
+    dir=$(find ~/ansible/ -mindepth 1 -maxdepth 2 -type d  -print0 | fzf --read0 --preview='tree {}')
+    cd "$dir"
+    pwd
+    ls
+}
+
+## # fh - repeat history
+fh() {
+  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -r 's/ *[0-9]*\*? *//' | sed -r 's/\\/\\\\/g')
+}
