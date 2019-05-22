@@ -40,9 +40,6 @@
 "" CLIPBOARD HANDLING
 " system wide copy-paste with ctrl-c ctrl-v
     set clipboard=unnamedplus
-"vmap <c-c> "+y
-"inoremap <C-v> "*p
-"vnoremap <C-c> "*y
 " copy and paste
     vmap <C-c> "+yi
     vmap <C-x> "+c
@@ -62,11 +59,7 @@
 " I always accidently hit :W instread of :w, so make both work
     command! W write
 
-" Show trailing whitepace and spaces before a tab:
-    highlight ExtraWhitespace ctermbg=red guibg=red
-    autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/ containedin=ALL
-
-" Folding
+" Sh" Folding
     set foldmethod=syntax
     set foldcolumn=1
     set foldlevelstart=20
@@ -76,7 +69,7 @@
     call plug#begin('~/.local/share/nvim/plugged')
         Plug 'bling/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
-        Plug 'altercation/vim-colors-solarized'
+        Plug 'lifepillar/vim-solarized8'
 
         Plug 'fsouza/go.vim'
         Plug 'wting/rust.vim'
@@ -223,16 +216,21 @@
 
 "======Solarized theme============
     syntax on
-    let g:solarized_termtrans = 1
-    set background=dark
-    set t_Co=256
-    let g:solarized_termcolors=256
-    colorscheme solarized
+    colorscheme solarized8_flat
 
 " Enable mouse support
     if has('mouse')
       set mouse=a
     endif
+
+" ow trailing whitepace and spaces before a tab:
+    highlight ExtraWhitespace ctermbg=red guibg=red
+    autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/ containedin=ALL
+
+
+    highlight comment ctermfg=grey
+    highlight comment cterm=italic
+
 
 
 " CUSTOM KEYBINDINGS AND COMMANDS
