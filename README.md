@@ -26,36 +26,12 @@ when ths checkout lives in `$HOME/.dotfiles` and you are in it and run
 
 [EditorConfig][editorconfig] helps developers define and maintain consistent coding styles between different editors and IDEs.
 
-### Vim Config (vim)
+### Vim (Neovim) Config (vim)
 
-I use [Plug][vim-plug] to manage vim plugins. So the old approach of using submodules is deprecated - see [Vis config](#vis-config)
-for an example.
-To reflect changes or initial use your Vim plugins run
-`vim +PluginInstall`. Thats it.
-
-
-
-
-### Vis config
-
-I started using git subtree in the [vis][vis] config for plugins. I used the following approach:
-
-```sh
-git remote add -f vis-surround https://gitserver/user/vis-surround.git
-git subtree add --prefix vis/.config/vis/plugins/vis-surround vis-surround master --squash
-```
-
-Then I added the require lines in [visrc.lua](vis/.config/vis/visrc.lua).
-
-The command to update the sub-project at a later date becomes:
-
-```sh
-git fetch vis-surround master
-git subtree pull --prefix vis/.config/vis/plugins/vis-surround vis-surround master --squash
-```
+I use [Plug][vim-plug] to manage vim plugins.  To reflect changes or initial use your Vim plugins
+run `vim +PluginInstall`. Thats it.
 
 
 [stow]: https://www.gnu.org/software/stow/
 [editorconfig]: http://editorconfig.org/
 [vim-plug]: https://github.com/junegunn/vim-plug
-[vis]: https://github.com/martanne/vis
