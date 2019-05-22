@@ -28,8 +28,7 @@ when ths checkout lives in `$HOME/.dotfiles` and you are in it and run
 
 ### Vim Config (vim)
 
-I use [Vundle.vim][vundle] to manage vim plugins. I moved from git submodules to git
-subtrees. So the old approach of using submodules is deprecated - see [Vis config](#vis-config)
+I use [Plug][vim-plug] to manage vim plugins. So the old approach of using submodules is deprecated - see [Vis config](#vis-config)
 for an example.
 To reflect changes or initial use your Vim plugins run
 `vim +PluginInstall`. Thats it.
@@ -58,5 +57,5 @@ git subtree pull --prefix vis/.config/vis/plugins/vis-surround vis-surround mast
 
 [stow]: https://www.gnu.org/software/stow/
 [editorconfig]: http://editorconfig.org/
-[vundle]: https://github.com/VundleVim/Vundle.vim
+[vim-plug]: https://github.com/junegunn/vim-plug
 [vis]: https://github.com/martanne/vis
