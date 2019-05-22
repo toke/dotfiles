@@ -126,7 +126,7 @@
         \ 'vimwiki_auto_chdir': 1,
         \ 'vimwiki_autowriteall': 1,
         \ 'vimwiki_hl_headers': 1,
-        \ 'ext': '.wiki',
+        \ 'ext': '.md',
         \ 'nested_syntaxes': {'python': 'python', 'c++': 'cpp', 'sh': 'sh', 'go': 'go', 'yaml': 'yaml', 'vim': 'vim', 'sql': 'sql'},
         \ }]
     nnoremap <leader>o mmI:<esc>v$h"oy@o<CR>x`m
