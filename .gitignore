@@ -1,5 +1,6 @@
-vim/.vim/bundle/*
+/vim/.vim/bundle/*
+/.vscode
 .netrwhist
 *.log
-i3blocks/.config/i3blocks/scripts/venv/
-waybar/.config/waybar/modules/mailsecrets.py
+/i3blocks/.config/i3blocks/scripts/venv/
+/waybar/.config/waybar/modules/mailsecrets.py

@@ -6,7 +6,7 @@ pushd ~/vimwiki
 
 git add .
 git commit -m "vimwiki autocommit for $DATE"
-git push
+fping github.com && git pull && git push
 
 # restore working dir
 popd
