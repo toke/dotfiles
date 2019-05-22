@@ -9,6 +9,7 @@ echo "UPDATESTARTUPTTY" | gpg-connect-agent &> /dev/null
 
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc" # Load shortcut aliases
 [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+[ -f /usr/bin/virtualenvwrapper_lazy.sh ] && source /usr/bin/virtualenvwrapper_lazy.sh
 
 if [[ $TERM == xterm-termite ]]; then
     . /etc/profile.d/vte.sh
