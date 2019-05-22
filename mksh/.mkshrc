@@ -8,6 +8,7 @@ MKHOME="${XDG_CONFIG_HOME-$HOME/.config}/mksh"
 
 ## Create data dir if not existent
 [[ ! -e  $HOME/.local/data/mksh ]] && mkdir -p "$HOME/.local/data/mksh"
+[ -f /usr/bin/virtualenvwrapper_lazy.sh ] && source /usr/bin/virtualenvwrapper_lazy.sh
 
 if [[ $TERM == xterm-termite ]]; then
     . /etc/profile.d/vte.sh
