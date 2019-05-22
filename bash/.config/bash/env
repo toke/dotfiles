@@ -3,30 +3,13 @@
 ## Environments used only in interactive shells have to be
 ## put in ./interactive! An example for this is PS1.
 
-
-export EDITOR=/usr/bin/nvim
-export FCEDIT="${EDITOR}"
-
-## Local bin folders
-[[ -e $HOME/bin ]] && PATH=$PATH:$HOME/bin
-[[ -e $HOME/.local/bin ]] && PATH=$PATH:$HOME/.local/bin
-[[ -e $HOME/.gem/ruby/2.4.0/bin ]] && PATH=$PATH:$HOME/.gem/ruby/2.4.0/bin
-
-[[ -e /etc/profile.d/plan9.sh ]] && source /etc/profile.d/plan9.sh
-
-## Setup Java
-[[ -e /opt/jdk/bin/ ]] && export PATH="$PATH:/opt/jdk/bin/"
-
-## Setup GO
-[[ -e $HOME/gocode ]] && export GOPATH=$HOME/gocode
-[[ -e $HOME/gocode/bin ]] && export PATH=$HOME/gocode/bin:$PATH
+## OBSOLETE
+## MOST OF IT IS HNADLED IN .profile!!
 
 ## Setup Python stuff
 # I used to create a virtualenv default-py2 and a default-py3
 # to manage my local default environments for python2 and python3
 # to create one I do `mkvirtualenv -p /usr/bin/python2 default-py2`
-command -v virtualenvwrapper.sh > /dev/null && \
-	source $(command -v virtualenvwrapper.sh)
 
 #workon default || echo "No Virtualenv configured" 
 [[ -d "$HOME/py" ]] && export PROJECT_HOME="${HOME}/py"
@@ -35,14 +18,6 @@ command -v virtualenvwrapper.sh > /dev/null && \
 [[ -e /etc/ssl/certs/ca-certificates.crt ]] && export PIP_CERT="/etc/ssl/certs/ca-certificates.crt"
 [[ -e "$PIP_CERT" ]] && export REQUESTS_CA_BUNDLE="$PIP_CERT"
 
-## Perl5 Foo
-if [[ -d "$HOME/perl5" ]] ; then
-  [[ -d "$HOME/perl5/bin" ]] && PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
-  [[ -d "$HOME/perl5/lib/perl5" ]] && PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-  PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-  PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
-  PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
-fi
 
 GPG_TTY=$(tty)
 export GPG_TTY

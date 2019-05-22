@@ -16,9 +16,11 @@ vim
 vimpager
 sway
 waybar
+termite
 
 
 qrencode
 
 dash
 busybox
+virtualenvwrapper

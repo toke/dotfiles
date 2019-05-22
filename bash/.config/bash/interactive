@@ -10,7 +10,7 @@ CDPATH="$HOME:$HOME/git"
 
 PS1='[\u@\h \W]\$ '
 
-echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null 2&>1
+echo "UPDATESTARTUPTTY" | gpg-connect-agent &> /dev/null
 
 ## Files to be included
 BASHCFG="$HOME/.config/bash"

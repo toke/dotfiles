@@ -6,7 +6,8 @@ export PATH="$PATH:$(find $HOME/.local/bin/ -follow -type d -printf :%p )"
 [ -e $HOME/bin ] && export PATH="$PATH:$HOME/bin"
 
 export EDITOR="/usr/bin/nvim"
-export VISUAL="/usr/bin/nvim"
+export FCEDITOR="$EDITOR"
+export VISUAL="$EDITOR"
 export BROWSER="/usr/bin/firefox"
 export TERMINAL="/usr/bin/termite"
 export READER="/usr/bin/zathura"
@@ -32,9 +33,19 @@ echo "$0" | grep "mksh$" >/dev/null && [ -f ~/.mkshrc ] && source "$HOME/.mkshrc
 #sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
 [ -e "/etc/profile.d/plan9.sh" ] && source "/etc/profile.d/plan9.sh"
 
-# Start graphical server if i3 not already running.
-[ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x sway >/dev/null && exec bin/sway-bin
+[ -e $HOME/gocode ] && export GOPATH="$HOME/gocode"
+[ -e $HOME/gocode/bin ] && PATH="$PATH:$HOME/gocode/bin"
+
+# Set environment for pip + requests to find combined root CA certs
+[ -e /etc/ssl/certs/ca-certificates.crt ] && export PIP_CERT="/etc/ssl/certs/ca-certificates.crt"
+[ -e "$PIP_CERT" ] && export REQUESTS_CA_BUNDLE="$PIP_CERT"
+
 
 
 ## QUICKFIX-Remove Duplicate
 PATH=$(printf "%s" "$PATH" | awk -v RS=':' '!a[$1]++ { if (NR > 1) printf RS; printf $1 }')
+
+# Start graphical server if i3 not already running.
+[ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x sway >/dev/null && exec bin/sway-bin
+
+
