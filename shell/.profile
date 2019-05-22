@@ -1,9 +1,19 @@
 #!/bin/sh
 # Profile file. Runs on login.
 
+appendpath () {
+    case ":$PATH:" in
+        *:"$1":*)
+            ;;
+        *)
+            PATH="${PATH:+$PATH:}$1"
+    esac
+}
+
+
 # Adds `~/.scripts` and all subdirectories to $PATH
-export PATH="${PATH}$(find $HOME/.local/bin/ -follow -type d -printf :%p )"
-[ -e $HOME/bin ] && export PATH="$PATH:$HOME/bin"
+for path in ~/.local/bin/* ; do [ -d "$path" ] && appendpath $path ; done
+[ -e $HOME/bin ] && appendpath "$HOME/bin"
 
 export EDITOR="/usr/bin/nvim"
 export FCEDITOR="$EDITOR"
@@ -34,18 +44,15 @@ echo "$0" | grep "mksh$" >/dev/null && [ -f ~/.mkshrc ] && source "$HOME/.mkshrc
 [ -e "/etc/profile.d/plan9.sh" ] && source "/etc/profile.d/plan9.sh"
 
 [ -e $HOME/gocode ] && export GOPATH="$HOME/gocode"
-[ -e $HOME/gocode/bin ] && PATH="$PATH:$HOME/gocode/bin"
+[ -e $HOME/gocode/bin ] && appendpath "$HOME/gocode/bin"
 
 # Set environment for pip + requests to find combined root CA certs
 [ -e /etc/ssl/certs/ca-certificates.crt ] && export PIP_CERT="/etc/ssl/certs/ca-certificates.crt"
 [ -e "$PIP_CERT" ] && export REQUESTS_CA_BUNDLE="$PIP_CERT"
 
 
-
-## QUICKFIX-Remove Duplicate
-PATH=$(printf "%s" "$PATH" | awk -v RS=':' '!a[$1]++ { if (NR > 1) printf RS; printf $1 }')
-
 # Start graphical server if i3 not already running.
 [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x sway >/dev/null && exec bin/sway-bin
 
 
+unset appendpath
