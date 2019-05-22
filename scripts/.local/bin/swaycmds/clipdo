@@ -7,7 +7,7 @@ choice=$(
     bemenu -p "Clipboard> " -l 10 --fn 'Droid Sans Mono-9'
 )
 
-if [ $? == "0" ] ; then
+if [ $? = "0" ] ; then
    echo $choice |
        sh -c "$(awk  -F'→'  '{ print $2 }')"&
    
