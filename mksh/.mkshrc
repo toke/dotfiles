@@ -9,6 +9,12 @@ MKHOME="${XDG_CONFIG_HOME-$HOME/.config}/mksh"
 ## Create data dir if not existent
 [[ ! -e  $HOME/.local/data/mksh ]] && mkdir -p "$HOME/.local/data/mksh"
 
+if [[ $TERM == xterm-termite ]]; then
+    . /etc/profile.d/vte.sh
+    __vte_prompt_command
+fi
+
+
 case "$-" in
   *i*)
     source "${MKHOME}/interactive"
@@ -16,4 +22,10 @@ case "$-" in
 esac
 
 
-[[ -e /etc/profile.d/plan9.sh ]] && source /etc/profile.d/plan9.sh
+echo "UPDATESTARTUPTTY" | gpg-connect-agent &> /dev/null
+
+[ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc" # Load shortcut aliases
+[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+
+
+
