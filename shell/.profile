@@ -13,7 +13,13 @@ appendpath () {
 
 # Adds `~/.scripts` and all subdirectories to $PATH
 for path in ~/.local/bin/* ; do [ -d "$path" ] && appendpath $path ; done
+unset path
 [ -e $HOME/bin ] && appendpath "$HOME/bin"
+
+
+[ -e $HOME/gocode ] && export GOPATH="$HOME/gocode"
+[ -e $HOME/gocode/bin ] && appendpath "$HOME/gocode/bin"
+
 
 export EDITOR="/usr/bin/nvim"
 export FCEDITOR="$EDITOR"
@@ -36,20 +42,15 @@ export GPG_TYT=$(tty)
 
 [ ! -f ~/.config/shortcutrc ] && shortcuts >/dev/null 2>&1
 
-echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc"
-echo "$0" | grep "mksh$" >/dev/null && [ -f ~/.mkshrc ] && source "$HOME/.mkshrc"
+echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && . "$HOME/.bashrc"
+echo "$0" | grep "mksh$" >/dev/null && [ -f ~/.mkshrc ] && . "$HOME/.mkshrc"
 
 # Switch escape and caps if tty:
 #sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
-[ -e "/etc/profile.d/plan9.sh" ] && source "/etc/profile.d/plan9.sh"
-
-[ -e $HOME/gocode ] && export GOPATH="$HOME/gocode"
-[ -e $HOME/gocode/bin ] && appendpath "$HOME/gocode/bin"
-
 # Set environment for pip + requests to find combined root CA certs
+
 [ -e /etc/ssl/certs/ca-certificates.crt ] && export PIP_CERT="/etc/ssl/certs/ca-certificates.crt"
 [ -e "$PIP_CERT" ] && export REQUESTS_CA_BUNDLE="$PIP_CERT"
-
 
 # Start graphical server if i3 not already running.
 [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x sway >/dev/null && exec bin/sway-bin
