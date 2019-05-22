@@ -1,5 +1,15 @@
+ONLINE=`{fping -q github.com && echo "true"}
 
-install:
+all:VN: sync install
+
+online:QV:
+    fping -q github.com
+
+sync:V: online
+    git pull
+    git push
+
+install:V:
     stow bash
     stow editorconfig
     stow emojis
@@ -13,3 +23,9 @@ install:
     stow vim
     stow vifm
     stow waybar
+
+foo:V:
+    echo "foo"
+
+foo.ref:Pcmp -s:    foo
+    echo $prereq $target
