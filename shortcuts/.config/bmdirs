@@ -4,6 +4,7 @@
 g-       -
 gh	~/
 gd	~/Documents
+ga      ~/ansible
 gD	~/Downloads
 gm	~/Music
 gpp	~/Pictures
@@ -14,3 +15,4 @@ ggi      ~/git
 gdo      ~/.dotfiles
 gwi      ~/projects/hugowiki/nowiki/
 gmn	/mnt
+
