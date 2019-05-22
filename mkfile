@@ -1,4 +1,4 @@
-ONLINE=`{fping -q github.com && echo "true"}
+DEFAULT_PKGS="bash editorconfig emojis git mksh neovim scripts shell shortcuts sway vim vifm waybar"
 
 all:VN: sync install
 
@@ -9,20 +9,8 @@ sync:V: online
     git pull
     git push
 
-install:V:
-    stow bash
-    stow editorconfig
-    stow emojis
-    stow git
-    stow mksh
-    stow neovim
-    stow scripts
-    stow shell
-    stow shortcuts
-    stow sway
-    stow vim
-    stow vifm
-    stow waybar
+install:V: 
+    stow $DEFAULT_PKGS
 
 foo:V:
     echo "foo"
