@@ -18,7 +18,7 @@ set $right l
 set $term --no-startup-id $TERMINAL
 # Your preferred application launcher
 set $dmenu "bemenu -p '> ' --nf '#d7d7d5' --nb '#232729' --sb '#585858' --sf '#bcbcbc' --fn 'xos4 Terminus 12' -i"
-set $menu bemenu-run
+set $menu "bemenu-run"
 
 
 set $ws1 1
