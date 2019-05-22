@@ -142,20 +142,20 @@ no_focus [title="mpvfloat"]
 
 
 
-    # grim -g "$(slurp -d)" 
+    # grim -g "$(slurp -d)"
     bindsym Shift+Print            exec grim -g \"$(slurp)" "$(xdg-user-dir PICTURES)/Screenshots/$(date +%Y%m%d%H%M%S-sway.png)"
     bindsym Print                  exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') "$(xdg-user-dir PICTURES)/Screenshots/$(date +'%Y%m%d%H%M%S-sway.png')"
 
 
     mode "cast" {
         # Cast to chromecast
-        bindsym c exec catt cast "$(wl-paste --no-newline)" 
-        bindsym a exec catt add "$(wl-paste --no-newline)" 
-        bindsym Shift+p exec catt pause 
+        bindsym c exec catt cast "$(wl-paste --no-newline)"
+        bindsym a exec catt add "$(wl-paste --no-newline)"
+        bindsym Shift+p exec catt pause
         bindsym p exec catt play
         bindsym Shift+s exec /home/toke/bin/castshot
 
-        bindsym w exec catt cast_site "$(wl-paste --no-newline)" 
+        bindsym w exec catt cast_site "$(wl-paste --no-newline)"
         bindsym Backspace exec catt remove
         bindsym Minus exec catt volumedown
         bindsym Plus exec catt volumeup
@@ -239,7 +239,7 @@ no_focus [title="mpvfloat"]
     # We just use 1-10 as the default.
     bindsym $mod+Tab workspace back_and_forth
 
-    workspace_auto_back_and_forth yes    
+    workspace_auto_back_and_forth yes
 
 #
 # Layout stuff:

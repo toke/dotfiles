@@ -39,7 +39,7 @@ browser = xdg-open
 # "off", "left" or "right"
 #scrollbar = off
 
-[colors]
+#[colors]
 # If both of these are unset, cursor falls back to the foreground color,
 # and cursor_foreground falls back to the background color.
 #cursor = #dcdccc
@@ -53,25 +53,25 @@ browser = xdg-open
 #background = rgba(63, 63, 63, 0.8)
 
 # If unset, will reverse foreground and background
-highlight = #2f2f2f
+#highlight = #2f2f2f
 
 # Colors from color0 to color254 can be set
-color0 = #3f3f3f
-color1 = #705050
-color2 = #60b48a
-color3 = #dfaf8f
-color4 = #506070
-color5 = #dc8cc3
-color6 = #8cd0d3
-color7 = #dcdccc
-color8 = #709080
-color9 = #dca3a3
-color10 = #c3bf9f
-color11 = #f0dfaf
-color12 = #94bff3
-color13 = #ec93d3
-color14 = #93e0e3
-color15 = #ffffff
+#color0 = #3f3f3f
+#color1 = #705050
+#color2 = #60b48a
+#color3 = #dfaf8f
+#color4 = #506070
+#color5 = #dc8cc3
+##color6 = #8cd0d3
+#color7 = #dcdccc
+#color8 = #709080
+#color9 = #dca3a3
+#color10 = #c3bf9f
+#color11 = #f0dfaf
+#color12 = #94bff3
+#color13 = #ec93d3
+#color14 = #93e0e3
+#color15 = #ffffff
 
 [hints]
 #font = Monospace 12
@@ -83,5 +83,59 @@ color15 = #ffffff
 #border = #3f3f3f
 #border_width = 0.5
 #roundness = 2.0
+[colors]
+# If both of these are unset, cursor falls back to the foreground color,
+# and cursor_foreground falls back to the background color.
+cursor = #fdf6e3
+cursor_foreground = #073642
+
+foreground = #fdf6e3
+foreground_bold = #fdf6e3
+
+# 20% background transparency (requires a compositor)
+#background = rgba(63, 63, 63, 0.98)
+#background = #3f3f3f
+background = #002b36
+#background = #001c23
+
+# If unset, will reverse foreground and background
+highlight = #586e75
+
+# Colors from color0 to color254 can be set
+
+# base03
+color8 = #002b36
+# base02
+color0 = #073642
+# base01
+color10 = #586e75
+# base00
+color11 = #657b83
+# base0
+color12 = #839496
+# base1
+color14 = #93a1a1
+# base2
+color7 = #eee8d5
+# base3
+color15 = #fdf6e3
+
+# yellow
+color3 = #b58900
+# orange
+color9 = #cb4b16
+# red
+color1 = #dc322f
+# magenta
+color5 = #d33682
+# violet
+color13 = #6c71c4
+# blue
+color4 = #268bd2
+# cyan
+color6 = #2aa198
+# green
+color2 = #859900
+
 
 # vim: ft=dosini cms=#%s

@@ -188,13 +188,11 @@
       autocmd filetype markdown :setlocal spell spelllang=en | syntax clear
     augroup end
 
-    
-" Execute 
+" Execute
     nnoremap <leader>2 :@"<CR>
     vmap <space> "xy:@x<CR>
-    vmap l :w !plumb <CR> 
-    
-    
+    vmap l :w !plumb <CR>
+
 " terminal Map ESC to leave insert mode
 " :vsplit term://python
     tnoremap <Esc> <C-\><C-n>
@@ -216,7 +214,16 @@
 
 "======Solarized theme============
     syntax on
-    colorscheme solarized8_flat
+    colorscheme solarized8
+    let g:solarized_extra_hi_groups=1
+    let g:solarized_statusline="low"
+    let g:solarized_term_italics=1
+    let g:solarized_termtrans=1
+
+
+    if (has("termguicolors"))
+      set termguicolors
+    endif
 
 " Enable mouse support
     if has('mouse')
@@ -230,7 +237,6 @@
 
     highlight comment ctermfg=grey
     highlight comment cterm=italic
-
 
 
 " CUSTOM KEYBINDINGS AND COMMANDS
