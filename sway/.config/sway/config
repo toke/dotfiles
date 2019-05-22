@@ -34,9 +34,10 @@ set $ws9 9
 
 assign [app_id="firefox"] → workspace $ws2
 
-exec swayidle -w     timeout 300 'swaylock -f -c 000000'     timeout 600 'swaymsg "output * dpms off"'     resume 'swaymsg "output * dpms on"'     before-sleep 'swaylock -f -c 000000'
-
-exec mako --anchor bottom-right
+## systemd managed
+#exec swayidle -w     timeout 300 'swaylock -f -c 000000'     timeout 600 'swaymsg "output * dpms off"'     resume 'swaymsg "output * dpms on"'     before-sleep 'swaylock -f -c 000000'
+## systemd managed
+#exec mako --anchor bottom-right
 
 
 
