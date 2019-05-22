@@ -5,7 +5,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "custom/pacman", "custom/weather", "custom/mail", "custom/storage", "backlight", "pulseaudio", "network", "network#2", "idle_inhibitor", "battery", "clock"],
+    "modules-right": ["tray", "custom/pacman", "custom/weather",  "custom/storage", "backlight", "pulseaudio", "network", "network#2", "idle_inhibitor", "battery", "clock"],
     "sway/mode": {
         "format": " {}"
     },

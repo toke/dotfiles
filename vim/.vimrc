@@ -179,10 +179,8 @@
 
 " Autocommit for vimwiki
     autocmd BufEnter ~/vimwiki/** silent!  lcd %:p:h
-    autocmd BufWritePost ~/vimwiki/** 
-        \ !git add *
-        \ ;git commit -am "autocommit"
-        \ ; git push
+    autocmd BufWritePost ~/vimwiki/**
+                \ NeomakeSh vimwiki-autocommit
 
 
     "    autocmd BufEnter **/.config/waybar/config set ft=json
@@ -197,13 +195,6 @@
       autocmd filetype markdown :setlocal spell spelllang=en | syntax clear
     augroup end
 
-" Window Tab handling
-    nnoremap th  :tabfirst<CR>
-    nnoremap tj  :tabnext<CR>
-    nnoremap tk  :tabprev<CR>
-    nnoremap tl  :tablast<CR>
-    nnoremap tt  :tabedit<Space>
-    nnoremap tn  :tabnext<Space>
     
 " Execute 
     nnoremap <leader>2 :@"<CR>

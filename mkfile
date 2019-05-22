@@ -1,7 +1,4 @@
 
-all: *
-    stow *
-
 install:
     stow bash
     stow editorconfig

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Needs qrencode
+
 set -e
 
 QRCMD=qrencode

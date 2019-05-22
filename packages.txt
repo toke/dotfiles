@@ -16,3 +16,9 @@ vim
 vimpager
 sway
 waybar
+
+
+qrencode
+
+dash
+busybox
