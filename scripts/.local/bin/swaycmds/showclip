@@ -5,6 +5,7 @@
 
 clip=$(wl-paste)
 prim=$(wl-paste -p)
+timeout=10000
 
-[ -n "$clip" ] && notify-send "Clipboard:" "$clip"
-[ -n "$prim" ] && notify-send "Primary:" "$prim"
+[ -n "$clip" ] && notify-send -t $timeout "Clipboard:" "$clip"
+[ -n "$prim" ] && notify-send -t $timeout "Primary:" "$prim"
