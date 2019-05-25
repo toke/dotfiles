@@ -1,6 +1,12 @@
 # Lines in this files will be handled as commands
 "QR-Code":qr-clip
-"Show as Notification":showclip
-"Translate 2 English":wl-paste | translate-shell -b de:en 
-"Translate 2 English and Speak":wl-paste | translate-shell -b de:en -p 
-"Plumb":plumb "$(wl-paste)"
+"SHW Show as Notification":showclip
+"TRE Translate 2 English":$clip | trans -b de:en | xargs -0 notify-send
+"TRE Translate 2 English":$clip | trans -b de:en | xargs -0 echo
+"TRS Translate 2 English and Speak":$clip | trans -b de:en -p
+"PLM Plumb":plumb "$clip"
+"BRO Browse":$BROWSER "$clip"
+"DDG Websearch":$BROWSER "https://duckduckgo.com/?q=$clip"
+"GGL Websearch":$BROWSER "https://google.com/search?q=$clip"
+"WIK Wikipedia":$BROWSER "https://en.wikipedia.org/wiki/$clip"
+"MAP Maps":$BROWSER "https://www.openstreetmap.org/search?$clip"

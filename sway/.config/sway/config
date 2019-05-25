@@ -154,7 +154,7 @@ no_focus [title="mpvfloat"]
         bindsym a exec catt add "$(wl-paste --no-newline)"
         bindsym Shift+p exec catt pause
         bindsym p exec catt play
-        bindsym Shift+s exec /home/toke/bin/castshot
+        bindsym Shift+s exec castshot
 
         bindsym w exec catt cast_site "$(wl-paste --no-newline)"
         bindsym Backspace exec catt remove

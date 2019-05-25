@@ -32,6 +32,7 @@ export FILE="/usr/bin/vifm"
 export NOTMUCH_CONFIG="$HOME/.config/notmuch-config"
 #export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
 export LESS=-r
+export DMENU="bemenu"
 
 export XDG_MUSIC_DIR=$HOME/Music
 

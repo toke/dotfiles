@@ -1,4 +1,4 @@
-DEFAULT_PKGS="bash editorconfig emojis git mksh neovim scripts shell shortcuts sway vim vifm waybar"
+DEFAULT_PKGS="bash editorconfig emojis git mksh neovim scripts shell shortcuts sway vim vifm waybar scripts"
 
 all:VN: sync install
 

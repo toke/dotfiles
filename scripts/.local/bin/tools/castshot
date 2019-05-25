@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
+set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
+
+
+filename=$(mktemp --suffix .png)
+
+cleanup() {
+  rm "$filename"
+}
+
+
+trap cleanup 0
+
+
+grim  "$filename"
+timeout 30 catt cast "$filename"
