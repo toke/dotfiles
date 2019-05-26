@@ -18,7 +18,7 @@ alias ka="killall" \
 	grep="grep --color=auto" \
 	diff="diff --color=auto" \
 	ccat="highlight --out-format=ansi" \
-	yt="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'" \
+	yt="youtube-dl --add-metadata -i -o '~/Videos/yt/%(upload_date)s-%(title)s.%(ext)s'" \
 	yta="yt -x -f bestaudio/best" \
 	YT="youtube-viewer --player=mpv" \
 	ref="shortcuts >/dev/null; source ~/.config/shortcutrc" \
