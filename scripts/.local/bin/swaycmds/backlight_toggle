@@ -1,0 +1,12 @@
+#!/bin/sh
+
+STATE_FILE="$XDG_RUNTIME_DIR/lcd.state"
+
+read lcd < $STATE_FILE
+if [ "$lcd" -eq "0" ]; then
+    swaymsg "output * dpms on"
+    echo 1 > $STATE_FILE
+else
+    swaymsg "output * dpms off"
+    echo 0 > $STATE_FILE
+fi
