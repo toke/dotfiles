@@ -188,6 +188,20 @@
       autocmd filetype markdown :setlocal spell spelllang=en | syntax clear
     augroup end
 
+" Close quickfix if it is the last open buffer
+" Usefull i.E. with my vimwiki autocommit to prevent a single quickfix
+" Window open.
+    au BufEnter * call MyLastWindow()
+    function! MyLastWindow()
+      " if the window is quickfix go on
+      if &buftype=="quickfix"
+        " if this window is last on screen quit without warning
+        if winbufnr(2) == -1
+          quit!
+        endif
+      endif
+    endfunction
+
 " Execute
     nnoremap <leader>2 :@"<CR>
     vmap <space> "xy:@x<CR>
