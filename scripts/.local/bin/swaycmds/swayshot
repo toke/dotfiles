@@ -1,0 +1,96 @@
+#!/bin/sh
+
+set -e
+
+[ -f "${SWAYSHOT_CONFIG:="$XDG_CONFIG_HOME/swayshot/config"}" ] && . $SWAYSHOT_CONFIG  || config_missing="No"
+
+: ${SWAYSHOT_CMD:="grim"}
+: ${SWAYSHOT_SLURP_CMD:="slurp"}
+: ${SWAYSHOT_SCREENSHOT_DIR:="$(xdg-user-dir PICTURES)/Screenshots"}
+: ${SWAYSHOT_FILE_TEMPLATE:="+%Y%m%d%H%M%S-sway.png"}
+[ -z "${SWAYSHOT_FILE_TEMPLATE##+*}" ] && \
+    SWAYSHOT_FILENAME=$(date "$SWAYSHOT_FILE_TEMPLATE") || \
+    SWAYSHOT_FILENAME="$SWAYSHOT_FILE_TEMPLATE"
+: ${SWAYSHOT_OUTPUT_FILE:="$SWAYSHOT_SCREENSHOT_DIR/$SWAYSHOT_FILENAME"}
+
+## Config Defaults
+: ${print_filename:="1"}
+
+
+## Internal defaults
+
+ret=0
+
+scriptname=${0##/*/}
+command=${1:-"help"}
+[ "$#" -gt "0" ] && shift
+
+while [ "$#" -gt "0" ] ; do
+    case "$1" in
+        -q)  print_filename="0" ;;
+    esac
+    shift
+done
+
+
+usage(){
+    printf "%s: Screenshot tool (wrapper) for Wayland\n\n" "$scriptname"
+    printf "Usage:\n"
+    printf "  %s a | all [args…]\n" "$scriptname"
+    printf "  %s s | sel | selection [args…]\n" "$scriptname"
+    printf "  %s w | work | workspace [args…]\n" "$scriptname"
+    printf "  %s h | help\n" "$scriptname"
+    printf "\nArgs:\n"
+    printf "  -q\tquiet\n"
+    printf "\nEnvironment:\n"
+    printf "  SWAYSHOT_CONFIG=\"%s\"\n" "$SWAYSHOT_CONFIG"
+    printf "  SWAYSHOT_SCREENSHOT_DIR=\"%s\"\n" "$SWAYSHOT_SCREENSHOT_DIR"
+    printf "  SWAYSHOT_FILE_TEMPLATE=\"%s\"\n" "$SWAYSHOT_FILE_TEMPLATE"
+    printf "  SWAYSHOT_OUTPUT_FILE=\"%s/%s\"\n" "$SWAYSHOT_SCREENSHOT_DIR" "$SWAYSHOT_FILE_TEMPLATE"
+    printf "  SWAYSHOT_CMD=%s\n" "$SWAYSHOT_CMD"
+    printf "  SWAYSHOT_SLURP_CMD=%s\n" "$SWAYSHOT_SLURP_CMD"
+    printf "\nInformation:\n"
+    printf "  jq=%s\n" $(command -v jq)
+    printf "  swaymsg=%s\n" $(command -v swaymsg)
+    printf "  SWAYSHOT_CMD=%s\n" $(command -v $SWAYSHOT_CMD)
+    printf "  SWAYSHOT_SLURP_CMD=%s\n" $(command -v $SWAYSHOT_SLURP_CMD)
+    printf "  config loaded=%s\n" ${config_missing-"Yes"}
+    printf "  outputfile=%s\n" $SWAYSHOT_OUTPUT_FILE
+    exit 2
+}
+
+shoot_all(){
+    $SWAYSHOT_CMD "$SWAYSHOT_OUTPUT_FILE"
+    ret=$?
+}
+
+shoot_workspace(){
+    $SWAYSHOT_CMD -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') "$SWAYSHOT_OUTPUT_FILE"
+    ret=$?
+}
+
+shoot_sel(){
+    $SWAYSHOT_CMD -g "$($SWAYSHOT_SLURP_CMD)" "$SWAYSHOT_OUTPUT_FILE"
+    ret=$?
+}
+
+case $command in
+    a|all)
+        shoot_all
+        ;;
+    s|sel|selection)
+        shoot_sel
+        ;;
+    w|ws|work|workspace)
+        shoot_workspace
+        ;;
+    *)
+        usage
+        ;;
+esac
+
+if [ "$print_filename" -eq "1" ] && [ -f "$SWAYSHOT_OUTPUT_FILE" ] ; then
+    echo $SWAYSHOT_OUTPUT_FILE
+fi
+
+exit $ret

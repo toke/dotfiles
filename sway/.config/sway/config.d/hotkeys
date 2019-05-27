@@ -1,4 +1,249 @@
 
 
+### BEGIN KEYBINDING
 
-bindsym $mod+Shift+C exec catt cast "$(wl-paste --no-newline)" 
+###
+# Movement: h j k l
+# Special modes - always leave with ESC or Enter
+
+
+    bindsym $mod+F1                 exec --no-startup-id groff -mom ~/.local/share/toke/readme.mom -Tpdf | zathura -
+    bindsym $mod+Shift+Delete       exec --no-startup-id pauseallmpv; exec --no-startup-id lmc mute ; workspace 0; exec $term -e htop ; exec $term -e $FILE
+                                    # Runs terminal
+    bindsym $mod+Return             exec $term
+                                    # Toggles Backlight
+    bindsym Pause                   exec backlight_toggle
+
+                                    # Screenshot current workspace
+    bindsym Print                   exec swayshot workspace
+                                    # Screenshot selection
+    bindsym Shift+Print             exec swayshot selection
+                                    # Screenshot all Workspaces
+    #bindsym $mod+Print              exec swayshot all
+
+
+                                    # Layout Toggle tiling/floating
+    bindsym $mod+Shift+space        floating toggle
+                                    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space              focus mode_toggle
+    bindsym $mod+grave	            exec --no-startup-id dmenuunicode
+
+                                    # Move the currently focused container to the scratchpad
+    bindsym $mod+Shift+minus        move scratchpad
+                                    # Show the next scratchpad container or hide the focused scratchpad container.
+                                    # If there are multiple scratchpad container, this command cycles through them.
+    bindsym $mod+minus              scratchpad show
+
+### Misc key bindings (alphabetically)
+
+                                    # Focus: move focus to the parent container
+    bindsym $mod+a                  focus parent
+    bindsym $mod+Shift+a	    exec --no-startup-id ddspawn pulsemixer
+                                    # Layout: split horizontally
+    bindsym $mod+b                  split horizontal
+
+    #bindsym $mod+c	   i        wxec --no-startup-id ddspawn dropdowncalc
+    bindsym $mod+c		    exec --no-startup-id clipdo
+    #bindsym $mod+Shift+c            mode "cast"
+    bindsym $mod+d                  exec $menu
+    bindsym $mod+Shift+d            exec rofi -show run
+
+                                    # Layout: Toggles between horizontal and vertical split
+    bindsym $mod+e                  layout toggle split
+                                    # exit sway (logs you out of your wayland session)
+    bindsym $mod+Shift+e            exit
+                                    # Layout: Switch focsed container to fullscreen
+    bindsym $mod+f                  fullscreen
+    #            h
+    bindsym $mod+i                  exec --no-startup-id ddspawn ipython
+    bindsym $mod+Shift+i            exec swaymsg -t get_tree > /tmp/sway_tree.json
+    #            j
+    #            k
+    #            l
+    bindsym $mod+m                  exec --no-startup-id ddspawn ncmpcpp
+    bindsym $mod+Shift+m            exec --no-startup-id lmc mute ; exec --no-startup-id lmc pause
+    #bindsym $mod+m		    exec --no-startup-id $term -e "$EDITOR -c VimwikiIndex"
+
+    #bindsym $mod+n		    mode notifications
+                                    # Layout: toggle stickiness of current container
+    bindsym $mod+o		    sticky toggle
+
+                                    # MENU: Ask for Key and copies password to clipboard
+    bindsym $mod+p                  exec gopass ls --flat | "$dmenu" | xargs --no-run-if-empty gopass show -o | wl-copy -o
+                                    # MENU: Ask for Key and types password FIXME
+    bindsym $mod+Shift+p            exec gopass ls --flat | "$dmenu" | xargs --no-run-if-empty gopass show | head -n 1 | xargs ydotool type
+                                    # Kill focused Container
+    bindsym $mod+Shift+q            kill
+                                    # Mode: Swiches mode to resize
+#    bindsym $mod+r                  mode $mode_resize
+                                    # reload the configuration file
+    bindsym $mod+Shift+r            reload
+                                    # Layout Cycle through split, tabbed. stacking
+    bindsym $mod+t                  layout toggle split tabbed stacking
+                                    # Layout: split vertically
+    bindsym $mod+v                  split vertical
+    bindsym $mod+Shift+v            exec $term -e vifm
+    #bindsym $mod+Ctrl+v             exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
+                                    # Starts $BROWSER
+    bindsym $mod+Shift+w	    exec --no-startup-id $BROWSER
+                                    # Lock screen (swaylock) and pauses/silences everything
+    bindsym $mod+x                  exec --no-startup-id pauseallmpv; exec --no-startup-id lmc pause; exec --no-startup-id swaylock
+                                    # Shut down computer (FIXME)
+    bindsym $mod+Shift+x            exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
+    bindsym $mod+Ctrl+x             exec --no-startup-id xwayland_debuginfo.sh
+
+
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating container:
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
+    floating_modifier $mod          normal
+
+# Moving around:
+#
+# Move your focus around
+    bindsym $mod+$left              focus left
+    bindsym $mod+$down              focus down
+    bindsym $mod+$up                focus up
+    bindsym $mod+$right             focus right
+# or use $mod+[up|down|left|right]
+    bindsym $mod+Left               focus left
+    bindsym $mod+Down               focus down
+    bindsym $mod+Up                 focus up
+    bindsym $mod+Right              focus right
+
+# _move_ the focused conrainer with the same, but add Shift
+    bindsym $mod+Shift+$left        move left
+    bindsym $mod+Shift+$down        move down
+    bindsym $mod+Shift+$up          move up
+    bindsym $mod+Shift+$right       move right
+# ditto, with arrow keys
+    bindsym $mod+Shift+Left         move left
+    bindsym $mod+Shift+Down         move down
+    bindsym $mod+Shift+Up           move up
+    bindsym $mod+Shift+Right        move right
+
+#
+# Workspaces:
+#
+# switch to workspace
+    bindsym $mod+1                  workspace $ws1
+    bindsym $mod+2                  workspace $ws2
+    bindsym $mod+3                  workspace $ws3
+    bindsym $mod+4                  workspace $ws4
+    bindsym $mod+5                  workspace $ws5
+    bindsym $mod+6                  workspace $ws6
+    bindsym $mod+7                  workspace $ws7
+    bindsym $mod+8                  workspace $ws8
+    bindsym $mod+9                  workspace $ws9
+    bindsym $mod+0                  workspace $ws10
+# move focused container to workspace
+    bindsym $mod+Shift+1            move container to workspace $ws1
+    bindsym $mod+Shift+2            move container to workspace $ws2
+    bindsym $mod+Shift+3            move container to workspace $ws3
+    bindsym $mod+Shift+4            move container to workspace $ws4
+    bindsym $mod+Shift+5            move container to workspace $ws5
+    bindsym $mod+Shift+6            move container to workspace $ws6
+    bindsym $mod+Shift+7            move container to workspace $ws7
+    bindsym $mod+Shift+8            move container to workspace $ws8
+    bindsym $mod+Shift+9            move container to workspace $ws9
+    bindsym $mod+Shift+0            move container to workspace $ws10
+
+    bindsym $mod+Tab                workspace back_and_forth
+    workspace_auto_back_and_forth   yes
+
+
+## Multimedia Keys
+    bindsym XF86AudioRaiseVolume    exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioLowerVolume    exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym XF86AudioMute           exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioMicMute        exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    bindsym XF86MonBrightnessDown   exec light -U 5
+    bindsym XF86MonBrightnessUp     exec light -A 5
+
+
+### Modes
+
+#
+# Resizing containers:
+#
+    set $mode_resize "Resize: (arrows) to resize or (enter) to leave this mode"
+    mode $mode_resize {
+        bindsym $left               resize shrink width 10 px or 10 ppt
+        bindsym $down               resize grow height 10 px or 10 ppt
+        bindsym $up                 resize shrink height 10 px or 10 ppt
+        bindsym $right              resize grow width 10 px or 10 ppt
+
+        # ditto, with arrow keys
+        bindsym Left                resize shrink width 10 px or 10 ppt
+        bindsym Down                resize grow height 10 px or 10 ppt
+        bindsym Up                  resize shrink height 10 px or 10 ppt
+        bindsym Right               resize grow width 10 px or 10 ppt
+
+        # return to default mode
+        bindsym Return              mode "default"
+        bindsym Escape              mode "default"
+    }
+
+    bindsym $mod+r                  mode $mode_resize
+
+
+
+### Mode cast
+    set $mode_cast "Cast: (c)ast, (a)dd, (P)ause, (p)lay, cast(S)shot, w, (BACKSPACE), -, +, (s)ave, (r)estore, (ARROW-Keys)"
+    mode $mode_cast {
+        # Cast to chromecast
+        bindsym c                   exec catt cast "$(wl-paste --no-newline)" ; mode default
+        bindsym a                   exec catt add "$(wl-paste --no-newline)" ; mode default
+        bindsym Shift+p             exec catt pause ; mode default
+        bindsym p                   exec catt play ; mode default
+        bindsym Shift+s             exec castshot ; mode default
+
+        bindsym w                   exec catt cast_site "$(wl-pa ; mode defaultste --no-newline)"
+        bindsym Backspace           exec catt remove ; mode default
+        bindsym Minus               exec catt volumedown
+        bindsym Plus                exec catt volumeup
+        bindsym s                   exec catt save ; mode default
+        bindsym r                   exec catt restore ; mode default
+        bindsym Shift+Right         exec catt skip
+        bindsym Left                exec catt rewind 10
+        bindsym Down                exec catt rewind 60
+        bindsym Right               exec catt ffwd 10
+        bindsym Up                  exec catt ffwd 60
+
+        # return to default mode
+        bindsym Return              mode "default"
+        bindsym Escape              mode "default"
+    }
+    bindsym $mod+Shift+c            mode $mode_cast
+
+
+    set $mode_screenshot "Screenshot: [Shift] (w)orkspace, (s)electon, (a)ll or (enter) to leave mode"
+    mode $mode_screenshot {
+        bindsym w                   exec swayshot workspace ; mode default
+        bindsym Shift+w             exec swayshot workspace | wl-copy ; mode default
+        bindsym s                   exec swayshot selection ; mode default
+        bindsym Shift+s             exec swayshot selection | wl-copy ; mode default
+        bindsym a                   exec swayshot all ; mode default
+        bindsym Shift+a             exec swayshot all | wl-copy ; mode default
+
+        # return to default mode
+        bindsym Return              mode "default"
+        bindsym Escape              mode "default"
+    }
+    bindsym $mod+Print             mode $mode_screenshot
+
+
+    set $mode_notifications "Notification: (d)ismiss, (D)ismiss all, (Enter) to invoke or (ESC) to leave mode"
+    mode $mode_notifications {
+            bindsym Escape          mode default
+            bindsym Return          exec makoctl invoke; exec makoctl dismiss; mode default
+            bindsym d               exec makoctl dismiss; mode default
+            bindsym Shift+d         exec makoctl dismiss -a; mode default
+    }
+    bindsym $mod+n		    mode $mode_notifications
+
+
+### END KEYBINDING
+
+# vim:set ft=sway :

@@ -1,0 +1,32 @@
+### Input configuration
+
+
+#
+# To get Device Id's use
+# `swaymsg -t get_inputs`
+#
+# For Pointer configuration see libinput documentation:
+# https://wayland.freedesktop.org/libinput/doc/latest/configuration.html
+
+### Bluesky internal Touchpad
+input "2:8:AlpsPS/2_ALPS_GlidePoint" {
+   dwt enabled
+   tap enabled
+
+   middle_emulation enabled
+   events disabled_on_external_mouse
+}
+
+### Generic Keyboard and mice
+input "*" {
+   natural_scroll enabled
+   xkb_layout de
+   xkb_options compose:caps
+}
+
+
+seat "*" {
+    hide_cursor 5000
+}
+
+# vim: set ft=sway :

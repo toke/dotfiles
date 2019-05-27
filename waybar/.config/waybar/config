@@ -7,7 +7,7 @@
     "modules-center": ["sway/window"],
     "modules-right": ["tray", "custom/weather",  "custom/storage", "backlight", "pulseaudio", "network", "network#2", "idle_inhibitor", "battery", "clock"],
     "sway/mode": {
-        "format": " {}"
+       "format": " {}"
     },
     "sway/workspaces": {
         "format": "{name}",
