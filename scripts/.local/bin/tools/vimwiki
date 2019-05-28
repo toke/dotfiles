@@ -1,7 +1,23 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
-cd $HOME/vimwiki
+pushd $HOME/vimwiki
+{
+    fping github.com && git pull
+} &
+nvim -c +VimwikiIndex
 
-fping github.com && git pull
-exec nvim -c +VimwikiIndex
+{
+#run some static analysis check that can change the code
+something_change=`git diff-index --exit-code --ignore-submodules HEAD`
+echo $something_changed
+if [ -n "$something_changed" ]
+then
+    echo >&2 "Something changed: autocommit."
+    exec vimwiki-autocommit
+else
+    echo "All clean"
+fi
+}
+
+popd
