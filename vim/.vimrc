@@ -332,6 +332,10 @@
         augroup end
     endif
 
+    highlight clear SpellBad
+    highlight SpellBad cterm=underline
+    " Set style for gVim
+    highlight SpellBad gui=undercurl, guifg=orange
     if has("autocmd")
         augroup textfile
           autocmd!
