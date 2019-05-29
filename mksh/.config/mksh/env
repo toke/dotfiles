@@ -2,15 +2,8 @@
 ## Environments used only in interactive shells have to be
 ## put in ./interactive! An example for this is PS1.
 
-export MAIL="thomas@kerpe.net"
+#command -v vim > /dev/null && export EDITOR=/usr/bin/vim 
+#if [ -n "$EDITOR" ] ; then  export FCEDIT="${EDITOR}" ; fi
 
-command -v vim > /dev/null && export EDITOR=/usr/bin/vim 
-if [ -n "$EDITOR" ] ; then  export FCEDIT="${EDITOR}" ; fi
+#command -v gpgconf && export SSH_AUTH_SOCK="$(/usr/bin/env gpgconf --list-dirs agent-ssh-socket)"
 
-command -v gpgconf && export SSH_AUTH_SOCK="$(/usr/bin/env gpgconf --list-dirs agent-ssh-socket)"
-
-## Setup GO
-[[ -e $HOME/go ]] && export GOPATH="$HOME/go"
-[[ -e $HOME/go/bin ]] && export PATH="$HOME/go/bin:$PATH"
-
-[[ -d $HOME/bin ]] && export PATH="$HOME/bin:$PATH"

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+
+__file=${0##/*/}
+
+cmd="${1:-}"
+filename=$(command -v "$cmd") || printf "Could find command: %s\n" "$cmd"
+
+[ -f "$filename" ] && exec $EDITOR "$filename" || echo "No file found"

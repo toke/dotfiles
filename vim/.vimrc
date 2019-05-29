@@ -75,13 +75,13 @@
         Plug 'wting/rust.vim'
         Plug 'elzr/vim-json'
         Plug 'posva/vim-vue'
-        Plug 'PotatoesMaster/i3-vim-syntax'
         Plug 'plasticboy/vim-markdown'
         Plug 'ap/vim-css-color'
         Plug 'pearofducks/ansible-vim'
         Plug 'vim-scripts/vim-vagrant'
         Plug 'python-mode/python-mode' , { 'branch': 'develop' }
         Plug 'plytophogy/vim-virtualenv'
+        Plug 'aouelete/sway-vim-syntax'
 
         Plug 'neomake/neomake'
         Plug 'godlygeek/tabular'
@@ -165,28 +165,6 @@
 " Default: Then type <c-y>, (Ctrly,) after typing zen stuff
     let g:user_emmet_install_global = 0
     autocmd FileType html,css EmmetInstall
-
-
-" Autorenew
-    autocmd BufWritePost ~/.config/bmfiles,~/.config/bmdirs !shortcuts
-
-" Autocommit for vimwiki
-    autocmd BufEnter ~/vimwiki/** silent!  lcd %:p:h
-    autocmd BufWritePost ~/vimwiki/**
-                \ NeomakeSh vimwiki-autocommit
-
-
-    "    autocmd BufEnter **/.config/waybar/config set ft=json
-" Autoreload and also grouping to prevent multiple reloads
-    augroup myvimrchooks
-        au!
-        autocmd bufwritepost .vimrc source ~/.vimrc
-    augroup END
-
-    augroup textfile
-      autocmd!
-      autocmd filetype markdown :setlocal spell spelllang=en | syntax clear
-    augroup end
 
 " Close quickfix if it is the last open buffer
 " Usefull i.E. with my vimwiki autocommit to prevent a single quickfix
@@ -330,9 +308,52 @@
         endif
     endif
 
+
+" Autorenew
+    autocmd BufWritePost ~/.config/bmfiles,~/.config/bmdirs !shortcuts
+
+" Autocommit for vimwiki
+    if has("autocmd")
+        augroup vimwiki
+            autocmd!
+            autocmd BufEnter ~/vimwiki/** silent!  lcd %:p:h
+            autocmd BufWritePost ~/vimwiki/**
+                        \ NeomakeSh vimwiki-autocommit
+        augroup end
+    endif
+
+
+    "    autocmd BufEnter **/.config/waybar/config set ft=json
+" Autoreload and also grouping to prevent multiple reloads
+    if has("autocmd")
+        augroup myvimrchooks
+            autocmd!
+            autocmd bufwritepost .vimrc source ~/.vimrc
+        augroup end
+    endif
+
+    if has("autocmd")
+        augroup textfile
+          autocmd!
+          autocmd filetype markdown :setlocal spell spelllang=en_us,de_de | syntax clear
+          autocmd filetype text :setlocal spell spelllang=en_us,de_de | syntax clear
+        augroup end
+    endif
+
+" Template handling for vim
+" Idea from: https://shapeshed.com/vim-templates/
+    if has("autocmd")
+      augroup templates
+        autocmd!
+        autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh
+      augroup END
+    endif
+
     let g:virtualenv_directory = '~/.virtualenvs'
     let g:virtualenv_auto_activate = 'yes'
     let g:pymode_python = 'python3'
     let g:pymode_virtualenv = 1
     let g:pymode_virtualenv_path = $VIRTUAL_ENV
     let g:powerline_pycmd="python3"
+
+

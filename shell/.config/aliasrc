@@ -3,6 +3,8 @@ alias ka="killall" \
 	mkd="mkdir -pv" \
 	mpv="mpv --input-ipc-server=$HOME/.mpv/socket" \
 	calcurse="calcurse -D ~/.config/calcurse" \
+        code="GDK_BACKEND=x11 code" \
+        chrome="GDK_BACKEND=x11 google-chrome"
 	magit="nvim -c MagitOnly" \
 	p="sudo pacman" \
 	SS="sudo systemctl" \
@@ -26,7 +28,9 @@ alias ka="killall" \
 	lsp="pacman -Qett --color=always | less" \
 	ffmpeg="ffmpeg -hide_banner" \
         translate="translate-shell -l de -s de -t en de:en" \
-        pacman="sudo pacman --color=auto"
+        pacman="sudo pacman --color=auto" \
+        x11="GDK_BACKEND=x11" \
+        wayland="GDK_BACKEND=wayland"
 
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 
