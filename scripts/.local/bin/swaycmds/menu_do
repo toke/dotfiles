@@ -8,7 +8,7 @@
 
 set -e
 
-config_dir="$HOME/.config"
+config_dir=${XDG_CONFIG_HOME:-"$HOME/.config"}
 menu_cmd() { bemenu -l 20 --fn 'Droid Sans Mono-9' -p "${prompt}" -w -i ;}
 paster() { wl-paste ;}
 
@@ -20,10 +20,10 @@ prompt="${config_name} >"
 [ ! -f "${config_file:=$config_dir/$config_name}" ] && \
     echo "Missing config: $config_file" && exit 1
 
-export clip=$(paster)
+export clip="$(paster)"
 
 grep -v "#" "$config_file" | sort | \
     sed -r 's/"\<([^"]+)"/\1/g' | \
     awk -F':' '{ st = index($0,":");printf "%s\t→\t%s\n", $1, substr($0,st+1)}' | \
-    (menu_cmd || exit1) | \
+    (menu_cmd || exit 1) | \
     setsid -f sh -c "$(awk  -F'→'  '{ print $2 }')"

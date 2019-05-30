@@ -311,16 +311,18 @@
 
 " Autorenew
     autocmd BufWritePost ~/.config/bmfiles,~/.config/bmdirs !shortcuts
+    autocmd BufWritePost ~/.plumbing ! cat % | 9p write plumb/rules
 
 " Autocommit for vimwiki
-    if has("autocmd")
-        augroup vimwiki
+"    if has("autocmd")
+        augroup myvimwiki
             autocmd!
             autocmd BufEnter ~/vimwiki/** silent!  lcd %:p:h
             autocmd BufWritePost ~/vimwiki/**
-                        \ NeomakeSh vimwiki-autocommit
+                        \ NeomakeSh! vimwiki-autocommit
+            autocmd BufLeave ~/vimwiki/** :cclose
         augroup end
-    endif
+"    endif
 
 
     "    autocmd BufEnter **/.config/waybar/config set ft=json
