@@ -134,14 +134,16 @@
     " vimwiki with markdown support
     let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown',
         \ '.mdown': 'markdown'}
-    function! MyVimwikiLinkHandler(link)
-        try
-          let browser = '/usr/lib/plan9/bin/plumb'
-          execute '!start "'.browser.'" ' . a:link
-          return 1
-        catch
-          echo "This can happen for a variety of reasons ..."
-        endtry
+    function! VimwikiLinkHandler(link)
+        if a:link =~ ":"
+            try
+              let browser = '/usr/lib/plan9/bin/plumb'
+              execute '!"'.browser.'" -s vimwiki ' . a:link
+              return 1
+            catch
+              echo "This can happen for a variety of reasons ..."
+            endtry
+        endif
         return 0
     endfunction
 
@@ -246,7 +248,9 @@
     nnoremap tl  :tablast<CR>
     nnoremap tt  :tabedit<Space>
     nnoremap tn  :tabnext<Space>
-
+    
+    "noremap <leader>u :w<Home>silent <End> !urlview<CR>
+    noremap <leader>u :w<Home> <End> !urlview<CR>
 
 " Command named R to ececute a command and output to a scratch buffer
 " Source: https://vim.fandom.com/wiki/Append_output_of_an_external_command
@@ -311,7 +315,9 @@
 
 " Autorenew
     autocmd BufWritePost ~/.config/bmfiles,~/.config/bmdirs !shortcuts
-    autocmd BufWritePost ~/.plumbing ! cat % | 9p write plumb/rules
+    "autocmd BufWritePost ~/.plumbing ! cat % | 9p write plumb/rules
+    autocmd BufWritePost ~/.plumbing :w !9p write plumb/rules
+    noremap <leader>b :!plumb <cWORD><CR>
 
 " Autocommit for vimwiki
 "    if has("autocmd")
