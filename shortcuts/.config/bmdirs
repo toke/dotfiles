@@ -1,5 +1,5 @@
 # Fast access for directories
-# generated using shortcits
+# generated using shortcuts
 # You can add comments to these files with #
 g-       -
 gh	~/
@@ -15,4 +15,3 @@ ggi      ~/git
 gdo      ~/.dotfiles
 gwi      ~/projects/hugowiki/nowiki/
 gmn	/mnt
-

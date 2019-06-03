@@ -19,3 +19,4 @@ if [[ $TERM == xterm-termite ]]; then
     __vte_prompt_command
 fi
 
+(cat ~/.cache/wal/sequences &)

@@ -1,0 +1,4 @@
+rofi.theme: ~/.cache/wal/colors-rofi-light.rasi
+rofi.modi:	run,drun,ssh
+rofi.ssh-command:          {terminal} -e "{ssh-client} {host}"
+

@@ -32,7 +32,8 @@ set $ws7    "7"
 set $ws8    "8"
 set $ws9    "9"
 
-set $wallpaper /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png
+set $wallpaper $HOME/Pictures/Wallpapers/sway.png
+exec_always gsettings set org.gnome.desktop.interface gtk-theme FlatColor
 
 
 ### END Variables
@@ -91,7 +92,7 @@ no_focus    [title="mpvfloat"]
 #        inactive_workspace #32323200 #32323200 #5c5c5c
 #    }
 #}
-
+include $HOME/.cache/wal/colors-sway
 include $HOME/.config/sway/config.d/*
 include $HOME/.config/sway/conf.d/$(hostname)/*
 
@@ -102,6 +103,7 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako --anchor bottom-right 2>&1 > /tmp/mako.log
 exec systemd-notify --ready || true
 ### END Exec
+
 
 
 

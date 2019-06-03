@@ -70,6 +70,7 @@
         Plug 'bling/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
         Plug 'lifepillar/vim-solarized8'
+        Plug 'dylanaraps/wal.vim'
 
         Plug 'fsouza/go.vim'
         Plug 'wting/rust.vim'
@@ -208,7 +209,8 @@
 
 "======Solarized theme============
     syntax on
-    colorscheme solarized8
+    "colorscheme solarized8
+    colorscheme wal
     let g:solarized_extra_hi_groups=1
     let g:solarized_statusline="low"
     let g:solarized_term_italics=1

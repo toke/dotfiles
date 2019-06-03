@@ -4,9 +4,11 @@ alias ka="killall" \
 	mpv="mpv --input-ipc-server=$HOME/.mpv/socket" \
 	calcurse="calcurse -D ~/.config/calcurse" \
         code="GDK_BACKEND=x11 code" \
-        chrome="GDK_BACKEND=x11 google-chrome"
+        chrome="GDK_BACKEND=x11 google-chrome" \
 	magit="nvim -c MagitOnly" \
+        netlist="netctl-auto list" \
 	p="sudo pacman" \
+        wp="wal -q -i" \
 	SS="sudo systemctl" \
 	f="$FILE" \
 	g="git" \

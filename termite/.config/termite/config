@@ -93,9 +93,9 @@ foreground = #fdf6e3
 foreground_bold = #fdf6e3
 
 # 20% background transparency (requires a compositor)
-#background = rgba(63, 63, 63, 0.98)
+background = rgba(63, 63, 63, 0.95)
 #background = #3f3f3f
-background = #002b36
+#background = #002b36
 #background = #001c23
 
 # If unset, will reverse foreground and background

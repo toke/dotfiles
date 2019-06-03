@@ -1,70 +1,144 @@
+@import "/home/toke/.cache/wal/colors-waybar.css";
 * {
-    border:        none;
+    border: none;
     border-radius: 0;
-    font-family:   Sans;
-    font-size:     15px;
-    box-shadow:    none;
-    text-shadow:   none;
-    transition-duration: 0s;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    min-height: 0;
 }
 
-window {
-    color:      rgba(217, 216, 216, 1);
-    background: rgba(35, 31, 32, 0.00);
-}
-
-window#waybar.solo {
-    background: rgba(35, 31, 32, 0.85);
-}
-
-#workspaces {
-    margin: 0 5px;
+window#waybar {
+    background: rgba(43, 48, 59, 0.3);
+    border-bottom: 3px solid transparent;
+    color: @foreground;
 }
 
 #workspaces button {
-    padding:    0 5px;
-    color:      rgba(217, 216, 216, 0.4);
-}
-
-#workspaces button.visible {
-    color:      rgba(217, 216, 216, 1);
+    padding: 0 5px;
+    background: rgba(43, 48, 59, 0.8);
+    color: @foreground;
+    border-bottom: 3px solid transparent;
 }
 
 #workspaces button.focused {
-    border-top: 3px solid rgba(217, 216, 216, 1);
-    border-bottom: 3px solid rgba(217, 216, 216, 0);
+    background: rgba(100, 114, 125, 0.2);
+    border-bottom: 3px solid @color15;
 }
 
-#workspaces button.urgent {
-    color:      rgba(238, 46, 36, 1);
+#mode {
+    background: transparent;
+    border-bottom: 3px solid @color15;
 }
 
-#mode, #battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-storage, #custom-spotify, #custom-weather, #custom-mail {
-    margin:     0px 6px 0px 10px;
-    min-width:  25px;
+#clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode, #custom-temp, #custom-root, #custom-home, #custom-backup, #custom-scratch, #custom-main {
+    padding: 0 6px;
+    margin: 0 3px;
 }
 
 #clock {
-    margin:     0px 16px 0px 10px;
-    min-width:  140px;
+    background-color: transparent;
+    border-bottom: 3px solid @color1;
+    color: @foreground;
 }
 
-#battery.warning {
-   color:       rgba(255, 210, 4, 1);
-}
-
-#battery.critical {
-    color:      rgba(238, 46, 36, 1);
+#battery {
+    background-color: #ffffff;
+    color: black;
 }
 
 #battery.charging {
-    color:      rgba(217, 216, 216, 1);
+    color: white;
+    background-color: #26A65B;
 }
 
-#custom-storage.warning {
-    color:      rgba(255, 210, 4, 1);
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
 }
 
-#custom-storage.critical {
-    color:      rgba(238, 46, 36, 1);
+#battery.warning:not(.charging) {
+    background: #f53c3c;
+    color: white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
+
+#cpu {
+    background: transparent;
+    border-bottom: 3px solid @color5;
+    color: @foreground;
+}
+
+#memory {
+    background: transparent;
+    border-bottom: 3px solid @color7;
+    color: @foreground;
+}
+
+#network {
+    background: transparent;
+    border-bottom: 3px solid @color16;
+    color: @foreground
+}
+
+#network.disconnected {
+    background: transparent;
+    color: crimson;
+}
+
+#pulseaudio {
+    background: transparent;
+    border-bottom: 3px solid @color15;
+    color: @foreground;
+}
+
+#pulseaudio.muted {
+    background: #90b1b1;
+    color: #2a5c45;
+}
+
+#custom-spotify {
+    background: #66cc99;
+    color: #2a5c45;
+}
+
+#tray {
+    background-color: transparent;
+    border-bottom: 3px solid @color15;
+}
+
+#custom-root { 
+    background: transparent;
+    border-bottom: 4px solid @color9;
+}
+
+#custom-temp {
+    background: transparent;
+    border-bottom: 3px solid @color5;
+}
+
+#custom-home { 
+    background: transparent;
+    border-bottom: 4px solid @color9;
+}
+
+#custom-main { 
+    background: transparent;
+    border-bottom: 3px solid @color10;
+}
+
+#custom-backup { 
+    background: transparent;
+    border-bottom: 3px solid @color10;
+}
+
+#custom-scratch { 
+    background: transparent;
+    border-bottom: 3px solid @color11;
+}
+

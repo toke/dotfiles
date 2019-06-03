@@ -1,5 +1,5 @@
 # Fast Access to files
-# Generated using shortcits
+# Generated using shortcuts
 # You can add comments to these file with #
 ebmf    ~/.config/bmfiles
 ebmd    ~/.config/bmdirs
@@ -7,4 +7,3 @@ evrc    ~/.vimrc
 esco    ~/.config/sway/config
 ebrc    ~/.bashrc
 epro    ~/.profile
-

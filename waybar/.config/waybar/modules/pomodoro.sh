@@ -7,6 +7,9 @@
 
 set -e
 
+command="/usr/bin/pymodoro-i3blocks --daemon"
+#interval=persist
+#format=json
 
 ## Setup
 __file=${0##/*/}
@@ -17,5 +20,7 @@ arg="${1:-}"
 ## defaults
 : ${debug:="0"}
 
+$command
 
 # vim: set ft=sh :
+

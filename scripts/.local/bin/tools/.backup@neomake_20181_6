@@ -80,9 +80,9 @@ check_cfg(){
 get_tags(){
     IFS=', '
     #echo $BACKUP_TAGS
-    echo "${BACKUP_TAGS}" | while IFS=", " read -r tag ; do
-        printf -- '--tag %s ' $tag
-    done
+    echo "${BACKUP_TAGS}" | while read -r tag ; do
+        printf -- '--tag %s ' "$tag"
+    done 
 
     IFS=' '
 }
@@ -101,7 +101,8 @@ start_job() {
         export BACKUP_EXCLUDE_FILE
         exec "$0" backup "$BACKUP_REPOSITORY" "$BACKUP_PATTERN"
     fi
-    return 1
+    echo 1
+
 }
 
 case $cmd in
@@ -144,7 +145,7 @@ case $cmd in
         if [ -n "$BACKUP_EXCLUDE_FILE" ] && [ -e "$BACKUP_EXCLUDE_FILE" ] ; then
             BACKUP_EXCLUDE_FILE="--exclude-file $BACKUP_EXCLUDE_FILE"
         fi
-        restic backup $(get_tags) "$BACKUP_EXCLUDE_FILE" "$RESTIC_DEFAULT_PARAMS" "$BACKUP_PATTERN"
+        restic backup "$(get_tags)" "$BACKUP_EXCLUDE_FILE" "$RESTIC_DEFAULT_PARAMS" "$BACKUP_PATTERN"
         ;;
     ls)
         echo "Configured repos and jobs:"
