@@ -30,7 +30,7 @@ window#waybar {
     border-bottom: 3px solid @color15;
 }
 
-#clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode, #custom-temp, #custom-root, #custom-home, #custom-backup, #custom-scratch, #custom-main {
+#clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode, #custom-temp, #custom-root, #custom-home, #custom-backup, #custom-scratch, #custom-main, #custom-storage, #custom-pomodoro, #custom-weather, #idle_inhibitor {
     padding: 0 6px;
     margin: 0 3px;
 }
