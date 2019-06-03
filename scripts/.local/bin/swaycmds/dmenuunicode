@@ -1,11 +1,13 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # Give bemenu list of all unicode characters to copy.
 # Shows the selected character in dunst/mako if running.
 
 # Must have wl-copy installed to even show menu.
 #wl-copy -l >/dev/null || exit
 
-chosen=$(grep -v "#" ~/.config/emoji | bemenu -i -l 20 --fn Monospace-18)
+: "${DMENU:=bemenu}"
+
+chosen=$(grep -v "#" ~/.config/emoji | $DMENU -i -l 20 --fn Monospace-18)
 
 [ "$chosen" != "" ] || exit
 

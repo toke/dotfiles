@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 ###############################################################
 # menu_do - a meta tool for launching scripts in sway/i3
 #
@@ -8,13 +8,15 @@
 
 set -e
 
+: "${DMENU:=bemenu}"
+
 config_dir=${XDG_CONFIG_HOME:-"$HOME/.config"}
-menu_cmd() { bemenu -l 20 --fn 'Droid Sans Mono-9' -p "${prompt}" -w -i ;}
+menu_cmd() { $DMENU -l 20 --fn 'Droid Sans Mono-9' -p "${prompt}" -w -i ;}
 paster() { wl-paste ;}
 
 
-script_name=$(basename $0)
-config_name=$(echo $script_name | tr -dc '[:alnum:]_')
+script_name="$(basename "$0")"
+config_name=$(echo "$script_name" | tr -dc '[:alnum:]_')
 prompt="${config_name} >"
 
 [ ! -f "${config_file:=$config_dir/$config_name}" ] && \

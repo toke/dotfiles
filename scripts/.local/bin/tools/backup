@@ -2,8 +2,8 @@
 #
 #
 
-set -e 
-#set -x 
+set -e
+#set -x
 
 KEEP_POLICY="--keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-tag important"
 BASE_DIR="$HOME/.config/backup"
@@ -14,7 +14,7 @@ BACKUP_PATTERN=${BACKUP_PATTERN-"$HOME"}
 BACKUP_TAGS=${BACKUP_TAGS-"default"}
 RESTIC_DEFAULT_PARAMS=${RESTIC_DEFAULT_PARAMS-"--exclude-caches -x"}
 
-scriptname=`basename $0`
+scriptname="$(basename "$0")"
 
 
 # Since we're sometimes quite long running do some
@@ -30,7 +30,7 @@ repo=
 error() {
     code="${3:-1}"
     echo "An Error occoured in line $1"
-    exit $code
+    exit "$code"
 }
 trap 'error ${LINENO}' ERR   # BASHISM
 
@@ -41,7 +41,7 @@ cat<<EOF
 $scriptname - backup helper
 usage:
     $scriptname help                            - this help
-    $scriptname check <repo|default>            
+    $scriptname check <repo|default>
     $scriptname forget
     $scriptname rebuild-index <repo|default>
     $scriptname prune <repo|default>
@@ -66,7 +66,7 @@ check_cfg(){
         fi
     fi
 
-    if [ -z "$repo_cfg" ] 
+    if [ -z "$repo_cfg" ]
     then
         usage
         printf "Error: You have to specify a repository configuation\n"
@@ -78,8 +78,8 @@ check_cfg(){
 get_tags(){
     IFS=', '
     #echo $BACKUP_TAGS
-    echo ${BACKUP_TAGS} | while read -r tag ; do
-        printf -- '--tag %s ' $tag
+    echo "${BACKUP_TAGS}" | while read -r tag ; do
+        printf -- '--tag %s ' "$tag"
     done 
 
     IFS=' '
@@ -97,7 +97,7 @@ start_job() {
         export BACKUP_REPOSITORY
         export BACKUP_TAGS
         export BACKUP_EXCLUDE_FILE
-        exec "$0" backup "$BACKUP_REPOSITORY" $BACKUP_PATTERN
+        exec "$0" backup "$BACKUP_REPOSITORY" "$BACKUP_PATTERN"
     fi
     echo 1
 
@@ -106,7 +106,7 @@ start_job() {
 case $cmd in
     forget)
         check_cfg
-        restic forget $KEEP_POLICY
+        restic forget "$KEEP_POLICY"
         ;;
     check)
         check_cfg
@@ -132,31 +132,31 @@ case $cmd in
     restic-repo)
         # runs $@ in context of repo confiog
         check_cfg
-        restic $@
+        restic "$@"
         ;;
     backup)
         check_cfg
         if [ $# -gt 0 ] ; then
-            BACKUP_PATTERN=$@
+            BACKUP_PATTERN=$*
         fi
-        printf "Using repository %s: %s\n" "$REPO_NAME" "$RESTIC_REPOSITORY"
+        printf "Using repository %s: %s\n" "${REPO_NAME:?}" "$RESTIC_REPOSITORY"
         if [ -n "$BACKUP_EXCLUDE_FILE" ] && [ -e "$BACKUP_EXCLUDE_FILE" ] ; then
             BACKUP_EXCLUDE_FILE="--exclude-file $BACKUP_EXCLUDE_FILE"
         fi
-        restic backup $(get_tags) $BACKUP_EXCLUDE_FILE $RESTIC_DEFAULT_PARAMS $BACKUP_PATTERN
+        restic backup "$(get_tags)" "$BACKUP_EXCLUDE_FILE" "$RESTIC_DEFAULT_PARAMS" "$BACKUP_PATTERN"
         ;;
     ls)
         echo "Configured repos and jobs:"
         repo_type=""
         for type in $REPO_CFG_DIR $JOB_CFG_DIR ; do
-            for cfg in $type/*.conf ; do
+            for cfg in "$type"/*.conf ; do
                 repo_name=$(basename -s ".conf" "$cfg")
                 [ "$repo_name" = "default" ] && repo_type='(*)' || repo_type=""
-                printf "\t%s\t%s\n" $repo_name $repo_type
+                printf "\t%s\t%s\n" "$repo_name" "$repo_type"
             done
             if [ -L "$type/default.conf" ] ; then
                 printf "\n(*) Default configuration:\n"
-                stat --printf "%N" $type/default.conf 
+                stat --printf "%N" "$type/default.conf"
                 echo ""
             fi
             echo ""

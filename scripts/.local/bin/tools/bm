@@ -1,140 +1,166 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-scriptname=$(basename $0)
+scriptname="$(basename "$0")"
 
-GENERATOR="shortcuts"
-EDITOR=${EDITOR-vi}
-PAGER=${PAGER-cat}
-GREP=${GREP-grep}
-FZF=${FZF-fzf}
+: "${XDG_CONFIG_HOME:="$HOME/.config"}"
+: "${EDITOR:=vi}"
+: "${PAGER:=cat}"
+: "${GREP:=grep}"
+: "${FZF:=fzf}"
 
-BM_CONFIG_FILE="${HOME}/.config/bmmaps"
+export XDG_CONFIG_HOME EDITOR PAGER GREP FZF
+
+BM_CONFIG_FILE="${XDG_CONFIG_HOME}/bmmaps"
 
 if [ ! -f "$BM_CONFIG_FILE" ] ; then
-cat > $BM_CONFIG_FILE <<EOF
+cat > "$BM_CONFIG_FILE" <<EOF
 # bm mapping config
 # You can add comments to this file by using #
 # Empty Lines are ignored
 
 # <name>:<make>:<filename>
-bm:bm:${HOME}/.config/bmmaps
-files:shortcuts:${HOME}/.config/bmfiles
-dirs:shortcuts:${HOME}/.config/bmdirs
+bm:bm:${XDG_CONFIG_HOME}/bmmaps
+files:shortcuts:${XDG_CONFIG_HOME}/bmfiles
+dirs:shortcuts:${XDG_CONFIG_HOME}/bmdirs
 EOF
-    printf "Config file: %s created" $BM_CONFIG_FILE
+    printf "Config file: %s created\n" "$BM_CONFIG_FILE"
 fi
 
 filemap=$(sed "s/\s*#.*$//;/^\$*$/d" "$BM_CONFIG_FILE")
 
-getmap() {
-    search=$1
+getmap(){
+    map_id="$1"
     shift
-    echo "${filemap}" | while IFS=":" read  type make file
+    echo "${filemap}" | while IFS=":" read -r type make file
     do
-        # FIXME Posix handling with spaces
-        if [ "$type" = "$search" ] ; then
-            echo "$type '$make' $file"
+        if [ "$type" = "$map_id" ] ; then
+            printf '%s\t' "$type" "$make" "$file"
+            return 0
         fi
     done
+    return 1
 }
 
-getmap bm
+get_file(){
+    type=""
+    if [ -n "$1" ] ; then
+        type="$1"
+        file="$(getmap "$type" | cut -f3)"
+        if [ -n "$file" ] ; then
+            echo "$file"
+            return 0
+        else
+            echo "Error: Mapping contains no filename or mapping not found" >&2
+            return 2
+        fi
+    else
+        echo "Error: Missing parameter mapping name" >&2
+        return 3
+    fi
+}
+
 
 usage() {
-    printf "%s - Bookmark (shortcuts) helper / generator\n\n" $scriptname
+    printf "%s - Bookmark (shortcuts) helper / generator\n\n" "$scriptname"
     printf "Usage:\n"
-    printf "\t%s [command] [option…]\tGeneral usage\n" $scriptname 
-    printf "\t%s h|elp\t\tShows this help\n" $scriptname 
-    printf "\t%s [a|show_all]\t\tShows all mappings\n" $scriptname 
-    printf "\t%s g|grep\t\tGreps through all mappings\n" $scriptname 
-    printf "\t%s e|edit <name>\tEdit a mapping\n" $scriptname 
-    printf "\t%s s|show <name>\tShows a single mapping\n" $scriptname 
-    printf "\t%s m|make [<name>]\tRegenerates the mappings\n" $scriptname 
-    printf "\t%s f|fzf [%s command]\tInteractive select a mapping file, the optional\n" $scriptname $scriptname 
-    printf "\t\t\t\t\`%s command\` is applied on the selection.\n" $scriptname
+    printf "\t%s [command] [option…]\tGeneral usage\n" "$scriptname"
+    printf "\t%s h|elp\t\tShows this help\n" "$scriptname"
+    printf "\t%s [a|show_all]\t\tShows all mappings\n" "$scriptname"
+    printf "\t%s g|grep\t\tGreps through all mappings\n" "$scriptname"
+    printf "\t%s e|edit <name>\tEdit a mapping\n" "$scriptname"
+    printf "\t%s d|do <name> '<command>'\tExecutes command for mapping file\n" "$scriptname"
+    printf "\t%s D|Do '<command>'\tExecutes command for each mapping file\n" "$scriptname"
+    printf "\t%s ls\t\t\tShows all existing mappings and files\n" "$scriptname"
+    printf "\t%s s|show <name>\tShows a single mapping\n" "$scriptname"
+    printf "\t%s m|make [<name>]\tRegenerates the mappings\n" "$scriptname"
+    printf "\t%s f|fzf [%s command]\tInteractive select a mapping file, the optional\n" "$scriptname" "$scriptname"
+    printf "\t\t\t\t\`%s command\` is applied on the selection.\n" "$scriptname"
     printf "\nKnown types:\n\n"
     printf "<name>:<make>:<filename\n"
     IFS=''
-    echo $filemap
-    [ -z "$1" ] && printf "\n%s" $1 
+    echo "$filemap"
     exit 1
 }
 
-show_all() {
-    printf "Current Configuration:\n\n"
 
+file_mapping(){
+    : "${filter:-}"
     echo "${filemap}" | while IFS=':' read -r type make filename ; do
+        if [ -n "$filter" ] && [ "$filter" != "$type" ] ; then
+            continue
+        fi
         if [ -n "$filename" ] ; then
-            printf "Type: \"%s\", file: \"%s\"\n\n" $type $filename
-            cat "$filename"
+            printf '%s\t%s\n' "$type" "$filename"
         fi
     done
 }
 
-fzf_all() {
-    # FIXME: this can be an alias easily no need to reimplemnt the wheel
-
-    echo "${filemap}" | while IFS=':' read -r type make filename ; do
-        if [ -f "$filename" ] ; then
-            sed -e "s/^/${type}:/" $filename
-        fi
+expand_map() {
+    while read -r type filename ; do
+        # Emit lines prefixed by the type
+        sed -e "s/^/${type}:/" "$filename"
     done
 }
 
-grep_all() {
-    # FIXME: this can be an alias easily no need to reimplemnt the wheel
-    
+expand_vars(){
+    sed '
+        s/{}/$filename/g;
+        s/%f/$filename/g;
+        s/%t/$type/g;
+        s/%%/%/g'
+    return $?
+}
+
+do_with() {
+    cmd="${*:-}"
+    [ -z "$cmd" ] && read -r cmd
+    file_mapping | while read -r type filename ; do
+        export type
+        export filename
+        echo "$cmd" | grep -q -e '%t' -e '%f' -e '{}' || \
+            (echo 'Warning: no known format string (%t, %f) found - no expansion.\n' >&2)
+
+        # Expand %t->$type %f->$filename {}->$filename and use %% to escape %
+        echo "$cmd" | expand_vars | sh -s
+    done
+}
+
+
+_grep() {
     pattern=$1
-    shift
-    echo "${filemap}" | while IFS=':' read -r type make filename ; do
-        if [ -f "$filename" ] ; then
-            matches=$($GREP $pattern "$filename")
-            if [ -n "$matches" ] ; then
-                printf "%s:\n%s\n" "$type" "$matches"
-            fi
-        fi
-    done
+    (sed "s/%p/$pattern/g" | do_with) <<- 'SCRIPT'
+    matches=$($GREP  "%p" "%f") && printf "%s:\n%s\n" "%t" "$matches"
+SCRIPT
 }
 
-edit() {
-    if [ $# -eq 3 ] ; then
-        $EDITOR "$3"
-    else
-        usage
-    fi
-}
-
-show() {
-    if [ $# -eq 3 ] ; then
-        $PAGER "$3"
-    else
-        usage
-    fi
-}
 
 make() {
-    if [ $# -eq 1 ] ; then
-        if [ $1 = 'bm' ] ; then
-            echo "can not do anything right now with type bm"
-            exit 3
-        else 
-            cmd=$(getmap $1 | cut -d' ' -f2,3)
-            if [ -n "$cmd" ] ; then
-                echo "Runing: $cmd"
-                $cmd
-            else
-                echo "Command or mapping for type \"$1\" can not be found $cmd"
-                exit 4
-            fi
+    if [ $# -ge 1 ] ; then
+        mymap=$(getmap "$1")
+        export filename=$(echo "$mymap" | cut -f3)
+        cmd=$(echo "$mymap" | cut -f2)
+        tempfile=$(mktemp /tmp/bmXXXXX)
+        exec 3<>$tempfile
+        if [ -n "$cmd" ] ; then
+            maker=$(echo $cmd | expand_vars)
+            printf 'Runing:\t"%s"' "$maker"
+            date >&3
+            sh -c "$maker" >&3
             err=$?
-            [ $err -eq 0 ] && echo "Done" || echo "Something went wrong: $err"
+        else
+            printf 'Error: %s name not found or no make command defined\n' "$1" >&2
+            err=1
         fi
-
+        unset filename
+        [ $err -eq 0 ] && echo " → Done" || echo " → Something went wrong: $err" >&2
+        if [ -s "$tempfile" ] ; then
+            echo "Output: "
+            tail "$tempfile"
+        fi
+        exec 3>&-
+        rm "$tempfile"
     else
-        ## FIXME - Old behaviour
-        ## only for shortcuts
-        echo "FIXME: running default generator: $GENRATOR"
-        $GENERATOR && echo "Done"
+        return 3
     fi
 }
 
@@ -145,32 +171,49 @@ case $command in
         usage
         ;;
     e|edit)
-        edit $(getmap $1)
+        [ "$#" -lt "1" ] && usage
+        filter=$1 do_with $EDITOR %f
         ;;
     s|show)
-        show $(getmap $1)
+        [ "$#" -lt "1" ] && usage
+        filter=$1 do_with $PAGER %f
         ;;
-    m|ake)
-        make $@
+    m|make)
+        make "$@" || usage
+        ;;
+    M|mapping)
+        file_mapping
+        ;;
+    d|"do")
+        [ "$#" -lt "1" ] && usage
+        filter=$1 && shift
+        do_with "${*:-"echo %f"}"
+        ;;
+    D|"Do")
+        do_with "${*:-"echo %f"}"
+        ;;
+    ls)
+        do_with 'printf "%s\t%s\n" "%t" "%f"'
         ;;
     g|grep)
-        grep_all $@
+        file_mapping | _grep "$@"
         ;;
     f|fzf)
-        if [ -z $1 ] ; then
-            fzf_all | $FZF
+        if [ -z "$1" ] ; then
+            file_mapping | expand_map | $FZF
         else
-            fzf_all | $FZF | cut -d: -f1 | xargs bm $1
+            file_mapping | expand_map | $FZF | cut -d: -f1 | xargs bm "$1"
         fi
         ;;
-
-
     a|show_all|'')
-        show_all | $PAGER
+        {
+            printf "Current Configuration:\n\n"
+            do_with 'printf "\nType: %s, File: %s\n\n" "%t" "%f"; cat "%f"'
+        } | $PAGER
         ;;
     *)
         usage
-
 esac
+
 
 

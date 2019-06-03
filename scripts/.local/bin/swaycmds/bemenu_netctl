@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+# POSIX shell compliant
+
+: "${DMENU:=bemenu}"
+
+netctl-auto list | cut -b 3- | $DMENU | ifne xargs sudo -A netctl-auto switch-to

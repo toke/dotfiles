@@ -1,11 +1,13 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 EXCLUDE_FILE=$HOME/.config/backup/excludes
 
-if [ -n $1 ] ; then
-    echo $1 >> $EXCLUDE_FILE
-    sort -u -o $EXCLUDE_FILE $EXCLUDE_FILE
+scriptname="$(basename "$0")"
+
+if [ -n "$1" ] ; then
+    echo "$1" >> "$EXCLUDE_FILE"
+    sort -u -o "$EXCLUDE_FILE" "$EXCLUDE_FILE"
 else
-    printf "Usage:\n%s pattern.\n" $scriptname
+    printf "Usage:\n%s pattern.\n" "$scriptname"
     printf "See: https://restic.readthedocs.io/en/latest/040_backup.html\n"
 fi

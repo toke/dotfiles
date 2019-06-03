@@ -1,20 +1,20 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 set -e
 
-[ -f "${SWAYSHOT_CONFIG:="$XDG_CONFIG_HOME/swayshot/config"}" ] && . $SWAYSHOT_CONFIG  || config_missing="No"
+[ -f "${SWAYSHOT_CONFIG:="$XDG_CONFIG_HOME/swayshot/config"}" ] && . "$SWAYSHOT_CONFIG"  || config_missing="No"
 
-: ${SWAYSHOT_CMD:="grim"}
-: ${SWAYSHOT_SLURP_CMD:="slurp"}
-: ${SWAYSHOT_SCREENSHOT_DIR:="$(xdg-user-dir PICTURES)/Screenshots"}
-: ${SWAYSHOT_FILE_TEMPLATE:="+%Y%m%d%H%M%S-sway.png"}
+: "${SWAYSHOT_CMD:=grim}"
+: "${SWAYSHOT_SLURP_CMD:="slurp"}"
+: "${SWAYSHOT_SCREENSHOT_DIR:="$(xdg-user-dir PICTURES)/Screenshots"}"
+: "${SWAYSHOT_FILE_TEMPLATE:="+%Y%m%d%H%M%S-sway.png"}"
 [ -z "${SWAYSHOT_FILE_TEMPLATE##+*}" ] && \
     SWAYSHOT_FILENAME=$(date "$SWAYSHOT_FILE_TEMPLATE") || \
     SWAYSHOT_FILENAME="$SWAYSHOT_FILE_TEMPLATE"
-: ${SWAYSHOT_OUTPUT_FILE:="$SWAYSHOT_SCREENSHOT_DIR/$SWAYSHOT_FILENAME"}
+: "${SWAYSHOT_OUTPUT_FILE:="$SWAYSHOT_SCREENSHOT_DIR/$SWAYSHOT_FILENAME"}"
 
 ## Config Defaults
-: ${print_filename:="1"}
+: "${print_filename:="1"}"
 
 
 ## Internal defaults
@@ -50,12 +50,12 @@ usage(){
     printf "  SWAYSHOT_CMD=%s\n" "$SWAYSHOT_CMD"
     printf "  SWAYSHOT_SLURP_CMD=%s\n" "$SWAYSHOT_SLURP_CMD"
     printf "\nInformation:\n"
-    printf "  jq=%s\n" $(command -v jq)
-    printf "  swaymsg=%s\n" $(command -v swaymsg)
-    printf "  SWAYSHOT_CMD=%s\n" $(command -v $SWAYSHOT_CMD)
-    printf "  SWAYSHOT_SLURP_CMD=%s\n" $(command -v $SWAYSHOT_SLURP_CMD)
-    printf "  config loaded=%s\n" ${config_missing-"Yes"}
-    printf "  outputfile=%s\n" $SWAYSHOT_OUTPUT_FILE
+    printf "  jq=%s\n" "$(command -v jq)"
+    printf "  swaymsg=%s\n" "$(command -v swaymsg)"
+    printf "  SWAYSHOT_CMD=%s\n" "$(command -v $SWAYSHOT_CMD)"
+    printf "  SWAYSHOT_SLURP_CMD=%s\n" "$(command -v $SWAYSHOT_SLURP_CMD)"
+    printf "  config loaded=%s\n" "${config_missing-"Yes"}"
+    printf "  outputfile=%s\n" "$SWAYSHOT_OUTPUT_FILE"
     exit 2
 }
 
@@ -65,7 +65,7 @@ shoot_all(){
 }
 
 shoot_workspace(){
-    $SWAYSHOT_CMD -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') "$SWAYSHOT_OUTPUT_FILE"
+    $SWAYSHOT_CMD -o "$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')" "$SWAYSHOT_OUTPUT_FILE"
     ret=$?
 }
 
@@ -90,7 +90,7 @@ case $command in
 esac
 
 if [ "$print_filename" -eq "1" ] && [ -f "$SWAYSHOT_OUTPUT_FILE" ] ; then
-    echo $SWAYSHOT_OUTPUT_FILE
+    echo "$SWAYSHOT_OUTPUT_FILE"
 fi
 
 exit $ret
