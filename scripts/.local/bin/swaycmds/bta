@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+# POSIX shell compliant
+#
+
+set -e
+
+## defaults
+: ${debug:="0"}
+[ "$debug" -ne "0" ] && set -x
+
+: "${MENU:=bemenu}"
+: "${CONNECT:=bluetooth-kh}"
+
+## Setup
+__file=${0##/*/}
+
+
+configfile="${XDG_CONFIG_HOME}/${__file}"
+
+ask_user(){
+    items=$(jq -r '.devices | to_entries|map("\(.key)\t\(.value|tostring)")|flatten[]' "$configfile")
+    printf "$items\n" | ($MENU -l5 -p "Bluetooth> " -w -i|| return 1)
+    return 0
+}
+
+btid="$(ask_user | cut -f2)"
+[ -n "$btid" ] && exec "$CONNECT" "$btid"
+
+# vim: set ft=sh :
+

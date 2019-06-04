@@ -5,6 +5,8 @@
 
 ### Begin Variables
 
+include "$HOME/.cache/wal/colors-sway"
+
 # Logo key. Use Mod1 for Alt.
 set $mod    Mod4
 
@@ -32,8 +34,6 @@ set $ws7    "7"
 set $ws8    "8"
 set $ws9    "9"
 
-set $wallpaper $HOME/Pictures/Wallpapers/sway.png
-exec_always gsettings set org.gnome.desktop.interface gtk-theme FlatColor
 
 
 ### END Variables
@@ -71,7 +71,10 @@ for_window  [title="Default - Wine desktop"] floating enable
 for_window  [title="mpvfloat"] floating enable
 for_window  [title="mpvfloat"] sticky enable
 for_window  [title="mpvfloat"] border pixel 0
+for_window  [title="mpvfloat"] inhibit_idle visible
 no_focus    [title="mpvfloat"]
+
+
 
 #
 # Status Bar:
@@ -92,19 +95,30 @@ no_focus    [title="mpvfloat"]
 #        inactive_workspace #32323200 #32323200 #5c5c5c
 #    }
 #}
-include $HOME/.cache/wal/colors-sway
 include $HOME/.config/sway/config.d/*
 include $HOME/.config/sway/conf.d/$(hostname)/*
 
 ### Begin Exec
 ## systemd managed
 #exec swayidle -w     timeout 300 'swaylock -f -c 000000'     timeout 600 'swaymsg "output * dpms off"'     resume 'swaymsg "output * dpms on"'     before-sleep 'swaylock -f -c 000000'
+
+exec_always gsettings set org.gnome.desktop.interface gtk-theme FlatColor
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako --anchor bottom-right 2>&1 > /tmp/mako.log
 exec systemd-notify --ready || true
+exec udiskie &
 ### END Exec
 
 
 
+client.focused			$color12	#080808 	$color9 	$color3 	$color12
+client.focused_inactive		#000000 	#000000 	$color9 	$color3 	#000000
+client.urgent			$color4 	#080808 	$color9 	$color3 	#080808
+
+
+# Get those gaps
+default_border pixel 2.3
+gaps inner 2
+gaps outer 4
 
 # vim:set ft=sway :

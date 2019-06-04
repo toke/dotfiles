@@ -5,7 +5,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "custom/weather",  "custom/storage", "custom/pomodoro", "backlight", "pulseaudio", "network", "idle_inhibitor", "battery", "clock"],
+    "modules-right": ["tray", "custom/weather",  "custom/storage", "custom/pomodoro", "backlight", "pulseaudio", "network#vpn", "network", "idle_inhibitor", "battery", "clock"],
     "sway/mode": {
        "format": " {}"
     },
@@ -57,8 +57,16 @@
         "on-click": "bemenu_netctl",
         "max-length": "50"
     },
+    "network#vpn": {
+        "interface": "vpn",
+        "format": "→ {}",
+        "format-disconnected": "→",
+        "tooltip-format": "VPN Connected → {ifname} → {ipaddr}/{cidr}",
+        "tooltip-format-disconnected": "VPN Disconnected",
+        "on-click": "vpn toggle",
+        "interval": 60
+    },
     "pulseaudio": {
-       // "format": "{icon}",
         "format": "{volume}% {icon} {format_source}",
         "format-alt": "{volume} {icon}",
         "format-alt-click": "click-right",
@@ -100,10 +108,11 @@
 	"tooltip-format-disconnected": "MPD (disconnected)"
     },
     "custom/pomodoro": {
-        //"format": " alalala{}",
-        //"exec": "/usr/bin/pymodoro-i3blocks -d",
-        "exec": "/usr/bin/pymodoro",
-        "return-type": "newline"
+        "format": "{}",
+        "exec": "/usr/bin/pymodoro -pp \"\" -bp \"\"  ",
+        "return-type": "newline",
+        "on-click": "touch ~/.cache/pomodoro_session",
+        "on-click-right": "rm ~/.cache/pomodoro_session"
     },
     "custom/storage": {
         "format": "{} ",
@@ -133,10 +142,9 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        },
-        "tooltip": false
+            "activated": "",
+            "deactivated": ""
+        }
     },
     "custom/mail": {
         "format": "",

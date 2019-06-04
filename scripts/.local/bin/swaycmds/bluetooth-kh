@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Headphone     00:16:94:26:81:08
+# Google Home   30:FD:38:91:8C:DD
+DEVICE_ID="${1:=00:16:94:26:81:08}"
+
+printf "Using: %s\n" "$DEVICE_ID"
+
+## Connect Bluetooth Headphone
+bluetoothctl <<EOF
+agent on
+power on
+connect ${DEVICE_ID}
+quit
+EOF
+
+while [ $SECONDS -lt 90 ]
+do
+    pactl list cards short | grep ${DEVICE_ID//:/_} | \
+        cut -f2 | \
+        xargs -I'{}' pactl set-card-profile '{}' a2dp_sink && \
+        break
+    sleep 1
+done
+
+while [ $SECONDS -lt 180 ]
+do
+    pactl list sinks short | grep "${DEVICE_ID//:/_}.a2dp_sink" | \
+        cut -f2 | \
+        xargs pactl set-default-sink && \
+        break
+    sleep 1
+done
+

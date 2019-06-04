@@ -89,7 +89,19 @@ window#waybar {
 #network.disconnected {
     background: transparent;
     color: crimson;
+    border-bottom: 3px solid @color1;
 }
+
+#idle_inhibitor.activated {
+    color: @foreground;
+    border-bottom: 3px solid @color15;
+}
+
+#idle_inhibitor.deactivated {
+    color: #2a5c45;
+    border-bottom: 3px solid @color1;
+}
+
 
 #pulseaudio {
     background: transparent;
@@ -112,7 +124,7 @@ window#waybar {
     border-bottom: 3px solid @color15;
 }
 
-#custom-root { 
+#custom-root {
     background: transparent;
     border-bottom: 4px solid @color9;
 }
@@ -122,22 +134,22 @@ window#waybar {
     border-bottom: 3px solid @color5;
 }
 
-#custom-home { 
+#custom-home {
     background: transparent;
     border-bottom: 4px solid @color9;
 }
 
-#custom-main { 
+#custom-main {
     background: transparent;
     border-bottom: 3px solid @color10;
 }
 
-#custom-backup { 
+#custom-backup {
     background: transparent;
     border-bottom: 3px solid @color10;
 }
 
-#custom-scratch { 
+#custom-scratch {
     background: transparent;
     border-bottom: 3px solid @color11;
 }
