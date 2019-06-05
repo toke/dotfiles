@@ -37,7 +37,7 @@ export DMENU="bemenu"
 export XDG_MUSIC_DIR=$HOME/Music
 
 export GDK_BACKEND=wayland
-#export CLUTTER_BACKEND=wayland
+export CLUTTER_BACKEND=wayland
 
 export GPG_TYT=$(tty)
 
