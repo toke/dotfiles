@@ -18,7 +18,7 @@
         "tooltip": false
     },
     "clock": {
-        "format": "{:%a %d %b %H:%M}",
+        "format": "{:%a KW%V %Y%m%d %H:%M}",
         "tooltip": false
     },
     "battery": {
@@ -109,10 +109,10 @@
     },
     "custom/pomodoro": {
         "format": "{}",
-        "exec": "/usr/bin/pymodoro -pp \"\" -bp \"\"  ",
+        "exec": "setsid -w /usr/bin/pymodoro -pp \"\" -bp \"\"  ",
         "return-type": "newline",
-        "on-click": "touch ~/.cache/pomodoro_session",
-        "on-click-right": "rm ~/.cache/pomodoro_session"
+        "on-click": "setsid sh -c 'touch ~/.cache/pomodoro_session'",
+        "on-click-right": "setsid sh -c 'rm ~/.cache/pomodoro_session'"
     },
     "custom/storage": {
         "format": "{} ",
