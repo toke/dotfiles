@@ -1,0 +1,12 @@
+PATH            DEFAULT=@{HOME}/bin:/usr/local/bin:/bin:/usr/bin:/usr/lib/plan9/bin/
+GOPATH          DEFAULT=@{HOME}/gocode
+SSH_AUTH_SOCK   DEFAULT=/run/user/1000/gnupg/S.gpg-agent.ssh
+XDG_CONFIG_HOME DEFAULT=@{HOME}/.config
+XDG_DATA_HOME   DEFAULT=@{HOME}/.local/data
+XDG_DATA_DIRS   DEFAULT=@{HOME}/.local/share:/usr/local/share:/usr/share
+XKB_DEFAULT_LAYOUT  DEFAULT=de,us
+XKB_DEFAULT_OPTIONS DEFAULT=grp:alt_shift_toggle
+XKB_DEFAULT_VARIANT DEFAULT=nodeadkeys
+EDITOR          DEFAULT=/usr/bin/vim
+BROWSER         DEFAULT=/usr/bin/firefox
+
