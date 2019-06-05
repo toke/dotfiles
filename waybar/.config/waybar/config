@@ -5,7 +5,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "custom/weather",  "custom/storage", "custom/pomodoro", "backlight", "pulseaudio", "network#vpn", "network", "idle_inhibitor", "battery", "clock"],
+    "modules-right": ["tray", "custom/weather",  "custom/pacman", "custom/storage", "custom/pomodoro", "backlight", "pulseaudio", "network#vpn", "network", "idle_inhibitor", "battery", "clock"],
     "sway/mode": {
        "format": " {}"
     },
@@ -109,7 +109,7 @@
     },
     "custom/pomodoro": {
         "format": "{}",
-        "exec": "setsid -w /usr/bin/pymodoro -pp \"\" -bp \"\"  ",
+        "exec": "~/.config/waybar/modules/pomodoro.sh",
         "return-type": "newline",
         "on-click": "setsid sh -c 'touch ~/.cache/pomodoro_session'",
         "on-click-right": "setsid sh -c 'rm ~/.cache/pomodoro_session'"
@@ -163,6 +163,14 @@
         "interval": "once",
         "exec": "pacman_packages",
         "on-click": "update-system",
+        "signal": 8
+    },
+    "custom/pacman": {
+        "format": "{}  ",
+        "interval": 3600,                   // every hour
+        "exec": "checkupdates | wc -l",       // # of updates
+        "exec-if": "exit 0",                  // always run; consider advanced run conditions
+        "on-click": "$TERMINAL -t 'pacmanfloat' -e 'yay -Syu'; pkill -SIGRTMIN+8 waybar", // update system
         "signal": 8
     }
 }

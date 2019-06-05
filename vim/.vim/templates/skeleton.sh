@@ -1,9 +1,6 @@
 #!/usr/bin/env sh
 # POSIX shell compliant
 #
-# THIS IS A SKELETON FILE FOR POSIX SHELL SCRIPTS
-#
-#
 
 set -e
 
@@ -17,5 +14,6 @@ arg="${1:-}"
 ## defaults
 : ${debug:="0"}
 
+<++>
 
 # vim: set ft=sh :

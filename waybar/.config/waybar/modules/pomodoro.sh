@@ -1,13 +1,10 @@
 #!/usr/bin/env sh
 # POSIX shell compliant
 #
-# THIS IS A SKELETON FILE FOR POSIX SHELL SCRIPTS
-#
-#
 
 set -e
 
-command="/usr/bin/pymodoro-i3blocks --daemon"
+command='/usr/bin/pymodoro -pp  -bp '
 #interval=persist
 #format=json
 
@@ -18,7 +15,7 @@ arg="${1:-}"
 [ $# -gt 0 ] && shift
 
 ## defaults
-: ${debug:="0"}
+: "${debug:="0"}"
 
 $command
 

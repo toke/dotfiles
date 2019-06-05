@@ -74,6 +74,9 @@ for_window  [title="mpvfloat"] border pixel 0
 for_window  [title="mpvfloat"] inhibit_idle visible
 no_focus    [title="mpvfloat"]
 
+for_window  [title="pacmanfloat"] floating enable
+for_window  [title="pacmanfloat"] move position center
+
 
 
 #
