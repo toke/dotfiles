@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+export XDG_CURRENT_DESKTOP=Unity
+
 # Terminate already running bar instances
 killall -q waybar
 
@@ -7,4 +9,4 @@ killall -q waybar
 while pgrep -x waybar >/dev/null; do sleep 1; done
 
 # Launch main
-waybar
+waybar | ts &>> /tmp/waybar
