@@ -5,7 +5,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "custom/weather",  "custom/pacman", "custom/storage", "custom/pomodoro", "backlight", "pulseaudio", "network#vpn", "network", "idle_inhibitor", "battery", "clock"],
+    "modules-right": ["tray", "custom/weather",  "custom/pacman", "custom/storage", "custom/shortnote", "custom/pomodoro", "backlight", "pulseaudio", "network#vpn", "network", "custom/online", "idle_inhibitor", "battery", "clock"],
     "sway/mode": {
        "format": " {}"
     },
@@ -18,11 +18,12 @@
         "tooltip": false
     },
     "clock": {
-        "format": "{:%a KW%V %Y%m%d %H:%M}",
+        "format": "{:%a KW%V %d.%m %H:%M}",
         "tooltip": false
     },
     "battery": {
         "format": "{capacity}% {icon}",
+        "format-alt": "{icon}",
         "format-icons": ["", "", "", "", ""],
         "format-charging": "{capacity}% ",
         "interval": 30,
@@ -30,7 +31,7 @@
             "warning": 25,
             "critical": 10
         },
-        "tooltip": false
+        "tooltip": true
     },
     "network#2": {
         "format": "{icon}",
@@ -47,9 +48,9 @@
     "network": {
         "interface": "wlp2s0",
         "format": "{ifname}",
-        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-wifi": "{essid} {signaldBm}dBm ",
         "format-ethernet": "{ifname} ",
-        "format-disconnected": "", //An empty format will hide the module.
+        "format-disconnected": "",
         "tooltip-format": "{ifname}\n{ipaddr}/{cidr}\n",
         "tooltip-format-wifi": "{essid} {frequency}MHz\n({signalStrength}% {signaldBm}dBm) \nIP: {ipaddr}/{cidr}\nUP: {bandwidthUpBits} {bandwidthDownBits}",
         "tooltip-format-ethernet": "{ifname} {ipaddr}/{cidr}",
@@ -59,16 +60,20 @@
     },
     "network#vpn": {
         "interface": "vpn",
-        "format": "→ {}",
-        "format-disconnected": "→",
+        "format": "{} ",
+        "format-disconnected": "",
         "tooltip-format": "VPN Connected → {ifname} → {ipaddr}/{cidr}",
         "tooltip-format-disconnected": "VPN Disconnected",
         "on-click": "vpn toggle",
         "interval": 60
     },
+    "custom/online": {
+        "exec": "~/.config/waybar/modules/test_network.sh",
+        "interval": 30
+    },
     "pulseaudio": {
-        "format": "{volume}% {icon} {format_source}",
-        "format-alt": "{volume} {icon}",
+        "format": "{volume}% {icon}",
+        "format-alt": "{volume}% {icon} {format_source}",
         "format-alt-click": "click-right",
         "format-muted": "",
         "format-source": "{volume}% ",
@@ -77,7 +82,7 @@
             "phone": [" ", " ", " ", " "],
             "default": ["", "", "", ""]
         },
-        "scroll-step": 10,
+        "scroll-step": 1,
         "on-click": "pavucontrol",
         "tooltip": false
     },
@@ -114,8 +119,23 @@
         "on-click": "setsid sh -c 'touch ~/.cache/pomodoro_session'",
         "on-click-right": "setsid sh -c 'rm ~/.cache/pomodoro_session'"
     },
+    "custom/shortnote": {
+        "format": "{} {icon}",
+        "format-icons": [
+            " ", " "
+        ],
+        "return-type": "json",
+        "interval": 900,
+        "exec": "~/.config/waybar/modules/shortnote print| cat",
+        "on-click": "~/.config/waybar/modules/shortnote termadd",
+        "on-click-right": "~/.config/waybar/modules/shortnote delete",
+        "signal": 7
+    },
+    "custom/loopy": {
+        "exec": "~/.config/waybar/modules/loopy"
+    },
     "custom/storage": {
-        "format": "{} ",
+        "format": "{}  ",
         "format-alt": "{percentage}% ",
         "format-alt-click": "click-right",
         "return-type": "json",
@@ -126,7 +146,7 @@
         "format": "{icon}",
         "format-alt": "{percent}% {icon}",
         "format-alt-click": "click-right",
-        "format-icons": ["", ""],
+        "format-icons": ["", ""],
         "on-scroll-down": "light -A 1",
         "on-scroll-up": "light -U 1"
     },
@@ -157,13 +177,6 @@
     },
     "tray": {
         "icon-size": 18
-    },
-    "custom/pacman": {
-        "format": "{}  ",
-        "interval": "once",
-        "exec": "pacman_packages",
-        "on-click": "update-system",
-        "signal": 8
     },
     "custom/pacman": {
         "format": "{}  ",

@@ -5,55 +5,41 @@ command=$HOME/.config/i3blocks/scripts/$BLOCK_NAME
 ## Fonts fontawsome
 
 markup=pango
-full_text=〉
-#full_text=·
-color=#666666
-separator=false
-separator_block_width=10
+color=#C9CCDB
+separator=true
+separator_block_width=15
+
+
+[window]
+interval=repeat
 
 
 #[taskwarrior]
 ###label=◔
-#command=$SCRIPT_DIR/taskwarrior
 ##interval=60
 #interval=once
 #signal=1
 #format=json
 ##To reload: pkill -RTMIN+1 i3blocks
-##
+
 
 #[ews]
 #command=$SCRIPT_DIR/i3-ews.pl
 #interval=90
 #label=
 
+
 #[octoprint]
-#command=$SCRIPT_DIR/octoprint
 #interval=90
 #format=json
 #instance=A8_1
 
-#[Updates]
-#command=$SCRIPT_DIR/update.sh
-#interval=3600
-#signal=1
 
+[pacman]
+label=
+interval=3600
+signal=7
 
-#[df]
-#name=df
-#command=disk
-#markup=pango
-#instance=/
-#label=/
-#interval=103
-
-#[df]
-#name=df
-#command=$SCRIPT_DIR/disk_usage
-##format=json
-#instance=/home
-#label=~/
-#interval=107
 
 [music]
 label=♪
@@ -61,81 +47,67 @@ command=mpc current | sed "{ s/\&/&amp;/ }"
 interval=5
 signal=10
 
-#[netio]
-#name=netio
-#command=$SCRIPT_DIR/traffic
-#format=json
-#interval=persist
-##min_width=X 9999KiB X 9999KiB
-#align=right
 
-#[internet]
-#command=if ping -w 5 -c 3 8.8.8.8 >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>I</span>"; fi
-#markup=pango
-#interval=20
-
-#[internethome]
-#command=if ping -w 5 -c 3 46.237.231.74 >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>H</span>"; fi
-#markup=pango
-#interval=21
-
-#[internethome]
-#command=if ping -w 5 -c 3 toke.de >/dev/null 2>&1; then echo ""; else echo "<span color='#ff0000'>T</span>"; fi
-#markup=pango
-#interval=27
-
-#[MOC]
-#command=$SCRIPT_DIR/moc.sh
-#instance=40
-#interval=10
+[pipein]
+label=
+interval=repeat
+separator=true
 
 
-#[network]
-#label=
-#instance=vpn0
-#interval=10
-#
-#[network]
-#label=
-#instance=wlp2s0
-#interval=10
+[shortnote]
+label=
+interval=60
+signal=10
+
+
 [mailbox]
-label=📬
+label=
 interval=180
 signal=12
 
-[ssid]
-label=
-interval=20
 
-[nm-vpn]
-label=
-#command=vpn=$(nmcli c|grep vpn|grep -v -- --| awk '{print $1}'); if [ -z "$vpn" ]; then vpn="-"; fi; echo $vpn
-interval=60
+#[ssid]
+#label=
+#interval=20
+
+#[nm-vpn]
+#label=
+##command=vpn=$(nmcli c|grep vpn|grep -v -- --| awk '{print $1}'); if [ -z "$vpn" ]; then vpn="-"; fi; echo $vpn
+#interval=60
 
 [internet]
 interval=10
+signal=9
 
-#[dev]
-#label=
-#interval=10
-#
-#
-#[bandwidth]
-#interval=1
-#min_width=X9999KX9999K
-#align=right
-
-[seperator]
+[dev]
+label=
+interval=3600
+signal=9
 
 [load]
-interval=1
+interval=30
 label=
 
+[disk]
+label=/
+instance=/
+interval=900
+
+[disk]
+label=~
+instance=/home
+interval=900
 
 [btheadset]
-command=/home/toke/.config/i3blocks/scripts/btheadset 00:16:94:26:81:08
+label=
+instance=00:16:94:26:81:08
 interval=60
+
+[btheadset]
+label=
+instance=30:FD:38:91:8C:DD
+interval=60
+
 
 #[temp]
 #label=℃
@@ -147,11 +119,7 @@ interval=60
 #interval=persist
 #instance=OUT
 
-#[kraus]
-#interval=3600
-#min_width=i
-#
-[seperator]
+
 [volume]
 interval=once
 label=
@@ -159,11 +127,15 @@ label=
 [battery]
 interval=23
 
+[time]
+command=date +'%d.%m'
+interval=20
+label=
 
 [time]
-command=echo "`date +'%m%d %H%M'`"
-interval=1
+command=date +'%H%M'
+interval=20
 label=
-color=#C9CCDB
+
 
 

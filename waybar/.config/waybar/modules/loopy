@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -euo pipefail
+
+while true ; do
+    echo "abc $SECONDS"
+    sleep 5
+done

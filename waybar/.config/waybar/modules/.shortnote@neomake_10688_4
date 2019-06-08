@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+# POSIX shell compliant
+#
+
+# ~/.config/sway/config
+# for_window  [title="shortnotefloat"] floating enable
+
+set -e
+
+
+: "${PREFIX:=""}"
+: "${EMPTY_MSG:="None"}"
+: "${DATE_FMT:="+%d.%m.%Y %H:%M:%S"}"
+: "${NOTE_SIGNAL:=RTMIN+7}"
+: "${BAR_NAME:=waybar}"
+
+trap 'echo killing childs; pkill -P $$; exit'  EXIT
+
+## Setup
+__file=${0##/*/}
+__groupname="$(basename ${__file})"
+
+: "${DATAFILE:="$XDG_DATA_HOME/$__groupname/data.log"}"
+
+cmd="${1:-}"
+[ $# -gt 0 ] && shift
+
+## defaults
+: "${debug:="0"}"
+
+usage(){
+    printf "%s\n" "$__file"
+    printf "\tusage:\n"
+    printf "\t%s add [message]\n" "$__file"
+    printf "\t%s delete\n" "$__file"
+    printf "\t%s termadd\n" "$__file"
+    printf "\t%s tail\n" "$__file"
+    printf "\t%s print\n" "$__file"
+    printf "\t%s refresh\n" "$__file"
+    printf "\t%s help\n" "$__file"
+}
+
+get_activity(){
+
+    tail -n 1 $DATAFILE | \
+        sed -u 's/:/\t/' | (
+            read ts msg
+            filets=$(date -r $DATAFILE +%s)
+            lastchange=$(date -d "now - $filets seconds" +%s)
+            printf "%s\t" $ts $filets $lastchange $msg
+            printf "\n"
+        )
+}
+
+output(){
+    get_activity | (
+        read ts tsdate age msg
+        maxage=1700
+        if [ "$age" -lt "$maxage" ] ; then
+            class=active
+        else
+            class=stale
+        fi
+
+        if [ -n "$msg" ] ; then
+            msg="$PREFIX$msg"
+            class="$class"
+            percentage=100
+        else
+            msg="${EMPTY_MSG}"
+            class="inactive"
+            percentage=0
+        fi
+        datestr=$(date -d @$ts "$DATE_FMT")
+        jq -cn \
+            --arg msg "$msg" \
+            --arg tooltip "$datestr ${age}s $msg" \
+            --arg class "$class" \
+            --argjson percentage $percentage \
+            '{
+                    "text": $msg,
+                    "tooltip": $tooltip,
+                    "class": $class,
+                    "percentage": $percentage
+            }'
+    )
+}
+
+case $cmd in
+    print)
+        output
+        ;;
+    tail)
+        while true ; do
+            output
+            sleep 4
+        done
+        ;;
+    add)
+        if [ -n "$1" ] ; then
+            line=$1
+        else
+            printf "Your note> "
+            read -r line
+            echo "Your answer: $line"
+        fi
+        if [ -n "$line" ] ; then
+            printf "%s:%s\n" $(date +%s) "${line}" >> "$DATAFILE"
+            pkill -${NOTE_SIGNAL} ${BAR_NAME}
+            exit 0
+        else
+            exit 2
+        fi
+        ;;
+    refresh)
+            pkill -${NOTE_SIGNAL} ${BAR_NAME}
+            exit 0
+            ;;
+    delete)
+        exec "$0" add " "
+        ;;
+    termadd)
+        exec "$TERMINAL" -t shortnotefloat -e "$0 add"
+        ;;
+    touch)
+        touch $DATAFILE
+        ;;
+    activity)
+        get_activity
+        ;;
+    *)
+        usage
+        exit 1
+        ;;
+esac
+
+# vim: set ft=sh :
+

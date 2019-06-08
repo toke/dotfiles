@@ -71,7 +71,7 @@
                                     # MENU: Ask for Key and copies password to clipboard
     bindsym $mod+p                  exec gopass ls --flat | "$dmenu" | xargs --no-run-if-empty gopass show -o | wl-copy -o
                                     # MENU: Ask for Key and types password FIXME
-    bindsym $mod+Shift+p            exec gopass ls --flat | "$dmenu" | xargs --no-run-if-empty gopass show | head -n 1 | xargs ydotool type
+    bindsym $mod+Shift+p            exec gopass ls --flat | "$dmenu" | xargs --no-run-if-empty gopass show -o | xargs -i sudo ydotool type "{}"
                                     # Kill focused Container
     bindsym $mod+Shift+q            kill
                                     # Mode: Swiches mode to resize

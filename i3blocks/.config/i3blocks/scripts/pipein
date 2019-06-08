@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+set -e
+
+: "${BAR_FIFO:=$XDG_RUNTIME_DIR/bar_fifo}"
+
+[ ! -p "$BAR_FIFO" ] && mkfifo "${BAR_FIFO}"
+
+
+#tail -f $BAR_FIFO
+cat $BAR_FIFO
+#cat $BAR_FIFO | while read -r line ; do
+#    printf "%s\n" "$line"
+#    #printf "abc\n#ffffff\n#000000\n"
+#
+#    sleep 1
+#done

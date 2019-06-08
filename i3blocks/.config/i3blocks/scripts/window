@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+
+swaymsg -t subscribe '["window"]' | \
+    jq -r '"\(.change) \(.container.pid) \(.container.name)"' | \
+    (
+        read -r change pid name
+        color=""
+        rc=0
+        sname=$pid
+        case $change in
+            close)
+                icon=
+                rc=33
+                ;;
+            focus)
+                icon=
+                ;;
+            title)
+                color="#00cc00"
+                ;;
+            *)
+                ;;
+        esac
+        printf "%s\n" "$icon $name" $sname $color
+        exit $rc
+    )

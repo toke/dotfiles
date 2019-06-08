@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+: "${BAR_SIGNAL:=SIGRTMIN+8}"
+: "${STATUS_COMMAND:=i3blocks}"
+
+printenv > /tmp/enva
+
+case "$BLOCK_BUTTON" in
+    1)
+        update_cmd="$(printf 'yay -Syu ; pkill -%s %s ; echo \"Press any key to continue\" ;  read input' "${BAR_SIGNAL}" "${STATUS_COMMAND}")"
+        $TERMINAL -t 'pacmanfloat' -e "sh -c \"$update_cmd\"" 
+        ;;
+esac
+
+count="$(checkupdates | wc -l)"
+
+if [ "$count" -gt 0 ] ; then
+    printf "%s\n" "$count" "$count"
+fi
+

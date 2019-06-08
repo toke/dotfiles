@@ -4,7 +4,7 @@
 
 set -e
 
-command='/usr/bin/pymodoro -pp  -bp '
+command='/usr/bin/pymodoro -ah -pp  -bs '
 #interval=persist
 #format=json
 

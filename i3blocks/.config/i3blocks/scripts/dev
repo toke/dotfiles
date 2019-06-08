@@ -1,15 +1,50 @@
 #!/usr/bin/bash
 
 
-ROUTE=$(ip route get 8.8.8.8)
+: "${REMOTE_CHECK_IP:=8.8.8.8}"
+: "${JQ_CMD:=jq}"
 
-if [[ $ROUTE == "RTNETLINK answers: Network is unreachable" ]] ; then
-    echo -e 'down\ndown\n\n'
-    exit
+config='
+{
+    "networks": {
+        "10.10.15.1": "home",
+        "10.214.18.1": "ffka",
+        "vpn": "vpn"
+    },
+    "vpn": {
+        "10.23.254.177": "IONOS"
+    }
+}
+'
+
+
+get_vpn(){
+    echo "$config" | "$JQ_CMD" -r --arg ip "$1" '.vpn[$ip]'
+}
+
+get_network(){
+    echo "$config" | "$JQ_CMD" -r --arg ip "$1" '.networks[$ip]'
+}
+
+ROUTE="$(ip route get "$REMOTE_CHECK_IP")"
+
+if [ "$ROUTE" = "RTNETLINK answers: Network is unreachable" ] ; then
+    echo "down"
+    exit 33
 else
-    echo "$(echo ${ROUTE} | awk '{ print $7 " via " $5 }')"
-    echo "$(echo ${ROUTE} | awk '{ print $7 }')"
-    echo ""
-fi
+    gw="$(echo "${ROUTE}" | awk '{ print $5 }')"
+    via="$(echo "${ROUTE}" | awk '{ print $3 }')"
+    network="$(get_network "$via")"
 
+    case $network in
+        vpn)
+            vpn="$(get_vpn "$gw")"
+            printf "%s\n" "$vpn"
+            ;;
+        *)
+            [ "$network" = "null" ] && network="$via"
+            printf "%s\n" "$network"
+            ;;
+    esac
+fi
 

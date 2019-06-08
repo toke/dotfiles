@@ -14,11 +14,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-HEADSET_ID=$1
-HEADSET_PROFILE="a2dp_sink"
+: "${HEADSET_ID:-$1}"
+: "${HEADSET_ID:=$BLOCK_INSTANCE}"
+: "${HEADSET_PROFILE:=a2dp_sink}"
+: "${LABEL:=}"
 
 pushd "$(dirname "$0")" > /dev/null
 popd > /dev/null
+
 
 STATUS_CONNECTED="connected"
 STATUS_DISCONNECTED="disconnected"
@@ -109,8 +112,8 @@ case $BLOCK_BUTTON in
     ;;
 esac
 
-echo ""
-echo ""
+echo "$LABEL"
+echo "$LABEL"
 
 if [[ $ERROR_CONDITION -eq 1 ]]
 then

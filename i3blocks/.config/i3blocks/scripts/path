@@ -2,4 +2,6 @@
 
 source ~/.virtualenvs/default/bin/activate
 
-~/.i3blocks/scripts/path.py
+dir=$(dirname $0)
+
+$dir/path.py

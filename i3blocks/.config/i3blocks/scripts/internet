@@ -1,17 +1,38 @@
 #!/bin/sh
 
+rt=0
+CHECK_HOSTS="1.1.1.1 8.8.8.8"
+
 case $BLOCK_BUTTON in
 	1) $TERMINAL -e nmtui ;;
-	3) pgrep -x mako >/dev/null && notify-send "🌐 Internet module" "\- Click to connect
-📡: no wifi connection
-📶: wifi connection with quality
-❎: no ethernet
-🌐: ethernet working
+	3) pgrep -x mako >/dev/null && notify-send "   Internet module" "Click to connect
 " ;;
 esac
 
-[ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon="📡"
 
-[ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "📶", int($3 * 100 / 70) "%" }')
+SSID_NAME=$(iwgetid -r)
 
-printf "%s %s" "$wifiicon" "$(cat /sys/class/net/e*/operstate | sed "s/down/❎/;s/up/🌐/")"
+[ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon=""
+[ -f "/sys/class/net/vpn/operstate" ] && \
+    [ "$(cat /sys/class/net/vpn/operstate)" = 'up' ] && vpn=""
+
+ethernet="$(cat /sys/class/net/e*/operstate | sed 's/down/ /;s/up/ /')"
+
+conn=""
+if fping -q $CHECK_HOSTS ; then
+     conn="<span color='#00ff00'></span>"
+else
+     conn="<span color='#ff0000'></span>"
+     rt=33
+fi
+
+[ -z "${wifiicon}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "", int($3 * 100 / 70) "%" }')
+
+if [ -n "$vpn" ] ; then
+    vpn="<span color='#ffff4d'>$vpn</span>"
+fi
+
+printf "%s %s %s %s %s\n" "$wifiicon" "$SSID_NAME" "$ethernet" "$vpn" "$conn"
+printf "%s %s %s %s\n" "$wifiicon" "$ethernet" "$vpn" "$conn"
+
+exit $rt

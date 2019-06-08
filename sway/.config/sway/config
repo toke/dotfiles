@@ -4,7 +4,6 @@
 
 
 ### Begin Variables
-
 include "$HOME/.cache/wal/colors-sway"
 
 # Logo key. Use Mod1 for Alt.
@@ -23,6 +22,7 @@ set $term   --no-startup-id $TERMINAL
 set $dmenu  "$DMENU -p '> ' --nf '#d7d7d5' --nb '#232729' --sb '#585858' --sf '#bcbcbc' --fn 'xos4 Terminus 12' -i"
 set $menu   "bemenu-run"
 
+
 # Workspace aliases
 set $ws1    "1"
 set $ws2    "2"
@@ -34,15 +34,11 @@ set $ws7    "7"
 set $ws8    "8"
 set $ws9    "9"
 
-
-
 ### END Variables
-
 
 
 ## Wayland native (app_id)
 assign [app_id="firefox"] → workspace $ws2
-
 ## X11 (class, instance)
 assign [class="Chromium"] → workspace $ws2
 
@@ -74,49 +70,49 @@ for_window  [title="mpvfloat"] border pixel 0
 for_window  [title="mpvfloat"] inhibit_idle visible
 no_focus    [title="mpvfloat"]
 
+# Pacman float
 for_window  [title="pacmanfloat"] floating enable
 for_window  [title="pacmanfloat"] move position center
 
+# Shortnote float
+for_window  [title="shortnotefloat"] floating enable
+for_window  [title="shortnotefloat"] move position center
+for_window  [title="shortnotefloat"] resize set 600 100
+for_window  [title="shortnotefloat"] sticky enable
 
 
 #
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-#bar {
-#    position top
-#    font pango: Hack, Font Awesome, Typicons, Material Icons 10
-#    #font pango:DejaVu Sans Mono 10
-#    #swaybar_command waybar
-#    #status_command i3blocks
-#
-#    #status_command /home/toke/gocode/bin/mybarista
-#    #status_command exec ~/bin/mybar
-#    colors {
-#        statusline #ffffff
-#        background #323232
-#        inactive_workspace #32323200 #32323200 #5c5c5c
-#    }
-#}
+bar {
+    position top
+    font pango:DejaVu Sans Mono, Font Awesome, Typicons, Material Icons 10
+#   swaybar_command waybar
+    status_command i3blocks
+    colors {
+        statusline #ffffff
+        background #00000033
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
 include $HOME/.config/sway/config.d/*
 include $HOME/.config/sway/conf.d/$(hostname)/*
 
 ### Begin Exec
-## systemd managed
-#exec swayidle -w     timeout 300 'swaylock -f -c 000000'     timeout 600 'swaymsg "output * dpms off"'     resume 'swaymsg "output * dpms on"'     before-sleep 'swaylock -f -c 000000'
-
 exec_always gsettings set org.gnome.desktop.interface gtk-theme FlatColor
+exec swayidle -w timeout 300 'swaylock -f -c 000000' timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep 'swaylock -f -c 000000'
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako --anchor bottom-right 2>&1 > /tmp/mako.log
-exec systemd-notify --ready || true
+exec redshift -m wayland
 exec udiskie &
+exec systemd-notify --ready || true
 ### END Exec
 
 
-
-client.focused			$color12	#080808 	$color9 	$color3 	$color12
-client.focused_inactive		#000000 	#000000 	$color9 	$color3 	#000000
-client.urgent			$color4 	#080808 	$color9 	$color3 	#080808
+client.focused		    $color12 #080808 $color9 $color3 $color12
+client.focused_inactive	    #000000  #000000 $color9 $color3 #000000
+client.urgent		    $color4  #080808 $color9 $color3 #080808
 
 
 # Get those gaps

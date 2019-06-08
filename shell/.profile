@@ -53,8 +53,8 @@ echo "$0" | grep "mksh$" >/dev/null && [ -f ~/.mkshrc ] && . "$HOME/.mkshrc"
 [ -e /etc/ssl/certs/ca-certificates.crt ] && export PIP_CERT="/etc/ssl/certs/ca-certificates.crt"
 [ -e "$PIP_CERT" ] && export REQUESTS_CA_BUNDLE="$PIP_CERT"
 
+unset appendpath
+
 # Start graphical server if i3 not already running.
 [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x sway >/dev/null && exec bin/sway-bin
 
-
-unset appendpath
