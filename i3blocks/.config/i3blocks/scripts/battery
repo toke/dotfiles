@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Get battery status from acpi
 # $BLOCK_INSTANCE is an option that can be set in i3block.conf
@@ -39,3 +39,4 @@ elif [ $PERCENT  -lt 20 ] ; then
     echo "#FF033E"
 fi
 [ $PERCENT  -lt 10 ] && exit 33
+exit 0

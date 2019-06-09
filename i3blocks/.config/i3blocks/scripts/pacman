@@ -3,7 +3,6 @@
 : "${BAR_SIGNAL:=SIGRTMIN+8}"
 : "${STATUS_COMMAND:=i3blocks}"
 
-printenv > /tmp/enva
 
 case "$BLOCK_BUTTON" in
     1)
