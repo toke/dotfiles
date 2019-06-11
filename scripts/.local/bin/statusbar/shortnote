@@ -64,6 +64,7 @@ output(){
         fi
 
         if [ -n "$msg" ] ; then
+            smsg=$(echo $myvar | sed 's/[ ].*$//g')
             msg="$PREFIX$msg"
             class="$class"
             percentage=100
@@ -79,11 +80,13 @@ output(){
             json)
                 jq -rcn \
                     --arg msg "$msg" \
+                    --arg smsg "${smsg:-$msg}}" \
                     --arg tooltip "$datestr ${age}s $msg" \
                     --arg class "$class" \
                     --argjson percentage $percentage \
                     '{
                             "full-text": $msg,
+                            "short-text": $smsg,
                             "tooltip": $tooltip,
                             "class": $class,
                             "percentage": $percentage

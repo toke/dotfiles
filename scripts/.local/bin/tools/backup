@@ -10,10 +10,10 @@ BASE_DIR="$XDG_CONFIG_HOME/backup"
 REPO_CFG_DIR="$BASE_DIR/repos.d"
 JOB_CFG_DIR="$BASE_DIR/jobs.d"
 
-: "${BACKUP_EXCLUDE_FILE-"$BASE_DIR/excludes"}"
-: "${BACKUP_PATTERN-"$HOME"}"
-: "${BACKUP_TAGS-"default"}"
-: "${RESTIC_DEFAULT_PARAMS-"--exclude-caches -x"}"
+: "${BACKUP_EXCLUDE_FILE:="$BASE_DIR/excludes"}"
+: "${BACKUP_PATTERN:="$HOME"}"
+: "${BACKUP_TAGS:="default"}"
+: "${RESTIC_DEFAULT_PARAMS:="--exclude-caches -x"}"
 
 scriptname="$(basename "$0")"
 
@@ -27,6 +27,7 @@ repo=
 
 [ -n "$1" ] && cmd=$1 && shift
 [ -n "$1" ] && repo=$1 && shift
+: "${repo:=default}"
 
 error() {
     code="${3:-1}"
@@ -142,9 +143,9 @@ case $cmd in
         fi
         printf "Using repository %s: %s\n" "${REPO_NAME:?}" "$RESTIC_REPOSITORY"
         if [ -n "$BACKUP_EXCLUDE_FILE" ] && [ -e "$BACKUP_EXCLUDE_FILE" ] ; then
-            BACKUP_EXCLUDE_FILE="--exclude-file $BACKUP_EXCLUDE_FILE"
+            BACKUP_EXCLUDE="--exclude-file $BACKUP_EXCLUDE_FILE"
         fi
-        restic backup $(get_tags) "$BACKUP_EXCLUDE_FILE" "$RESTIC_DEFAULT_PARAMS" "$BACKUP_PATTERN"
+        restic backup $(get_tags) $BACKUP_EXCLUDE $RESTIC_DEFAULT_PARAMS "$BACKUP_PATTERN"
         ;;
     ls)
         echo "Configured repos and jobs:"
