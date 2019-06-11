@@ -7,6 +7,6 @@ XDG_DATA_DIRS   DEFAULT=@{HOME}/.local/share:/usr/local/share:/usr/share
 XKB_DEFAULT_LAYOUT  DEFAULT=de,us
 XKB_DEFAULT_OPTIONS DEFAULT=grp:alt_shift_toggle
 XKB_DEFAULT_VARIANT DEFAULT=nodeadkeys
-EDITOR          DEFAULT=/usr/bin/vim
+EDITOR          DEFAULT=/usr/bin/nvim
 BROWSER         DEFAULT=/usr/bin/firefox
 

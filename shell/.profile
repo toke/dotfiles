@@ -21,6 +21,7 @@ unset path
 [ -e $HOME/gocode/bin ] && appendpath "$HOME/gocode/bin"
 
 
+# See also: ~/.pam_environment
 export EDITOR="/usr/bin/nvim"
 export FCEDITOR="$EDITOR"
 export VISUAL="$EDITOR"
@@ -38,6 +39,7 @@ export XDG_MUSIC_DIR=$HOME/Music
 
 export GDK_BACKEND=wayland
 export CLUTTER_BACKEND=wayland
+export QT_QPA_PLATFORM=wayland-egl
 
 export GPG_TYT=$(tty)
 
