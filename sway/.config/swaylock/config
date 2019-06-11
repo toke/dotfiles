@@ -1,0 +1,4 @@
+image=~/Pictures/Wallpapers/lock-default.jpg
+show-failed-attempts
+daemonize
+color=000000

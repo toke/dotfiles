@@ -21,6 +21,15 @@ set $term   --no-startup-id $TERMINAL
 # Your preferred application launcher
 set $dmenu  "$DMENU -p '> ' --nf '#d7d7d5' --nb '#232729' --sb '#585858' --sf '#bcbcbc' --fn 'xos4 Terminus 12' -i"
 set $menu   "bemenu-run"
+## Hack to "concaternate" values
+set $alpha1e 1e
+set $alpha33 33
+set $alpha00 00
+set $alphaff ff
+
+
+set $timeout_lock 300
+set $timeout_dpms 600
 
 
 # Workspace aliases
@@ -91,9 +100,11 @@ bar {
 #   swaybar_command waybar
     status_command i3blocks
     colors {
-        statusline #ffffff
-        background #00000033
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        statusline $foreground
+        separator $color1
+        background $background$alpha33
+        active_workspace $color15$alpha00 #2b303bee $foreground
+        focused_workspace $color15 #64727d14 $foreground
     }
 }
 include $HOME/.config/sway/config.d/*
@@ -101,15 +112,15 @@ include $HOME/.config/sway/conf.d/$(hostname)/*
 
 ### Begin Exec
 exec_always gsettings set org.gnome.desktop.interface gtk-theme FlatColor
-exec swayidle -w timeout 300 'swaylock -f -c 000000' timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep 'swaylock -f -c 000000'
+exec swayidle -w timeout $timeout_lock 'swaylock -f' timeout $timeout_dpms 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep 'swaylock -f' lock 'swaylock -f' unlock 'pkill swaylock'
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec mako --anchor bottom-right 2>&1 > /tmp/mako.log
+exec mako --background-color "$background" --text-color "$foreground" --border-color "$color12" 2>&1 > /tmp/mako.log
 exec redshift -m wayland
 exec udiskie &
 exec systemd-notify --ready || true
 ### END Exec
 
-
+# class                     border   backgr  text indicator child_border
 client.focused		    $color12 #080808 $color9 $color3 $color12
 client.focused_inactive	    #000000  #000000 $color9 $color3 #000000
 client.urgent		    $color4  #080808 $color9 $color3 #080808

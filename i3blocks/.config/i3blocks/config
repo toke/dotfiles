@@ -5,7 +5,6 @@ command=$HOME/.config/i3blocks/scripts/$BLOCK_NAME
 ## Fonts fontawsome
 
 markup=pango
-color=#C9CCDB
 separator=true
 separator_block_width=15
 
