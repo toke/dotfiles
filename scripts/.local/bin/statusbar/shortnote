@@ -46,7 +46,7 @@ get_activity(){
             read ts msg
             filets="$(date -r "$DATAFILE" +%s)"
             lastchange=$(date -d "now - $filets seconds" +%s)
-            printf "%s\t" $ts $filets $lastchange $msg
+            printf "%s\t" $ts $filets $lastchange "$msg"
             printf "\n"
         )
 }
@@ -64,7 +64,7 @@ output(){
         fi
 
         if [ -n "$msg" ] ; then
-            smsg=$(echo $myvar | sed 's/[ ].*$//g')
+            smsg=$(echo "$msg" | cut -d' ' -f1)
             msg="$PREFIX$msg"
             class="$class"
             percentage=100
@@ -80,7 +80,7 @@ output(){
             json)
                 jq -rcn \
                     --arg msg "$msg" \
-                    --arg smsg "${smsg:-$msg}}" \
+                    --arg smsg "$smsg" \
                     --arg tooltip "$datestr ${age}s $msg" \
                     --arg class "$class" \
                     --argjson percentage $percentage \
@@ -93,7 +93,7 @@ output(){
                     }' | cat
                 ;;
             *)
-                printf "%s\n%s\n%s\n#000000\n" "$msg" "$msg" "$color"
+                printf "%s\n%s\n%s\n#000000\n" "$msg" "$smsg" "$color"
                 ;;
         esac
 
