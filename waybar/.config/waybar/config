@@ -126,9 +126,9 @@
         ],
         "return-type": "json",
         "interval": 900,
-        "exec": "~/.config/waybar/modules/shortnote print| cat",
-        "on-click": "~/.config/waybar/modules/shortnote termadd",
-        "on-click-right": "~/.config/waybar/modules/shortnote delete",
+        "exec": "shortnote print| cat",
+        "on-click": "shortnote termadd",
+        "on-click-right": "shortnote delete",
         "signal": 7
     },
     "custom/loopy": {

@@ -4,26 +4,19 @@
 : "${REMOTE_CHECK_IP:=8.8.8.8}"
 : "${JQ_CMD:=jq}"
 
-config='
-{
-    "networks": {
-        "10.10.15.1": "home",
-        "10.214.18.1": "ffka",
-        "vpn": "vpn"
-    },
-    "vpn": {
-        "10.23.254.177": "IONOS"
-    }
-}
-'
+: "${CONFIG_FILE:=$XDG_CONFIG_HOME/network/gwmaps.json}"
+if [ ! -f "$CONFIG_FILE" ] ; then
+    printf "Config %s not found" "$CONFIG_FILE" 1>&2
+    exit 2
+fi
 
 
 get_vpn(){
-    echo "$config" | "$JQ_CMD" -r --arg ip "$1" '.vpn[$ip]'
+    "$JQ_CMD" -r --arg ip "$1" '.vpn[$ip]' "${CONFIG_FILE}"
 }
 
 get_network(){
-    echo "$config" | "$JQ_CMD" -r --arg ip "$1" '.networks[$ip]'
+    "$JQ_CMD" -r --arg ip "$1" '.networks[$ip]' "${CONFIG_FILE}"
 }
 
 ROUTE="$(ip route get "$REMOTE_CHECK_IP")"
@@ -39,7 +32,7 @@ else
     case $network in
         vpn)
             vpn="$(get_vpn "$gw")"
-            printf "%s\n" "$vpn"
+            printf " %s\n" "$vpn"
             ;;
         *)
             [ "$network" = "null" ] && network="$via"

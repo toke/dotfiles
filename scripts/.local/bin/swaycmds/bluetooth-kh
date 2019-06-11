@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+#set -x
 
 # Headphone     00:16:94:26:81:08
 # Google Home   30:FD:38:91:8C:DD

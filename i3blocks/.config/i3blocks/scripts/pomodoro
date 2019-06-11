@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+: "${SESSIONFILE:=$HOME/.cache/pomodoro_session}"
+
+case $BLOCK_BUTTON in
+    1)
+        touch "$SESSIONFILE"
+    ;;
+    3)
+        [ -e "$SESSIONFILE" ] && rm "$SESSIONFILE"
+    ;;
+esac
+
+/usr/bin/pymodoro -o -ah -pp  -bs 

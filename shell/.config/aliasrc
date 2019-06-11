@@ -14,6 +14,7 @@ alias ka="killall" \
 	g="git" \
 	e="$EDITOR" \
 	v="$EDITOR" \
+        vi="$EDITOR" \
         vw="vimwiki" \
 	x="imv *" \
 	sdn="sudo shutdown -h now" \
@@ -26,11 +27,13 @@ alias ka="killall" \
 	yta="yt -x -f bestaudio/best" \
 	YT="youtube-viewer --player=mpv" \
 	ref="shortcuts >/dev/null; source ~/.config/shortcutrc" \
-	upc="sudo pacman -Syu; pkill -RTMIN+8 i3blocks" \
+	upc="sudo pacman -Syu" \
 	lsp="pacman -Qett --color=always | less" \
 	ffmpeg="ffmpeg -hide_banner" \
         translate="translate-shell -l de -s de -t en de:en" \
         pacman="sudo pacman --color=auto" \
+        pomo="touch ~/.cache/pomodoro_session" \
+        qutebrowser="QT_QPA_PLATFORM=wayland-egl qutebrowser" \
         x11="GDK_BACKEND=x11" \
         wayland="GDK_BACKEND=wayland"
 

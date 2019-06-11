@@ -23,13 +23,6 @@ interval=repeat
 ##To reload: pkill -RTMIN+1 i3blocks
 
 
-#[ews]
-#command=$SCRIPT_DIR/i3-ews.pl
-#interval=90
-#label=
-
-
-#[octoprint]
 #interval=90
 #format=json
 #instance=A8_1
@@ -51,7 +44,16 @@ signal=10
 [pipein]
 label=
 interval=repeat
-separator=true
+
+
+[pomodoro]
+interval=1
+
+
+[pymodoro]
+interval=repeat
+command=pymodoroi3
+
 
 
 [shortnote]

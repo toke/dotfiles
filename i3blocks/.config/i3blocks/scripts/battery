@@ -2,11 +2,12 @@
 
 # Get battery status from acpi
 # $BLOCK_INSTANCE is an option that can be set in i3block.conf
-BATCALL=$(acpi -b | grep "Battery $BLOCK_INSTANCE")
+
+: "${BLOCK_INSTANCE:=BAT0}"
 
 # Set Status and Percentage variables
-STATUS=$(echo $BATCALL | cut -d':' -f 2 | cut -d',' -f 1)
-PERCENT=$(echo $BATCALL | cut -d',' -f 2 | tr -d %)
+STATUS="$(cat "/sys/class/power_supply/$BLOCK_INSTANCE/status")"
+PERCENT="$(cat "/sys/class/power_supply/$BLOCK_INSTANCE/capacity")"
 
 # Set Icon
 if [ $STATUS == "Discharging" ] ; then

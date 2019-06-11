@@ -1,21 +1,24 @@
 #!/usr/bin/sh
 
 
+: "${REAL_SCRIPT:=shortnote}"
+
 #notify-send "$(printenv)"
 
 case $BLOCK_BUTTON in
     1)
-        shortnote termadd
-        shortnote print | head -n 1
+        $REAL_SCRIPT termadd
+        $REAL_SCRIPT print | head -n 1
         ;;
     2)
         echo 2
         ;;
     3)
-        shortnote delete
+        $REAL_SCRIPT delete
+        $REAL_SCRIPT print | head -n 1
         exit 33
         ;;
     *)
-        shortnote print
+        $REAL_SCRIPT print
         ;;
 esac
