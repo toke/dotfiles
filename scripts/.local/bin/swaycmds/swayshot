@@ -6,6 +6,7 @@ set -e
 
 : "${SWAYSHOT_CMD:=grim}"
 : "${SWAYSHOT_SLURP_CMD:="slurp"}"
+: "${SWAYSHOT_CLIP_CMD:="wl-copy"}"
 : "${SWAYSHOT_SCREENSHOT_DIR:="$(xdg-user-dir PICTURES)/Screenshots"}"
 : "${SWAYSHOT_FILE_TEMPLATE:="+%Y%m%d%H%M%S-sway.png"}"
 [ -z "${SWAYSHOT_FILE_TEMPLATE##+*}" ] && \
@@ -14,6 +15,7 @@ set -e
 : "${SWAYSHOT_OUTPUT_FILE:="$SWAYSHOT_SCREENSHOT_DIR/$SWAYSHOT_FILENAME"}"
 
 ## Config Defaults
+: "${copy_to_clipboard:="0"}"
 : "${print_filename:="1"}"
 
 
@@ -27,9 +29,15 @@ command=${1:-"help"}
 
 while [ "$#" -gt "0" ] ; do
     case "$1" in
-        -q)  print_filename="0" ;;
+        -c)
+            copy_to_clipboard="1"
+            shift
+            ;;
+        -q)
+            print_filename="0"
+            shift
+            ;;
     esac
-    shift
 done
 
 
@@ -41,6 +49,7 @@ usage(){
     printf "  %s w | work | workspace [args…]\n" "$scriptname"
     printf "  %s h | help\n" "$scriptname"
     printf "\nArgs:\n"
+    printf "  -c\tcopy to clipboard\n"
     printf "  -q\tquiet\n"
     printf "\nEnvironment:\n"
     printf "  SWAYSHOT_CONFIG=\"%s\"\n" "$SWAYSHOT_CONFIG"
@@ -49,6 +58,7 @@ usage(){
     printf "  SWAYSHOT_OUTPUT_FILE=\"%s/%s\"\n" "$SWAYSHOT_SCREENSHOT_DIR" "$SWAYSHOT_FILE_TEMPLATE"
     printf "  SWAYSHOT_CMD=%s\n" "$SWAYSHOT_CMD"
     printf "  SWAYSHOT_SLURP_CMD=%s\n" "$SWAYSHOT_SLURP_CMD"
+    printf "  SWAYSHOT_CLIP_CMD=%s\n" "$SWAYSHOT_CLIP_CMD"
     printf "\nInformation:\n"
     printf "  jq=%s\n" "$(command -v jq)"
     printf "  swaymsg=%s\n" "$(command -v swaymsg)"
@@ -91,6 +101,10 @@ esac
 
 if [ "$print_filename" -eq "1" ] && [ -f "$SWAYSHOT_OUTPUT_FILE" ] ; then
     echo "$SWAYSHOT_OUTPUT_FILE"
+fi
+
+if [ "$copy_to_clipboard" -eq "1" ] && [ -f "$SWAYSHOT_OUTPUT_FILE" ] ; then
+    cat "$SWAYSHOT_OUTPUT_FILE" | "$SWAYSHOT_CLIP_CMD"
 fi
 
 exit $ret

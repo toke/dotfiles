@@ -2,8 +2,6 @@
 
 set -e
 
-__file=${0##/*/}
-
 cmd="${1:-}"
 filename=$(command -v "$cmd") || printf "Could find command: %s\n" "$cmd"
 
