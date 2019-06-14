@@ -27,6 +27,9 @@ cmd="${1:-}"
 ## defaults
 : "${debug:="0"}"
 
+[ ! -d "$(dirname "$DATAFILE")" ] && mkdir -p "$(dirname "$DATAFILE")"
+[ ! -f "$DATAFILE" ] && touch "$DATAFILE"
+
 usage(){
     printf "%s\n" "$__file"
     printf "\tusage:\n"
