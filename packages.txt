@@ -24,3 +24,9 @@ qrencode
 dash
 busybox
 virtualenvwrapper
+
+
+aerc git install
+ dante
+
+
