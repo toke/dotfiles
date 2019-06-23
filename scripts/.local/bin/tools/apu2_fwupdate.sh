@@ -10,6 +10,12 @@ set -e
 
 [ $# -gt 0 ] && cmd=$1 && shift
 
+for prg in "$FLASHROM" "$DMIDECODE" "$SHASUM" ; do
+	if ! command -v "$prg" >/dev/null ; then
+		echo "Error: $prg missing"
+		exit 3
+	fi
+done
 
 while [ $# -gt 0 ] && [ "$1" != "${1#-}" ] ; do
 	case $1 in
@@ -60,10 +66,18 @@ ask_user(){
 	return 1
 }
 
+check_platform(){
+	if [ "$($DMIDECODE -s bios-vendor)" != "coreboot" ] ; then
+		echo "This script is made to run on coreboot machines."
+		echo "Especially the APU2. This machine is unknown to me, exiting."
+		exit 2
+	fi
+}
+
 case $cmd in
 	r|read)
 		: "${file_name:=bios-`bios_version`-`date +%Y%m%d`.rom.bak}"
-
+		check_platform
 		if [ -z "$force" ] && [ -e "$file_name" ] ; then
 			printf "Backup file %s already exists - aborting\n" $file_name
 			exit 2
@@ -73,11 +87,13 @@ case $cmd in
 		$FLASHROM -r "$file_name" -p internal
 	;;
 	v|verify)
+		check_platform
 		check_infile
 		check_digest 
 		$FLASHROM -v "$file_name" -p internal
 	;;
 	f|flash)
+		check_platform
 		check_infile
 		check_digest
 		$DMIDECODE -t bios
