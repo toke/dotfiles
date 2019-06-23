@@ -1,0 +1,44 @@
+#!/usr/bin/env sh
+# POSIX shell compliant
+#
+
+set -e
+
+: "${IMG_CMD:=imv}"
+: "${IMG_FILE:=/tmp/${USER}_mailimg}"
+: "${IMG_PID:=${XDG_RUNTIME_DIR}/mailimg/pid}"
+
+## Setup
+__file="${0##/*/}"
+
+cmd="${1:-}"
+[ $# -gt 0 ] && shift
+
+## defaults
+: "${debug:="0"}"
+
+_cmd="$IMG_CMD $IMG_FILE"
+
+viewer(){
+    pgrep -F "$IMG_PID" -f "$_cmd" > /dev/null && return
+    $_cmd &
+    mkdir -p $(dirname "$IMG_PID")
+    echo $! > "$IMG_PID"
+}
+
+
+case $cmd in
+    "pipe"|"view")
+        cat $1 > "$IMG_FILE"
+        viewer
+        ;;
+    "kill")
+        pkill -F "$IMG_PID" -f "$_cmd"
+        ;;
+    *)
+        printf "usage:\n\t%s pipe [image_filename.jpg]\n" "$__file"
+        printf "\t%s kill\n" "$__file"
+        ;;
+esac
+
+# vim: set ft=sh :
