@@ -1,0 +1,120 @@
+#!/usr/bin/env sh
+# POSIX shell compliant
+
+#set -e
+#set -x
+
+: "${timew:=timew}"
+: "${TIMEW_SIGNAL:=SIGRTMIN+7}"
+: "${BAR_NAME:=i3blocks}"
+
+## Setup
+__file="${0##/*/}"
+
+cmd="${1:-}"
+[ $# -gt 0 ] && shift
+
+## defaults
+: "${debug:="0"}"
+
+: "${isactive:-}"
+
+datediff() {
+    d1=$(date  "$1" +%s)
+    d2=$(date -d "$2" +%s)
+    echo $(( (d1 - d2) / 60 ))
+}
+
+active(){
+    $timew :quiet
+    isactive=$?
+    return $isactive
+}
+
+duration(){
+    DOM="${1:-dom.tracked.1.duration}"
+    "$timew" get "$DOM"
+}
+
+status(){
+    $timew get dom.tracked.1.json | jq -r '.  | [if .end? then "Stopped" else "%d" end, (.tags? | join(", ")?)] | join(":") | @text'
+}
+
+block_out(){
+    line="$(status)"
+    echo "$line" | sed "s/%d/$(duration)/g"
+    echo "$line" | sed "s/%d/T/g;s/Stopped/P/;s/,.*//g"
+}
+
+
+get_tags(){
+    : "${dom:=:week}"
+    fieldl="$($timew "$dom" tags | grep -- '----' | cut -d' ' -f1 | wc -m)"
+    "$timew" "$dom" tags | cut "-c1-$fieldl" | grep -v '^Tag[ ]*$' | \
+        grep -Ev '^[- ]+$' | \
+        sed  's/^[ \t]+//g;s/[ \t]*$//g' |\
+        sort -u |\
+        fzf -m
+}
+
+add(){
+    if [ -n "$1" ] ; then
+        int_line=$1
+    else
+        tc=$(printf "start\nstop\ncontinue\ncustom\n" |fzf --prompt 'timew> ')
+        case $tc in
+            start)
+                get_tags | xargs "$timew" "$tc"
+                sleep 3
+                exit 33
+                    #printf 'timew %s> ' $tc
+                    #read -r int_line
+                    #echo "Your answer: $int_line"
+                ;;
+            custom)
+                    read -r tc
+                ;;
+        esac
+        echo $tc ; sleep 3
+    fi
+    if [ -n "$tc" ] ; then
+        "$timew" $tc $int_line
+        sleep 3
+        pkill -${TIMEW_SIGNAL} ${BAR_NAME}
+        exit 0
+    else
+        exit 2
+    fi
+}
+
+handle_blocks(){
+    case $BLOCK_BUTTON in
+        1)
+            "$TERMINAL" -t shortnotefloat -e "$0 add"
+            ;;
+        2)
+            ;;
+        3)
+            if active ; then ${timew} stop :quiet ; else $timew continue :quiet ; fi
+            block_out
+            exit 33
+            ;;
+        *)
+            #block_out
+            ;;
+    esac
+}
+
+case $cmd in
+    "add")
+        add
+        block_out
+    ;;
+    *)
+        handle_blocks
+        block_out
+    ;;
+esac
+
+# vim: set ft=sh :
+

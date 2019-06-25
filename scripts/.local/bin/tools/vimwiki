@@ -6,11 +6,9 @@ notify(){
 }
 
 pushd $HOME/vimwiki
-ssh-add -l || ssh-add
 {
-    fping $(git remote get-url origin | sed 's/.*@//;s|:.*||')  && \
-        GIT_SSH_COMMAND="ssh -q" git pull --ff-only 2>&1 | notify
-} &
+        GIT_SSH_COMMAND="ssh -q" git sync "pull --ff-only" 2>&1 #| notify
+}
 
 nvim -c +VimwikiIndex
 

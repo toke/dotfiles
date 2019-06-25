@@ -1,0 +1,48 @@
+#!/usr/bin/env sh
+# SPDX-License-Identifier: GPL-3.0
+# Author: Thomas Kerpe <toke@toke.de>
+
+set -e
+
+DEFAULT_COMMANDS="git pull;git push"
+
+__filename=$(basename "$0")
+output="/dev/stdout"
+
+usage=$(cat <<EOF
+Usage: $__filename [-h] [<git subcommand>...]
+
+Description:
+    Run git sub commands only if at least one remote is reachable.
+    Default sub commands are pull, push.
+EOF
+)
+
+####
+
+while [ $# -gt 0 ] ; do
+    case $1 in
+        '-h') shift ; echo "$usage" ; exit 1 ;;
+        '-v') shift ; set -x ;;
+        '-q') shift ; output='/dev/null' ;;
+        *)    shift ; git_commands="${git_commands:+$git_commands;}git $1" ;;
+    esac
+done
+
+: "${git_commands:=$DEFAULT_COMMANDS}"
+
+(
+git remote -v show -n | \
+    # Get hostnames (IPv6 IPs may break stuff)
+    sed 's%^[^\t ]*[\t ]*\(ssh://\|rsync://\|https?://\)\?\([^@]*@\)\?\([^:/]*\)[:/]*.*%\3%g' | \
+    sort -u | \
+    # Check if at least one is up
+    fping -a -x1
+) > $output && (
+    ## Add ssh-identities to agent if none is agent is empty
+    ssh-add -l > /dev/null || ssh-add > /dev/null
+    eval "$git_commands"
+) > $output
+
+# vim: set ft=sh :
+
