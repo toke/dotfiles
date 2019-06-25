@@ -7,7 +7,7 @@ notify(){
 
 pushd $HOME/vimwiki
 {
-        GIT_SSH_COMMAND="ssh -q" git sync "pull --ff-only" 2>&1 #| notify
+        git sync -q "pull --ff-only" 2>&1 | notify
 }
 
 nvim -c +VimwikiIndex

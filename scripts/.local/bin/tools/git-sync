@@ -8,9 +8,10 @@ DEFAULT_COMMANDS="git pull;git push"
 
 __filename=$(basename "$0")
 output="/dev/stdout"
+git_output="$output"
 
 usage=$(cat <<EOF
-Usage: $__filename [-h] [<git subcommand>...]
+Usage: $__filename [-h] [-v|-q|-Q] [<git subcommand>...]
 
 Description:
     Run git sub commands only if at least one remote is reachable.
@@ -22,10 +23,11 @@ EOF
 
 while [ $# -gt 0 ] ; do
     case $1 in
-        '-h') shift ; echo "$usage" ; exit 1 ;;
+        '-h') echo "$usage" ; shift ; exit 1 ;;
         '-v') shift ; set -x ;;
-        '-q') shift ; output='/dev/null' ;;
-        *)    shift ; git_commands="${git_commands:+$git_commands;}git $1" ;;
+        '-q') output='/dev/null' ; export GIT_SSH_COMMAND='ssh -q' ; shift ;;
+        '-Q') output='/dev/null' git_output=$output ; export GIT_SSH_COMMAND='ssh -q' ; shift ;;
+        *)    git_commands="${git_commands:+$git_commands;}git $1" ; shift ;;
     esac
 done
 
@@ -42,7 +44,7 @@ git remote -v show -n | \
     ## Add ssh-identities to agent if none is agent is empty
     ssh-add -l > /dev/null || ssh-add > /dev/null
     eval "$git_commands"
-) > $output
+) > $git_output
 
 # vim: set ft=sh :
 
