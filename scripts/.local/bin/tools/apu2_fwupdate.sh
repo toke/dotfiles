@@ -31,9 +31,9 @@ done
 bios_version(){
 	$DMIDECODE -s bios-version | sed -r 's/([v\.0-9\-_a-zA-Z]+)/\1/g'
 }
-digestfile_name(){ 
+digestfile_name(){
 	basefile="${1:-$file_name}"
-	printf "%s/%s.%s" "$(dirname $basefile)" "$(basename -s .rom $basefile)" "$DIGEST_EXT" 
+	printf "%s/%s.%s" "$(dirname $basefile)" "$(basename -s .rom $basefile)" "$DIGEST_EXT"
 }
 
 check_infile(){
@@ -47,14 +47,14 @@ check_digest(){
 	if [ -e "$(digestfile_name)" ] ; then
 		 "$SHASUM" -c "$(digestfile_name)" || exit 2
 	else
-		printf "Digest file not found, please check manually:\n"	
+		printf "Digest file not found, please check manually:\n"
 		"$SHASUM" -a "$SHA_ALGO" "$file_name"
 	fi
 }
 
 ask_user(){
 	[ -n "$assume_yes" ] && return 0
-	printf "%s [y/n]?" "$1" 
+	printf "%s [y/n]?" "$1"
 	read response
 	[ "$response" = "y" ] && return 0
 	return 1
@@ -69,12 +69,12 @@ case $cmd in
 			exit 2
 		fi
 
-		printf "Backing up to: %s\n\n" "$file_name" 
+		printf "Backing up to: %s\n\n" "$file_name"
 		$FLASHROM -r "$file_name" -p internal
 	;;
 	v|verify)
 		check_infile
-		check_digest 
+		check_digest
 		$FLASHROM -v "$file_name" -p internal
 	;;
 	f|flash)
