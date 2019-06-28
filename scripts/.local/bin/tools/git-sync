@@ -7,8 +7,6 @@ set -e
 DEFAULT_COMMANDS="git pull;git push"
 
 __filename=$(basename "$0")
-output="/dev/stdout"
-git_output="$output"
 
 usage=$(cat <<EOF
 Usage: $__filename [-h] [-v|-q|-Q] [<git subcommand>...]
@@ -21,30 +19,43 @@ EOF
 
 ####
 
+
+cleanup(){
+    exec 4>@-
+    exec 5>@-
+}
+exec 4>&1 ## Output of helper commands
+exec 5>&1 ## Output of git commands
+
+trap 'cleanup' EXIT
+trap 'cleanup' TERM
+trap 'cleanup' INT
+
+
 while [ $# -gt 0 ] ; do
     case $1 in
         '-h') echo "$usage" ; shift ; exit 1 ;;
         '-v') shift ; set -x ;;
-        '-q') output='/dev/null' ; export GIT_SSH_COMMAND='ssh -q' ; shift ;;
-        '-Q') output='/dev/null' git_output=$output ; export GIT_SSH_COMMAND='ssh -q' ; shift ;;
+        '-q') exec 4>/dev/null ; export GIT_SSH_COMMAND='ssh -q' ; shift ;;
+        '-Q') exec 4>/dev/null ; exec 5>/dev/null ; export GIT_SSH_COMMAND='ssh -q' ; shift ;;
         *)    git_commands="${git_commands:+$git_commands;}git $1" ; shift ;;
     esac
 done
 
 : "${git_commands:=$DEFAULT_COMMANDS}"
 
-(
+
+{
 git remote -v show -n | \
     # Get hostnames (IPv6 IPs may break stuff)
     sed 's%^[^\t ]*[\t ]*\(ssh://\|rsync://\|https?://\)\?\([^@]*@\)\?\([^:/]*\)[:/]*.*%\3%g' | \
     sort -u | \
     # Check if at least one is up
     fping -a -x1
-) > $output && (
+} >&4 && {
     ## Add ssh-identities to agent if none is agent is empty
     ssh-add -l > /dev/null || ssh-add > /dev/null
     eval "$git_commands"
-) > $git_output
+} >&5
 
 # vim: set ft=sh :
-

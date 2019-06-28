@@ -1,0 +1,11 @@
+#anchor=bottom-right
+default-timeout=15000
+max-visible=-1
+layer=overlay
+font=Roboto 10
+background-color=#3C3C3CC0
+text-color=#F1F1F1
+padding=15
+border-size=0
+border-radius=3
+icon-path=/usr/share/icons/Paper:/usr/share/icons/hicolor:/usr/share/pixmaps
