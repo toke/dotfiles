@@ -1,21 +1,32 @@
 #!/bin/sh
+#
+# Aliases and functions
+# MUST be valid POSIX syntax
+# MAY contain non POSIX tools (GNU tools)
+#
+
 alias ka="killall" \
 	mkd="mkdir -pv" \
 	mpv="mpv --input-ipc-server=$HOME/.mpv/socket" \
 	calcurse="calcurse -D ~/.config/calcurse" \
         code="GDK_BACKEND=x11 code" \
         chrome="GDK_BACKEND=x11 google-chrome" \
+        debian="sudo systemd-nspawn -M debian -bD /srv/chroot/jessie" \
+        debiansh="sudo systemd-nspawn -M debian -D /srv/chroot/jessie" \
+        fim="fzf | xargs $EDITOR" \
 	magit="nvim -c MagitOnly" \
         netlist="netctl-auto list" \
+        nopin="GOPASS_GPG_OPTS=\"--pinentry-mode cancel\"" \
+        obs="QT_QPA_PLATFORM=xcb obs" \
 	p="sudo pacman" \
         wp="wal -q -i" \
 	SS="sudo systemctl" \
 	f="$FILE" \
 	g="git" \
 	e="$EDITOR" \
-	v="$EDITOR" \
         vi="$EDITOR" \
         vw="vimwiki" \
+        viconf='find $XDG_CONFIG_HOME | ignorebulky | fzf -m --preview="head -$LINES {}" | xargs $EDITOR' \
 	x="imv *" \
 	sdn="sudo shutdown -h now" \
 	gua="git remote | xargs -L1 git push --all" \
@@ -29,50 +40,92 @@ alias ka="killall" \
 	ref="shortcuts >/dev/null; source ~/.config/shortcutrc" \
 	upc="sudo pacman -Syu" \
 	lsp="pacman -Qett --color=always | less" \
+        lstimers="systemctl list-timers --all" \
 	ffmpeg="ffmpeg -hide_banner" \
         translate="translate-shell -l de -s de -t en de:en" \
         pacman="sudo pacman --color=auto" \
         pomo="touch ~/.cache/pomodoro_session" \
         qutebrowser="QT_QPA_PLATFORM=wayland-egl qutebrowser" \
         x11="GDK_BACKEND=x11" \
-        wayland="GDK_BACKEND=wayland"
+        wayland="GDK_BACKEND=wayland QT_QPA_PLATFORM=xcb"\
+        wttr="curl v2.wttr.in/Karlsruhe" \
+        privdeb="sudo systemd-nspawn --setenv=XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR --setenv=WAYLAND_DISPLAY=$WAYLAND_DISPLAY --bind=$XDG_RUNTIME_DIR  -D /var/lib/machines/debian -u $USER"
 
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" # Use neovim for vim if present.
 
-fv() { fzf | xargs -r -I % $EDITOR % ;}
+fv() { fzf | xargs -r -I % "$EDITOR" % ;}
 
 ## CD Helper
 
 fd() {
-  local dir
+  #local dir
   dir=$(find ${1:-.} -path '*/\.*' -prune \
                   -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
+  cd "$dir" || return 1
   ls
 }
 
-# fdr - cd to selected parent directory
-fdr() {
+# pd - cd to selected parent directory
+pd() {
   get_parent_dirs() {
-    if [[ -d "${1}" ]]; then echo "$1"; else return; fi
-    if [[ "${1}" == '/' ]]; then
+    if [ -d "${1}" ]; then echo "$1"; else return; fi
+    if [ "${1}" = '/' ]; then
       echo ".."
     else
       get_parent_dirs $(dirname "$1")
     fi
   }
   DIR=$(get_parent_dirs $(realpath "${1:-$PWD}") | fzf-tmux )
-  cd "$DIR"
+  cd "$DIR" || return 1
+}
+
+# cdt - create and cd to daily tmpdir
+cdt() {
+    TMPDIR=$HOME/tmp/$(date +%Y-%m-%d)
+    mkdir -p "$TMPDIR" && cd "$TMPDIR" || return 1
 }
 
 cdans() {
     dir=$(find ~/ansible/ -mindepth 1 -maxdepth 2 -type d  -print0 | fzf --read0 --preview='tree {}')
-    cd "$dir"
+    cd "$dir" || return 1
     pwd
     ls
 }
 
-## # fh - repeat history
+# fh - repeat history
 fh() {
-  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -r 's/ *[0-9]*\*? *//' | sed -r 's/\\/\\\\/g')
+    eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -r 's/ *[0-9]*\*? *//' | sed -r 's/\\/\\\\/g')
 }
+
+fman() {
+    man -k . | fzf --prompt='Man> ' | awk '{print $1}' | xargs -r man
+}
+
+# Multi select files for edit
+fe() {
+  fzf-tmux --query="$1" --multi --select-1 --exit-0 --print0 | xargs -r -0 "${EDITOR:-vim}"
+}
+
+# Modified version where you can press
+#   - CTRL-O to open with `open` command,
+#   - CTRL-E or Enter key to open with the $EDITOR
+fo() {
+    fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e | (
+        read -r key
+        read -r file
+
+        case $key in
+            "ctrl-o")
+                open "$file"
+                ;;
+            "ctrl-e")
+                ${EDITOR:-vim} "$file"
+                ;;
+            *)
+                ${EDITOR:-vim} "$file"
+                ;;
+        esac
+    )
+
+}
+
